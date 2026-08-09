@@ -1754,18 +1754,18 @@ export default function Landing() {
             </div>
 
             {/* Recupera leads frios */}
-            <div className="md:col-span-4 flex flex-col justify-between rounded-3xl border border-white/60 bg-[#E6ECF7] p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-slate-900/5 hover:border-slate-300">
+            <div className="md:col-span-4 flex flex-col justify-between rounded-3xl border border-white/60 bg-[#E6ECF7] p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-slate-900/5 hover:border-slate-300 min-h-[280px]">
               <div>
-                <h3 className="font-space-grotesk text-xl font-bold text-[#0B1220]">Recupera leads frios</h3>
-                <p className="mt-2 text-sm text-[#0B1220]/70">
+                <h3 className="font-space-grotesk text-lg font-bold text-[#0B1220]">Recupera leads frios</h3>
+                <p className="mt-1 text-xs text-[#0B1220]/70">
                   Follow-up automático até o cliente responder.
                 </p>
               </div>
-              <div className="mt-8 flex items-end gap-1.5">
-                <div className="h-8 w-full rounded-t-lg bg-white/60" />
-                <div className="h-16 w-full rounded-t-lg bg-white/60" />
+              <div className="mt-4 flex items-end gap-1 px-4">
+                <div className="h-6 w-full rounded-t-lg bg-white/60" />
                 <div className="h-12 w-full rounded-t-lg bg-white/60" />
-                <div className="h-24 w-full rounded-t-lg bg-[#004DFF]" />
+                <div className="h-9 w-full rounded-t-lg bg-white/60" />
+                <div className="h-16 w-full rounded-t-lg bg-[#004DFF]" />
               </div>
             </div>
 
