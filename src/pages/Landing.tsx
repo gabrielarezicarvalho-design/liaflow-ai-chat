@@ -1770,16 +1770,16 @@ export default function Landing() {
             </div>
 
             {/* Agenda automático */}
-            <div className="relative md:col-span-4 flex flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br from-[#0B1220] to-[#16213E] p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#004DFF]/20 group border border-white/5 min-h-[280px]">
+            <div className="relative md:col-span-4 flex flex-col justify-between overflow-hidden rounded-3xl bg-[#E6ECF7] p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-slate-900/5 hover:border-slate-300 border border-white/60 min-h-[280px] group">
               <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
-                <Calendar className="h-20 w-20 text-white" />
+                <Calendar className="h-20 w-20 text-[#004DFF]" />
               </div>
               <div className="relative z-10">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#004DFF]/10 mb-4 border border-[#004DFF]/20 group-hover:scale-110 transition-transform duration-500">
                   <Calendar className="h-5 w-5 text-[#004DFF]" />
                 </div>
-                <h3 className="font-space-grotesk text-lg font-bold text-white tracking-tight">Agenda automática</h3>
-                <p className="mt-1 text-xs text-white/60 leading-relaxed">
+                <h3 className="font-space-grotesk text-lg font-bold text-[#0B1220] tracking-tight">Agenda automática</h3>
+                <p className="mt-1 text-xs text-[#0B1220]/70 leading-relaxed">
                   Reuniões e visitas sem você abrir a agenda, sincronizando em tempo real.
                 </p>
               </div>
@@ -1788,7 +1788,7 @@ export default function Landing() {
                   <div className="absolute inset-0 animate-spin-slow rounded-full border-t border-r border-[#004DFF] shadow-[0_0_10px_rgba(0,77,255,0.2)]" />
                   <div className="absolute inset-1.5 animate-reverse-spin rounded-full border-b border-l border-[#004DFF]/30" />
                   <div className="flex flex-col items-center">
-                    <span className="text-[8px] font-bold uppercase tracking-[0.2em] text-white/90">SINC</span>
+                    <span className="text-[8px] font-bold uppercase tracking-[0.2em] text-[#0B1220]/90">SINC</span>
                     <div className="mt-0.5 h-0.5 w-0.5 rounded-full bg-[#004DFF] animate-pulse" />
                   </div>
                 </div>
