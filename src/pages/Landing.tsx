@@ -1808,27 +1808,23 @@ export default function Landing() {
             </div>
 
             {/* Aviso de lead quente */}
-            <div className="md:col-span-4 perspective-1000 group">
-              <div className="flex flex-col rounded-3xl border border-white/60 bg-[#E6ECF7] p-6 shadow-sm transition-all duration-500 hover:rotate-y-12 hover:rotate-x-6 hover:-translate-y-4 hover:shadow-2xl hover:shadow-[#004DFF]/20 hover:border-[#004DFF]/30 min-h-[280px] transform-gpu preserve-3d">
-                <div className="mb-4 flex items-center justify-between translate-z-20">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#004DFF] shadow-lg shadow-slate-900/10 transition-transform duration-500 group-hover:translate-z-30">
-                    <TrendingUp className="h-5 w-5 text-white" />
-                  </div>
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#004DFF]/60" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-[#004DFF]" />
-                  </span>
+            <div className="md:col-span-4 flex flex-col rounded-3xl border border-white/60 bg-[#E6ECF7] p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-slate-900/5 hover:border-slate-300 min-h-[280px]">
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#004DFF] shadow-lg shadow-slate-900/10">
+                  <TrendingUp className="h-5 w-5 text-white" />
                 </div>
-                <div className="translate-z-20 transition-transform duration-500 group-hover:translate-z-40">
-                  <h3 className="font-space-grotesk text-lg font-bold text-[#0B1220]">Aviso de lead quente</h3>
-                  <p className="mt-1 text-xs text-[#0B1220]/70">
-                    Quando o cliente tá pronto, você recebe no WhatsApp.
-                  </p>
-                </div>
-                <span className="mt-auto pt-4 text-[10px] font-bold uppercase tracking-widest text-[#004DFF] translate-z-20 group-hover:translate-z-30 transition-transform duration-500">
-                  Alerta em tempo real
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#004DFF]/60" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-[#004DFF]" />
                 </span>
               </div>
+              <h3 className="font-space-grotesk text-lg font-bold text-[#0B1220]">Aviso de lead quente</h3>
+              <p className="mt-1 text-xs text-[#0B1220]/70">
+                Quando o cliente tá pronto, você recebe no WhatsApp.
+              </p>
+              <span className="mt-auto pt-4 text-[10px] font-bold uppercase tracking-widest text-[#004DFF]">
+                Alerta em tempo real
+              </span>
             </div>
 
             {/* Anti-bloqueio */}
