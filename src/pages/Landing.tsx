@@ -1799,24 +1799,23 @@ export default function Landing() {
             </div>
 
             {/* Aviso de lead quente */}
-            <div className="md:col-span-4 flex flex-col rounded-3xl border border-white/60 bg-[#E6ECF7] p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-slate-900/5 hover:border-slate-300">
-              <div className="mb-6 flex items-center justify-between">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#004DFF] shadow-lg shadow-slate-900/10">
-                  <TrendingUp className="h-6 w-6 text-white" />
+            <div className="md:col-span-4 flex flex-col rounded-3xl border border-white/60 bg-[#E6ECF7] p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-slate-900/5 hover:border-slate-300 min-h-[280px]">
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#004DFF] shadow-lg shadow-slate-900/10">
+                  <TrendingUp className="h-5 w-5 text-white" />
                 </div>
-                <span className="relative flex h-3 w-3">
+                <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#004DFF]/60" />
-                  <span className="relative inline-flex h-3 w-3 rounded-full bg-[#004DFF]" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-[#004DFF]" />
                 </span>
               </div>
-              <h3 className="font-space-grotesk text-xl font-bold text-[#0B1220]">Aviso de lead quente</h3>
-              <p className="mt-2 text-sm text-[#0B1220]/70">
+              <h3 className="font-space-grotesk text-lg font-bold text-[#0B1220]">Aviso de lead quente</h3>
+              <p className="mt-1 text-xs text-[#0B1220]/70">
                 Quando o cliente tá pronto, você recebe no WhatsApp.
               </p>
-              <span className="mt-auto pt-6 text-xs font-bold uppercase tracking-widest text-[#004DFF]">
+              <span className="mt-auto pt-4 text-[10px] font-bold uppercase tracking-widest text-[#004DFF]">
                 Alerta em tempo real
               </span>
-
             </div>
 
             {/* Anti-bloqueio */}
