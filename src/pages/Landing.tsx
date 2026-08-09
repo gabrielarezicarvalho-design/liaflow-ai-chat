@@ -1770,29 +1770,29 @@ export default function Landing() {
             </div>
 
             {/* Agenda automático */}
-            <div className="relative md:col-span-4 flex flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br from-[#0B1220] to-[#16213E] p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#004DFF]/20 group border border-white/5">
-              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                <Calendar className="h-24 w-24 text-white" />
+            <div className="relative md:col-span-4 flex flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br from-[#0B1220] to-[#16213E] p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#004DFF]/20 group border border-white/5 min-h-[280px]">
+              <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                <Calendar className="h-20 w-20 text-white" />
               </div>
               <div className="relative z-10">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#004DFF]/10 mb-5 border border-[#004DFF]/20 group-hover:scale-110 transition-transform duration-500">
-                  <Calendar className="h-6 w-6 text-[#004DFF]" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#004DFF]/10 mb-4 border border-[#004DFF]/20 group-hover:scale-110 transition-transform duration-500">
+                  <Calendar className="h-5 w-5 text-[#004DFF]" />
                 </div>
-                <h3 className="font-space-grotesk text-xl font-bold text-white tracking-tight">Agenda automática</h3>
-                <p className="mt-2 text-sm text-white/60 leading-relaxed">
-                  Marca reuniões e visitas sem você abrir a agenda, sincronizando tudo em tempo real.
+                <h3 className="font-space-grotesk text-lg font-bold text-white tracking-tight">Agenda automática</h3>
+                <p className="mt-1 text-xs text-white/60 leading-relaxed">
+                  Reuniões e visitas sem você abrir a agenda, sincronizando em tempo real.
                 </p>
               </div>
-              <div className="mt-8 flex items-center justify-center relative">
-                <div className="relative flex h-28 w-28 items-center justify-center rounded-full border border-[#004DFF]/10 bg-[#004DFF]/5">
-                  <div className="absolute inset-0 animate-spin-slow rounded-full border-t-2 border-r-2 border-[#004DFF] shadow-[0_0_15px_rgba(0,77,255,0.3)]" />
-                  <div className="absolute inset-2 animate-reverse-spin rounded-full border-b-2 border-l-2 border-[#004DFF]/30" />
+              <div className="mt-4 flex items-center justify-center relative">
+                <div className="relative flex h-20 w-20 items-center justify-center rounded-full border border-[#004DFF]/10 bg-[#004DFF]/5">
+                  <div className="absolute inset-0 animate-spin-slow rounded-full border-t border-r border-[#004DFF] shadow-[0_0_10px_rgba(0,77,255,0.2)]" />
+                  <div className="absolute inset-1.5 animate-reverse-spin rounded-full border-b border-l border-[#004DFF]/30" />
                   <div className="flex flex-col items-center">
-                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/90">SINC</span>
-                    <div className="mt-1 h-1 w-1 rounded-full bg-[#004DFF] animate-pulse" />
+                    <span className="text-[8px] font-bold uppercase tracking-[0.2em] text-white/90">SINC</span>
+                    <div className="mt-0.5 h-0.5 w-0.5 rounded-full bg-[#004DFF] animate-pulse" />
                   </div>
                 </div>
-                <div className="absolute -bottom-2 -right-2 bg-[#004DFF] text-white text-[10px] font-bold px-2 py-1 rounded-md shadow-lg transform rotate-12">
+                <div className="absolute -bottom-1 -right-1 bg-[#004DFF] text-white text-[8px] font-bold px-1.5 py-0.5 rounded-md shadow-lg transform rotate-12">
                   100% IA
                 </div>
               </div>
