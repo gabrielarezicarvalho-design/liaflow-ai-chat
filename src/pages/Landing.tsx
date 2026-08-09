@@ -1797,8 +1797,7 @@ export default function Landing() {
                   <div className="relative flex h-16 w-16 items-center justify-center rounded-full border border-[#004DFF]/20 bg-white/80 shadow-inner">
                     <div className="absolute inset-0 animate-ping rounded-full border border-[#004DFF]/20" />
                     <div className="flex flex-col items-center">
-                      <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#0B1220]">SINC</span>
-                      <RefreshCw className="mt-1 h-3 w-3 text-[#004DFF] animate-spin-slow" />
+                      <RefreshCw className="h-4 w-4 text-[#004DFF] animate-spin-slow" />
                     </div>
                   </div>
                 </div>
