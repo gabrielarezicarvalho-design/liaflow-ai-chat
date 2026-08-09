@@ -1784,15 +1784,25 @@ export default function Landing() {
                 </p>
               </div>
               <div className="mt-4 flex items-center justify-center relative">
-                <div className="relative flex h-20 w-20 items-center justify-center rounded-full border border-[#004DFF]/10 bg-[#004DFF]/5">
-                  <div className="absolute inset-0 animate-spin-slow rounded-full border-t border-r border-[#004DFF] shadow-[0_0_10px_rgba(0,77,255,0.2)]" />
-                  <div className="absolute inset-1.5 animate-reverse-spin rounded-full border-b border-l border-[#004DFF]/30" />
-                  <div className="flex flex-col items-center">
-                    <span className="text-[8px] font-bold uppercase tracking-[0.2em] text-[#0B1220]/90">SINC</span>
-                    <div className="mt-0.5 h-0.5 w-0.5 rounded-full bg-[#004DFF] animate-pulse" />
+                <div className="relative flex h-24 w-24 items-center justify-center">
+                  {/* Orbiting dots */}
+                  <div className="absolute inset-0 animate-spin-slow">
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 h-2 w-2 rounded-full bg-[#004DFF] shadow-[0_0_8px_rgba(0,77,255,0.6)]" />
+                  </div>
+                  <div className="absolute inset-2 animate-reverse-spin">
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-1.5 w-1.5 rounded-full bg-[#004DFF]/40" />
+                  </div>
+                  
+                  {/* Central pulsing ring */}
+                  <div className="relative flex h-16 w-16 items-center justify-center rounded-full border border-[#004DFF]/20 bg-white/80 shadow-inner">
+                    <div className="absolute inset-0 animate-ping rounded-full border border-[#004DFF]/20" />
+                    <div className="flex flex-col items-center">
+                      <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#0B1220]">SINC</span>
+                      <RefreshCw className="mt-1 h-3 w-3 text-[#004DFF] animate-spin-slow" />
+                    </div>
                   </div>
                 </div>
-                <div className="absolute -bottom-1 -right-1 bg-[#004DFF] text-white text-[8px] font-bold px-1.5 py-0.5 rounded-md shadow-lg transform rotate-12">
+                <div className="absolute -bottom-1 -right-4 bg-[#004DFF] text-white text-[8px] font-bold px-1.5 py-0.5 rounded-md shadow-lg transform rotate-12">
                   100% IA
                 </div>
               </div>
