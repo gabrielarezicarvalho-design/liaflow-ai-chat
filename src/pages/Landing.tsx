@@ -1267,8 +1267,8 @@ function HeroChatCard() {
 
   return (
     <div className="hero-reveal-right hero-d3 w-[320px] h-[640px] self-end ml-auto relative">
-      {/* Moldura Motorola Edge 60 real image */}
-      <div className="absolute inset-0 z-20 pointer-events-none">
+      {/* Moldura Motorola Edge 60 real image (Atrás do conteúdo) */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
         <img 
           src={edge60Frame.url} 
           alt="Motorola Edge 60 Frame" 
@@ -1276,7 +1276,8 @@ function HeroChatCard() {
         />
       </div>
 
-      <div className="absolute inset-[12px] flex flex-col rounded-[32px] bg-white overflow-hidden shadow-2xl z-10 border border-slate-200">
+      {/* Conteúdo dentro da moldura */}
+      <div className="absolute inset-[6px] inset-y-[8px] flex flex-col rounded-[32px] bg-white overflow-hidden shadow-2xl z-10 border border-slate-200/50">
         {/* Background Image (WhatsApp style) */}
         <div 
           className="absolute inset-0 opacity-[0.06] pointer-events-none"
