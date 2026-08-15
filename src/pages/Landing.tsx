@@ -1332,7 +1332,7 @@ function HeroChatCard() {
           ))}
         </div>
 
-        <div ref={scrollRef} className="mt-6 flex-1 space-y-4 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-slate-200">
+        <div ref={scrollRef} className="relative z-10 mt-6 px-6 flex-1 space-y-4 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200">
           {messages.map((m, i) => (
             <div key={i} className={m.from === "user" ? "flex justify-end" : "flex justify-start"}>
               <div
