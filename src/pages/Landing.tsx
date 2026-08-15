@@ -1266,23 +1266,23 @@ function HeroChatCard() {
 
   return (
     <div className="hero-reveal-right hero-d3 w-full max-w-[320px] self-end ml-auto relative">
-      {/* Moldura Premium (estilo iPhone 15/16 Pro) */}
-      <div className="absolute inset-0 z-20 pointer-events-none rounded-[50px] ring-[8px] ring-slate-950 shadow-[0_0_0_2px_rgba(255,255,255,0.05)_inset,0_20px_50px_-12px_rgba(0,0,0,0.5)]">
-        {/* Dynamic Island */}
-        <div className="absolute top-2 left-1/2 -translate-x-1/2 w-24 h-6 bg-slate-950 rounded-2xl flex items-center justify-center">
-          <div className="absolute right-4 w-1.5 h-1.5 bg-[#004DFF]/20 rounded-full blur-[1px]" />
+      {/* Moldura Motorola Edge 60 style (Edge-to-edge curved screen) */}
+      <div className="absolute inset-0 z-20 pointer-events-none rounded-[40px] ring-[4px] ring-slate-950 shadow-[0_0_0_1px_rgba(255,255,255,0.1)_inset,0_20px_50px_-12px_rgba(0,0,0,0.5)]">
+        {/* Camera Hole-punch (Centered) */}
+        <div className="absolute top-4 left-1/2 -translate-x-1/2 w-3.5 h-3.5 bg-slate-900 rounded-full border border-white/5 flex items-center justify-center">
+          <div className="w-1 h-1 bg-blue-500/20 rounded-full blur-[0.5px]" />
         </div>
         
-        {/* Reflexos Metálicos */}
-        <div className="absolute inset-0 rounded-[50px] border border-white/10 pointer-events-none" />
+        {/* Curved Side Highlights */}
+        <div className="absolute inset-y-8 left-0 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+        <div className="absolute inset-y-8 right-0 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent" />
         
-        {/* Botões Minimalistas */}
-        <div className="absolute -left-[9px] top-28 w-[2px] h-6 bg-slate-900 rounded-l-sm opacity-80" />
-        <div className="absolute -left-[9px] top-40 w-[2px] h-14 bg-slate-900 rounded-l-sm opacity-80" />
-        <div className="absolute -right-[9px] top-40 w-[2px] h-20 bg-slate-900 rounded-r-sm opacity-80" />
+        {/* Motorola Style Buttons (Thin and flush) */}
+        <div className="absolute -right-[4px] top-32 w-[2px] h-12 bg-slate-800 rounded-r-sm" />
+        <div className="absolute -right-[4px] top-48 w-[2px] h-20 bg-slate-800 rounded-r-sm" />
       </div>
 
-      <div className="flex h-[clamp(500px,65vh,600px)] flex-col rounded-[44px] bg-white overflow-hidden shadow-2xl relative border border-slate-200">
+      <div className="flex h-[clamp(500px,65vh,600px)] flex-col rounded-[36px] bg-white overflow-hidden shadow-2xl relative border border-slate-200">
         {/* Background Image (WhatsApp style) */}
         <div 
           className="absolute inset-0 opacity-[0.06] pointer-events-none"
