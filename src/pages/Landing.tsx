@@ -1312,7 +1312,6 @@ function HeroChatCard() {
           <div className="flex items-center gap-4 text-slate-400">
             <Video className="h-[18px] w-[18px] cursor-pointer hover:text-[#004DFF] transition-colors" />
             <Phone className="h-[18px] w-[18px] cursor-pointer hover:text-[#004DFF] transition-colors" />
-            <Search className="h-[18px] w-[18px] cursor-pointer hover:text-[#004DFF] transition-colors" />
             <MoreVertical className="h-[18px] w-[18px] cursor-pointer hover:text-[#004DFF] transition-colors" />
           </div>
         </div>
