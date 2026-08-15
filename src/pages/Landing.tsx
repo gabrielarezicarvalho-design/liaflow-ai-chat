@@ -1266,17 +1266,17 @@ function HeroChatCard() {
   const suggestions = remaining.length ? remaining.slice(0, 2) : [];
 
   return (
-    <div className="hero-reveal-right hero-d3 w-full max-w-[320px] self-end ml-auto relative">
+    <div className="hero-reveal-right hero-d3 w-[320px] h-[640px] self-end ml-auto relative">
       {/* Moldura Motorola Edge 60 real image */}
-      <div className="absolute inset-[-14px] z-20 pointer-events-none">
+      <div className="absolute inset-0 z-20 pointer-events-none">
         <img 
           src={edge60Frame.url} 
           alt="Motorola Edge 60 Frame" 
-          className="w-full h-full object-fill"
+          className="w-full h-full object-contain"
         />
       </div>
 
-      <div className="flex h-[clamp(500px,65vh,600px)] flex-col rounded-[36px] bg-white overflow-hidden shadow-2xl relative border border-slate-200">
+      <div className="absolute inset-[12px] flex flex-col rounded-[32px] bg-white overflow-hidden shadow-2xl z-10 border border-slate-200">
         {/* Background Image (WhatsApp style) */}
         <div 
           className="absolute inset-0 opacity-[0.06] pointer-events-none"
