@@ -1346,28 +1346,6 @@ function HeroChatCard() {
           )}
         </div>
 
-        <div className="relative z-10 mt-4 px-6 flex flex-wrap gap-2">
-          {suggestions.map((item) => (
-            <button
-              key={item.q}
-              type="button"
-              disabled={typing}
-              onClick={() => ask(item)}
-              className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-[#004DFF] transition-all hover:border-[#004DFF] hover:bg-[#004DFF]/5 disabled:opacity-50"
-            >
-              {item.q}
-            </button>
-          ))}
-          {!suggestions.length && (
-            <button
-              type="button"
-              onClick={() => selectSegment(segment)}
-              className="rounded-full border border-slate-300/60 bg-white/70 px-3 py-1.5 text-sm text-slate-600 transition hover:bg-white"
-            >
-              Recomeçar conversa
-            </button>
-          )}
-        </div>
 
         <form
           onSubmit={(e) => {
