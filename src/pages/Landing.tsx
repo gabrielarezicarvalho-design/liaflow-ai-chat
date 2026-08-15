@@ -1265,7 +1265,7 @@ function HeroChatCard() {
   const suggestions = remaining.length ? remaining.slice(0, 2) : [];
 
   return (
-    <div className="hero-reveal-right hero-d3 w-full max-w-[460px] self-end ml-auto">
+    <div className="hero-reveal-right hero-d3 w-full max-w-[400px] self-end ml-auto">
       <div className="flex h-[clamp(440px,56vh,520px)] flex-col rounded-[32px] bg-white p-6 shadow-2xl border border-slate-100">
         <div className="flex items-center justify-between border-b border-slate-50 pb-4">
           <div className="flex items-center gap-3">
