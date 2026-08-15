@@ -1316,22 +1316,6 @@ function HeroChatCard() {
           </div>
         </div>
 
-        <div className="relative z-10 mt-6 px-6 flex flex-wrap gap-1.5">
-          {HERO_SEGMENTS.map((c, i) => (
-            <button
-              key={c.name}
-              type="button"
-              onClick={() => selectSegment(i)}
-              className={`rounded-full border px-2.5 py-1 text-xs font-medium transition-all duration-300 ${
-                i === segment
-                  ? "border-[#004DFF] bg-[#004DFF] text-white shadow-lg shadow-[#004DFF]/20"
-                  : "border-slate-200 bg-slate-50 text-slate-600 hover:border-slate-300 hover:bg-white"
-              }`}
-            >
-              {c.name}
-            </button>
-          ))}
-        </div>
 
         <div ref={scrollRef} className="relative z-10 mt-6 px-6 flex-1 space-y-4 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200">
           {messages.map((m, i) => (
