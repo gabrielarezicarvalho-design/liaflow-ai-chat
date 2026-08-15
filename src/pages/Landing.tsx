@@ -1291,13 +1291,13 @@ function HeroChatCard() {
           </div>
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-2">
+        <div className="mt-6 flex flex-wrap gap-1.5">
           {HERO_SEGMENTS.map((c, i) => (
             <button
               key={c.name}
               type="button"
               onClick={() => selectSegment(i)}
-              className={`rounded-full border px-4 py-1.5 text-sm font-medium transition-all duration-300 ${
+              className={`rounded-full border px-2.5 py-1 text-xs font-medium transition-all duration-300 ${
                 i === segment
                   ? "border-[#004DFF] bg-[#004DFF] text-white shadow-lg shadow-[#004DFF]/20"
                   : "border-slate-200 bg-slate-50 text-slate-600 hover:border-slate-300 hover:bg-white"
