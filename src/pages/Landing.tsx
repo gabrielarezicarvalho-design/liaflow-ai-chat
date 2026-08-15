@@ -1286,9 +1286,9 @@ function HeroChatCard() {
       <div className="flex h-[clamp(500px,65vh,600px)] flex-col rounded-[36px] bg-white overflow-hidden shadow-2xl relative border border-slate-200">
         {/* Background Image (WhatsApp style) */}
         <div 
-          className="absolute inset-0 opacity-[0.06] pointer-events-none"
+          className="absolute inset-0 opacity-[0.25] pointer-events-none"
           style={{ 
-            backgroundImage: `url('https://id-preview--21dd7b9f-c0bf-4b8e-957f-c6952c532fb1.lovable.app/lovable-uploads/9dd007a70745d203b24aa6d6d0c0b1a1.webp')`,
+            backgroundImage: `url(${whatsappBg.url})`,
             backgroundSize: '400px',
             backgroundColor: '#f4f1ec'
           }}
