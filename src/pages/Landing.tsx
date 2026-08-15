@@ -1266,30 +1266,35 @@ function HeroChatCard() {
 
   return (
     <div className="hero-reveal-right hero-d3 w-full max-w-[320px] self-end ml-auto relative">
-      {/* Moldura iPhone Realista (Estilo Render) */}
-      <div className="absolute -inset-[2px] z-20 pointer-events-none rounded-[50px] border-[2px] border-slate-800/50 shadow-[0_0_20px_rgba(0,0,0,0.3)]">
-        {/* Vidro Frontal Curvado */}
-        <div className="absolute inset-0 z-30 rounded-[48px] ring-[10px] ring-slate-950 shadow-[inset_0_0_2px_1px_rgba(255,255,255,0.15)]" />
+      {/* Moldura Ultra Realista de iPhone 16 Pro */}
+      <div className="absolute -inset-[3px] z-20 pointer-events-none">
+        {/* Corpo principal (Titânio) */}
+        <div className="absolute inset-[1px] rounded-[52px] border-[3px] border-[#2d2d2d] bg-gradient-to-tr from-[#1a1a1a] via-[#333] to-[#1a1a1a] shadow-[0_0_0_1px_rgba(255,255,255,0.05)_inset,0_30px_60px_-12px_rgba(0,0,0,0.6)]" />
         
-        {/* Dynamic Island Realista */}
-        <div className="absolute top-[14px] left-1/2 -translate-x-1/2 w-[90px] h-[26px] bg-black rounded-[18px] z-40 flex items-center justify-end pr-5 shadow-inner">
-          <div className="w-[10px] h-[10px] rounded-full bg-[#0a0a0a] border border-white/5 flex items-center justify-center">
-            <div className="w-[4px] h-[4px] rounded-full bg-[#1a1f35] blur-[0.5px]" />
+        {/* Borda da Tela (Bezel Fino) */}
+        <div className="absolute inset-[3px] rounded-[49px] ring-[7px] ring-black shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)]" />
+        
+        {/* Dynamic Island Avançada */}
+        <div className="absolute top-[18px] left-1/2 -translate-x-1/2 w-[88px] h-[26px] bg-black rounded-[20px] z-40 flex items-center justify-end pr-4">
+          <div className="w-[8px] h-[8px] rounded-full bg-[#0a0a0a] border border-white/10 relative overflow-hidden">
+            <div className="absolute inset-0 bg-[#1a1f35] blur-[1px] opacity-40" />
           </div>
         </div>
+
+        {/* Botão de Ação */}
+        <div className="absolute -left-[3px] top-[100px] w-[3px] h-[28px] bg-[#333] rounded-l-md border-y border-black/30 shadow-[inset_-1px_0_1px_rgba(255,255,255,0.1)]" />
+        {/* Botões de Volume */}
+        <div className="absolute -left-[3px] top-[145px] w-[3px] h-[55px] bg-[#333] rounded-l-md border-y border-black/30 shadow-[inset_-1px_0_1px_rgba(255,255,255,0.1)]" />
+        <div className="absolute -left-[3px] top-[215px] w-[3px] h-[55px] bg-[#333] rounded-l-md border-y border-black/30 shadow-[inset_-1px_0_1px_rgba(255,255,255,0.1)]" />
+        {/* Botão Lateral */}
+        <div className="absolute -right-[3px] top-[160px] w-[3px] h-[85px] bg-[#333] rounded-r-md border-y border-black/30 shadow-[inset_1px_0_1px_rgba(255,255,255,0.1)]" />
         
-        {/* Antenas e Botões Realistas */}
-        <div className="absolute -left-[10px] top-[100px] w-[3px] h-[35px] bg-gradient-to-b from-slate-700 to-slate-900 rounded-l-[2px] border-y border-slate-950/20 shadow-sm" />
-        <div className="absolute -left-[10px] top-[150px] w-[3px] h-[60px] bg-gradient-to-b from-slate-700 to-slate-900 rounded-l-[2px] border-y border-slate-950/20 shadow-sm" />
-        <div className="absolute -left-[10px] top-[220px] w-[3px] h-[60px] bg-gradient-to-b from-slate-700 to-slate-900 rounded-l-[2px] border-y border-slate-950/20 shadow-sm" />
-        <div className="absolute -right-[10px] top-[160px] w-[3px] h-[90px] bg-gradient-to-b from-slate-700 to-slate-900 rounded-r-[2px] border-y border-slate-950/20 shadow-sm" />
-        
-        {/* Linhas de Antena */}
-        <div className="absolute left-[50px] -top-[2px] w-[1px] h-[4px] bg-slate-800/40" />
-        <div className="absolute right-[50px] -top-[2px] w-[1px] h-[4px] bg-slate-800/40" />
+        {/* Linhas de Antena (Estilo Apple) */}
+        <div className="absolute left-[80px] -top-[1px] w-[1px] h-[4px] bg-[#222]" />
+        <div className="absolute right-[80px] -top-[1px] w-[1px] h-[4px] bg-[#222]" />
       </div>
 
-      <div className="flex h-[clamp(500px,65vh,600px)] flex-col rounded-[44px] bg-white overflow-hidden shadow-2xl relative border-[1px] border-slate-300/30">
+      <div className="flex h-[clamp(500px,65vh,600px)] flex-col rounded-[46px] bg-white overflow-hidden shadow-2xl relative">
         {/* Background Image (WhatsApp style) */}
         <div 
           className="absolute inset-0 opacity-[0.06] pointer-events-none"
