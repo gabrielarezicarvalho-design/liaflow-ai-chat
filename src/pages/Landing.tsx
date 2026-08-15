@@ -1265,9 +1265,33 @@ function HeroChatCard() {
   const suggestions = remaining.length ? remaining.slice(0, 2) : [];
 
   return (
-    <div className="hero-reveal-right hero-d3 w-full max-w-[360px] self-end ml-auto">
-      <div className="flex h-[clamp(440px,56vh,520px)] flex-col rounded-[32px] bg-white p-6 shadow-2xl border border-slate-100">
-        <div className="flex items-center justify-between border-b border-slate-50 pb-4">
+    <div className="hero-reveal-right hero-d3 w-full max-w-[320px] self-end ml-auto relative">
+      {/* Moldura iPhone 13 Pro */}
+      <div className="absolute inset-0 z-10 pointer-events-none ring-[12px] ring-slate-900 rounded-[55px] shadow-[0_0_0_2px_rgba(255,255,255,0.1)_inset,0_0_40px_rgba(0,0,0,0.4)]">
+        {/* Notch */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-slate-900 rounded-b-2xl flex items-center justify-center gap-2">
+          <div className="w-10 h-1 bg-white/10 rounded-full" />
+          <div className="w-2 h-2 bg-white/20 rounded-full" />
+        </div>
+        {/* Botões laterais */}
+        <div className="absolute -left-[14px] top-24 w-[3px] h-8 bg-slate-800 rounded-l-sm" />
+        <div className="absolute -left-[14px] top-40 w-[3px] h-12 bg-slate-800 rounded-l-sm" />
+        <div className="absolute -left-[14px] top-56 w-[3px] h-12 bg-slate-800 rounded-l-sm" />
+        <div className="absolute -right-[14px] top-40 w-[3px] h-20 bg-slate-800 rounded-r-sm" />
+      </div>
+
+      <div className="flex h-[clamp(500px,65vh,600px)] flex-col rounded-[48px] bg-white overflow-hidden shadow-2xl relative">
+        {/* Background Image (WhatsApp style) */}
+        <div 
+          className="absolute inset-0 opacity-[0.06] pointer-events-none"
+          style={{ 
+            backgroundImage: `url('https://id-preview--21dd7b9f-c0bf-4b8e-957f-c6952c532fb1.lovable.app/lovable-uploads/9dd007a70745d203b24aa6d6d0c0b1a1.webp')`,
+            backgroundSize: '400px',
+            backgroundColor: '#f4f1ec'
+          }}
+        />
+        
+        <div className="relative z-10 flex items-center justify-between border-b border-slate-200/50 bg-white/80 backdrop-blur-md px-6 pb-4 pt-8">
           <div className="flex items-center gap-3">
             <div className="relative">
               <img 
@@ -1291,7 +1315,7 @@ function HeroChatCard() {
           </div>
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-1.5">
+        <div className="relative z-10 mt-6 px-6 flex flex-wrap gap-1.5">
           {HERO_SEGMENTS.map((c, i) => (
             <button
               key={c.name}
@@ -1308,7 +1332,7 @@ function HeroChatCard() {
           ))}
         </div>
 
-        <div ref={scrollRef} className="mt-6 flex-1 space-y-4 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-slate-200">
+        <div ref={scrollRef} className="relative z-10 mt-6 px-6 flex-1 space-y-4 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200">
           {messages.map((m, i) => (
             <div key={i} className={m.from === "user" ? "flex justify-end" : "flex justify-start"}>
               <div
@@ -1337,7 +1361,7 @@ function HeroChatCard() {
           )}
         </div>
 
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="relative z-10 mt-4 px-6 flex flex-wrap gap-2">
           {suggestions.map((item) => (
             <button
               key={item.q}
@@ -1365,7 +1389,7 @@ function HeroChatCard() {
             e.preventDefault();
             sendFree();
           }}
-          className="mt-3 flex items-center gap-3 rounded-full bg-[#EEF1F6] px-4 py-3"
+          className="relative z-10 mt-3 mx-4 mb-6 flex items-center gap-3 rounded-full bg-white shadow-sm border border-slate-200 px-4 py-3"
         >
           <button type="button" onClick={() => setDraft((d) => d + " ")} className="text-slate-500 transition hover:text-[#004DFF]" aria-label="Anexar">
             <Plus className="h-5 w-5" />
