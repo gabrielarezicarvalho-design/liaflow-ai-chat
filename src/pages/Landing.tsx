@@ -1294,7 +1294,7 @@ function HeroChatCard() {
           }}
         />
         
-        <div className="relative z-10 flex items-center justify-between border-b border-slate-200/50 bg-white/80 backdrop-blur-md px-6 pb-4 pt-8">
+        <div className="relative z-10 flex items-center justify-between border-b border-slate-200/50 bg-white/80 backdrop-blur-md px-6 pb-3 pt-6">
           <div className="flex items-center gap-3">
             <div className="relative">
               <img 
