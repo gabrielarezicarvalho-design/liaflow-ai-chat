@@ -1266,21 +1266,23 @@ function HeroChatCard() {
 
   return (
     <div className="hero-reveal-right hero-d3 w-full max-w-[320px] self-end ml-auto relative">
-      {/* Moldura iPhone 13 Pro */}
-      <div className="absolute inset-0 z-10 pointer-events-none ring-[12px] ring-slate-900 rounded-[55px] shadow-[0_0_0_2px_rgba(255,255,255,0.1)_inset,0_0_40px_rgba(0,0,0,0.4)]">
-        {/* Notch */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-slate-900 rounded-b-2xl flex items-center justify-center gap-2">
-          <div className="w-10 h-1 bg-white/10 rounded-full" />
-          <div className="w-2 h-2 bg-white/20 rounded-full" />
+      {/* Moldura Premium (estilo iPhone 15/16 Pro) */}
+      <div className="absolute inset-0 z-20 pointer-events-none rounded-[50px] ring-[8px] ring-slate-950 shadow-[0_0_0_2px_rgba(255,255,255,0.05)_inset,0_20px_50px_-12px_rgba(0,0,0,0.5)]">
+        {/* Dynamic Island */}
+        <div className="absolute top-2 left-1/2 -translate-x-1/2 w-24 h-6 bg-slate-950 rounded-2xl flex items-center justify-center">
+          <div className="absolute right-4 w-1.5 h-1.5 bg-[#004DFF]/20 rounded-full blur-[1px]" />
         </div>
-        {/* Botões laterais */}
-        <div className="absolute -left-[14px] top-24 w-[3px] h-8 bg-slate-800 rounded-l-sm" />
-        <div className="absolute -left-[14px] top-40 w-[3px] h-12 bg-slate-800 rounded-l-sm" />
-        <div className="absolute -left-[14px] top-56 w-[3px] h-12 bg-slate-800 rounded-l-sm" />
-        <div className="absolute -right-[14px] top-40 w-[3px] h-20 bg-slate-800 rounded-r-sm" />
+        
+        {/* Reflexos Metálicos */}
+        <div className="absolute inset-0 rounded-[50px] border border-white/10 pointer-events-none" />
+        
+        {/* Botões Minimalistas */}
+        <div className="absolute -left-[9px] top-28 w-[2px] h-6 bg-slate-900 rounded-l-sm opacity-80" />
+        <div className="absolute -left-[9px] top-40 w-[2px] h-14 bg-slate-900 rounded-l-sm opacity-80" />
+        <div className="absolute -right-[9px] top-40 w-[2px] h-20 bg-slate-900 rounded-r-sm opacity-80" />
       </div>
 
-      <div className="flex h-[clamp(500px,65vh,600px)] flex-col rounded-[48px] bg-white overflow-hidden shadow-2xl relative">
+      <div className="flex h-[clamp(500px,65vh,600px)] flex-col rounded-[44px] bg-white overflow-hidden shadow-2xl relative border border-slate-200">
         {/* Background Image (WhatsApp style) */}
         <div 
           className="absolute inset-0 opacity-[0.06] pointer-events-none"
