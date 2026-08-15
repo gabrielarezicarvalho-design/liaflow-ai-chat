@@ -1315,7 +1315,7 @@ function HeroChatCard() {
           </div>
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-1.5">
+        <div className="relative z-10 mt-6 px-6 flex flex-wrap gap-1.5">
           {HERO_SEGMENTS.map((c, i) => (
             <button
               key={c.name}
