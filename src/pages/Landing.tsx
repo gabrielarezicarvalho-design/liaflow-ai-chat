@@ -1299,12 +1299,12 @@ function HeroChatCard() {
               <img 
                 src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150&h=150" 
                 alt="Amor" 
-                className="h-10 w-10 rounded-full object-cover border border-slate-100 shadow-sm"
+                className="h-8 w-8 rounded-full object-cover border border-slate-100 shadow-sm"
               />
-              <span className="absolute bottom-0.5 right-0.5 h-2.5 w-2.5 rounded-full border-2 border-white bg-emerald-500" />
+              <span className="absolute bottom-0.5 right-0.5 h-2 w-2 rounded-full border-2 border-white bg-emerald-500" />
             </div>
             <div>
-              <p className="font-bold text-slate-900 text-base flex items-center gap-1.5">
+              <p className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
                 Aurora IA <span className="text-red-500"></span>
               </p>
             </div>
