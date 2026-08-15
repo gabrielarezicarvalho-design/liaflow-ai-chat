@@ -1499,7 +1499,7 @@ export default function Landing() {
         <div className="absolute inset-0">
           <video
             autoPlay
-            muted
+            // muted
             loop
             playsInline
             className="h-full w-full object-cover object-center"
