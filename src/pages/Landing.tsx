@@ -1389,7 +1389,7 @@ function HeroChatCard() {
             e.preventDefault();
             sendFree();
           }}
-          className="mt-3 flex items-center gap-3 rounded-full bg-[#EEF1F6] px-4 py-3"
+          className="relative z-10 mt-3 mx-4 mb-6 flex items-center gap-3 rounded-full bg-white shadow-sm border border-slate-200 px-4 py-3"
         >
           <button type="button" onClick={() => setDraft((d) => d + " ")} className="text-slate-500 transition hover:text-[#004DFF]" aria-label="Anexar">
             <Plus className="h-5 w-5" />
