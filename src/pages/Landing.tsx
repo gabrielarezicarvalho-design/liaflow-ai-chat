@@ -1361,7 +1361,7 @@ function HeroChatCard() {
           )}
         </div>
 
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="relative z-10 mt-4 px-6 flex flex-wrap gap-2">
           {suggestions.map((item) => (
             <button
               key={item.q}
