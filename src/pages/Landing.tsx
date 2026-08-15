@@ -1277,7 +1277,7 @@ function HeroChatCard() {
       </div>
 
       {/* Conteúdo dentro da moldura */}
-      <div className="absolute inset-[6px] inset-y-[8px] flex flex-col rounded-[32px] bg-white overflow-hidden shadow-2xl z-10 border border-slate-200/50">
+      <div className="absolute inset-[6px] inset-y-[8px] flex flex-col rounded-[32px] overflow-hidden z-10">
         {/* Background Image (WhatsApp style) */}
         <div 
           className="absolute inset-0 opacity-[0.06] pointer-events-none"
