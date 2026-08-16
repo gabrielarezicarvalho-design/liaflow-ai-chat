@@ -3214,10 +3214,10 @@ export default function Landing() {
               <div className="mt-7 flex items-center gap-4">
                 <div className="flex -space-x-3">
                   {[
-                    { l: "M1", bg: "bg-zinc-800" },
-                    { l: "M2", bg: "bg-zinc-700" },
-                    { l: "M3", bg: "bg-zinc-600" },
-                    { l: "M4", bg: "bg-zinc-500" },
+                    { l: "M1", bg: "bg-zinc-800", img: userAvatar1.url },
+                    { l: "M2", bg: "bg-zinc-700", img: userAvatar2.url },
+                    { l: "M3", bg: "bg-zinc-600", img: userAvatar3.url },
+                    { l: "M4", bg: "bg-zinc-500", img: userAvatar4.url },
                   ].map((m) => (
                     <span
                       key={m.l}
