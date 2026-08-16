@@ -3256,9 +3256,9 @@ export default function Landing() {
                 </div>
 
                 <div className="mt-5 flex -space-x-3">
-                  <span className="h-7 w-7 rounded-full bg-zinc-700 ring-2 ring-[#f4f1ec]" />
-                  <span className="h-7 w-7 rounded-full bg-zinc-600 ring-2 ring-[#f4f1ec]" />
-                  <span className="h-7 w-7 rounded-full bg-zinc-500 ring-2 ring-[#f4f1ec]" />
+                  <img src={userAvatar1.url} className="h-7 w-7 rounded-full object-cover ring-2 ring-[#f4f1ec]" alt="u1" />
+                  <img src={userAvatar2.url} className="h-7 w-7 rounded-full object-cover ring-2 ring-[#f4f1ec]" alt="u2" />
+                  <img src={userAvatar3.url} className="h-7 w-7 rounded-full object-cover ring-2 ring-[#f4f1ec]" alt="u3" />
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#004DFF] text-[9px] font-bold text-white ring-2 ring-[#f4f1ec]">
                     +8k
                   </span>
