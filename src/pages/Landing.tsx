@@ -3221,9 +3221,9 @@ export default function Landing() {
                   ].map((m) => (
                     <span
                       key={m.l}
-                      className={`flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#f4f1ec] text-[10px] font-bold text-white ${m.bg}`}
+                      className={`flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border-2 border-[#f4f1ec] text-[10px] font-bold text-white ${m.bg}`}
                     >
-                      {m.l}
+                      <img src={m.img} alt={m.l} className="h-full w-full object-cover" />
                     </span>
                   ))}
                 </div>
