@@ -18,6 +18,10 @@ import iconOpenai from "@/assets/integrations/openai.png.asset.json";
 import zebraMockup from "@/assets/zebra_mockup.png.asset.json";
 import nextProLogo from "@/assets/next_pro_logo.png.asset.json";
 import whatsappBg from "@/assets/whatsapp-bg.webp.asset.json";
+import userAvatar1 from "@/assets/user_avatar_1.png.asset.json";
+import userAvatar2 from "@/assets/user_avatar_2.png.asset.json";
+import userAvatar3 from "@/assets/user_avatar_3.png.asset.json";
+import userAvatar4 from "@/assets/user_avatar_4.png.asset.json";
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
@@ -3210,16 +3214,16 @@ export default function Landing() {
               <div className="mt-7 flex items-center gap-4">
                 <div className="flex -space-x-3">
                   {[
-                    { l: "M1", bg: "bg-zinc-800" },
-                    { l: "M2", bg: "bg-zinc-700" },
-                    { l: "M3", bg: "bg-zinc-600" },
-                    { l: "M4", bg: "bg-zinc-500" },
+                    { l: "M1", bg: "bg-zinc-800", img: userAvatar1.url },
+                    { l: "M2", bg: "bg-zinc-700", img: userAvatar2.url },
+                    { l: "M3", bg: "bg-zinc-600", img: userAvatar3.url },
+                    { l: "M4", bg: "bg-zinc-500", img: userAvatar4.url },
                   ].map((m) => (
                     <span
                       key={m.l}
-                      className={`flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#f4f1ec] text-[10px] font-bold text-white ${m.bg}`}
+                      className={`flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border-2 border-[#f4f1ec] text-[10px] font-bold text-white ${m.bg}`}
                     >
-                      {m.l}
+                      <img src={m.img} alt={m.l} className="h-full w-full object-cover" />
                     </span>
                   ))}
                 </div>
@@ -3252,9 +3256,9 @@ export default function Landing() {
                 </div>
 
                 <div className="mt-5 flex -space-x-3">
-                  <span className="h-7 w-7 rounded-full bg-zinc-700 ring-2 ring-[#f4f1ec]" />
-                  <span className="h-7 w-7 rounded-full bg-zinc-600 ring-2 ring-[#f4f1ec]" />
-                  <span className="h-7 w-7 rounded-full bg-zinc-500 ring-2 ring-[#f4f1ec]" />
+                  <img src={userAvatar1.url} className="h-7 w-7 rounded-full object-cover ring-2 ring-[#f4f1ec]" alt="u1" />
+                  <img src={userAvatar2.url} className="h-7 w-7 rounded-full object-cover ring-2 ring-[#f4f1ec]" alt="u2" />
+                  <img src={userAvatar3.url} className="h-7 w-7 rounded-full object-cover ring-2 ring-[#f4f1ec]" alt="u3" />
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#004DFF] text-[9px] font-bold text-white ring-2 ring-[#f4f1ec]">
                     +8k
                   </span>
