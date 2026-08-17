@@ -23,6 +23,7 @@ import userAvatar2 from "@/assets/user_avatar_2.png.asset.json";
 import userAvatar3 from "@/assets/user_avatar_3.png.asset.json";
 import userAvatar4 from "@/assets/user_avatar_4.png.asset.json";
 import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
@@ -35,7 +36,7 @@ import {
   Filter, Target, Calendar, Play, Clock, Bell,
   Instagram, FileText, UsersRound, Headphones, Volume2, Repeat, Wallet, Receipt, AlertCircle, Megaphone, MessageSquare, ListChecks, Ban, RefreshCw,
   Scale, Activity, Sun, Wrench, Twitter, Gift, Share2, HelpCircle, Shield, Cookie, Quote, ChevronRight, ChevronUp, CheckCircle2, XCircle, UserMinus,
-  Trophy, Globe, Mail, BarChart3, Tag, TrendingDown, Video, Phone, MoreVertical
+  Trophy, Globe, Mail, BarChart3, Tag, TrendingDown, Video, Phone, MoreVertical, Smartphone
 } from "lucide-react";
 import { ProspeccaoMapWindow } from "@/components/landing/ProspeccaoMapWindow";
 import CookieConsent from "@/components/landing/CookieConsent";
