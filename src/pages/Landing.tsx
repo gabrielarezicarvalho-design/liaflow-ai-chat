@@ -3063,10 +3063,10 @@ export default function Landing() {
 
                   <div className="space-y-4">
                     {[
-                      { title: "Resposta Comentários", desc: "Responde automaticamente no post", icon: Instagram, color: "text-pink-500", bg: "bg-pink-50" },
-                      { title: "Direct Automático", desc: "Chama no direct instantaneamente", icon: MessageCircle, color: "text-[#0B1220]", bg: "bg-slate-100", active: true },
-                      { title: "Transfere p/ WhatsApp", desc: "Conexão fluida entre canais", icon: MessageSquare, color: "text-emerald-500", bg: "bg-emerald-50" },
-                      { title: "Gerenciamento Total", desc: "WhatsApp, Instagram & API Oficial", icon: ShieldCheck, color: "text-slate-400", bg: "bg-slate-50" },
+                      { title: "WhatsApp Disparos", desc: "Envio em massa com inteligência", icon: MessageSquare, color: "text-emerald-500", bg: "bg-emerald-50" },
+                      { title: "Criação de Imagens", desc: "IA geradora para seus anúncios", icon: ImageIcon, color: "text-blue-500", bg: "bg-blue-50", active: true },
+                      { title: "Prospecção Maps", desc: "Encontre leads no Google Maps", icon: MapPin, color: "text-pink-500", bg: "bg-pink-50" },
+                      { title: "Prospecção Instagram", desc: "Capture leads qualificados no IG", icon: Instagram, color: "text-purple-500", bg: "bg-purple-50" },
                     ].map((item, i) => (
                       <div 
                         key={i} 
