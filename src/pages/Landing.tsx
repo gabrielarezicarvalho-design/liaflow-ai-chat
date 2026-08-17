@@ -2934,107 +2934,161 @@ export default function Landing() {
           {/* Gráfico de Barras */}
           <ConversionBars />
 
-          {/* Tabela de Comparação - Estilo Antes vs Depois */}
-          <div className="mt-24 max-w-5xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-2">Antes <span className="text-slate-400 font-normal">vs</span> Depois</h2>
-            <p className="text-center text-slate-500 mb-12">Veja a diferença que a Next Pro faz no seu negócio</p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-              {/* Card Sem Next Pro */}
-              <div className="bg-[#FFF8F8] border border-[#FBEAEA] rounded-[32px] p-5 relative overflow-hidden flex flex-col shadow-sm h-full">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="h-7 w-7 rounded-full bg-[#F43F5E]/10 flex items-center justify-center text-[#F43F5E]">
-                    <X className="h-3.5 w-3.5" strokeWidth={2.5} />
-                  </div>
-                  <span className="text-[#991B1B] font-bold text-base font-space-grotesk">Sem Next Pro</span>
-                </div>
-                
-                <div className="space-y-2 mb-4">
-                  {[
-                    { text: "Clientes esperando horas por resposta", icon: Clock },
-                    { text: "Leads perdidos fora do horário comercial", icon: UserMinus },
-                    { text: "Trabalho manual e repetitivo", icon: XCircle }
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-2.5 text-[#8E8E93] text-[13px]">
-                      <item.icon className="h-3.5 w-3.5 text-[#E5A5A5]" strokeWidth={1.5} />
-                      {item.text}
+          {/* Seção Unificação Total (Antes vs Depois Redesenhado) */}
+          <div className="mt-32 max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+              
+              {/* Coluna Esquerda: Outros CRM's */}
+              <div className="bg-white rounded-[40px] p-10 border border-red-100 shadow-[0_20px_50px_rgba(255,0,0,0.03)] relative overflow-hidden h-full flex flex-col justify-center">
+                <div className="relative z-10">
+                  <h3 className="text-[32px] font-bold font-space-grotesk text-slate-900 mb-2">
+                    Outros <span className="text-[#F43F5E]">CRM's</span>
+                  </h3>
+                  <p className="text-slate-400 text-sm mb-12">tem que torcer pra tudo funcionar.</p>
+
+                  <div className="space-y-6">
+                    {/* Item 1 */}
+                    <div className="bg-slate-50/50 rounded-2xl p-6 border border-slate-100 flex items-center gap-5 opacity-60">
+                      <div className="h-12 w-12 rounded-xl bg-white shadow-sm flex items-center justify-center text-[#F43F5E]">
+                        <Zap className="h-6 w-6" strokeWidth={1.5} />
+                      </div>
+                      <div className="text-left">
+                        <div className="font-bold text-slate-900">Integrações</div>
+                        <div className="text-[12px] text-slate-400">Limitadas e Instáveis</div>
+                      </div>
                     </div>
-                  ))}
-                </div>
 
-                <div className="mt-auto pt-3 border-t border-[#F2E2E2]">
-                  <span className="text-[#E57373] font-bold text-[9px] tracking-wide mb-3 block font-space-grotesk uppercase text-left">CUSTOS SEPARADOS / MÊS</span>
-                  <div className="space-y-1.5">
-                    {[
-                      { label: "1 funcionário de atendimento", value: "R$ 2.500" },
-                      { label: "Rastreador de UTM (outros)", value: "R$ 299" },
-                      { label: "Agenda inteligente (outros)", value: "R$ 197" },
-                      { label: "Ferramentas de automação", value: "R$ 300+" },
-                    ].map((cost, i) => (
-                      <div key={i} className="flex justify-between items-center text-[13px]">
-                        <span className="text-[#8E8E93]">{cost.label}</span>
-                        <span className="text-[#E57373] font-bold line-through decoration-1">{cost.value}</span>
+                    {/* Item 2 - Active style for Red */}
+                    <div className="bg-white rounded-2xl p-6 border-2 border-red-500 shadow-xl shadow-red-500/5 flex items-center gap-5 relative group">
+                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-12 bg-red-500 rounded-r-full" />
+                      <div className="h-12 w-12 rounded-xl bg-red-50 flex items-center justify-center text-red-500">
+                        <X className="h-6 w-6" strokeWidth={2.5} />
                       </div>
-                    ))}
-                  </div>
-                  <div className="flex justify-between items-center mt-4 pt-3 border-t border-[#F2E2E2]">
-                    <span className="font-bold text-[#1C1C1E] text-[13px]">Total estimado</span>
-                    <span className="text-[#F43F5E] font-bold text-base font-space-grotesk">
-                      R$ 3.300+<span className="text-[9px] font-normal text-[#8E8E93] ml-1">/mês</span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card Com Next Pro */}
-              <div className="bg-[#F0FDF4]/50 border border-[#DCFCE7] rounded-[32px] p-5 relative overflow-hidden flex flex-col h-full">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="h-7 w-7 rounded-full bg-white flex items-center justify-center text-[#10B981] shadow-sm">
-                    <Check className="h-3.5 w-3.5" strokeWidth={3} />
-                  </div>
-                  <span className="text-[#10B981] font-bold text-base font-space-grotesk">Com Next Pro</span>
-                </div>
-                
-                <div className="space-y-2 mb-4">
-                  {[
-                    { text: "Resposta instantânea 24 horas por dia", icon: Zap },
-                    { text: "IA atende e qualifica leads automaticamente", icon: Target },
-                    { text: "Agendamentos e vendas no piloto automático", icon: Calendar },
-                    { text: "Redução de até 80% nos custos de atendimento", icon: Headphones },
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-2.5 text-slate-700 font-medium text-[13px]">
-                      <item.icon className="h-3.5 w-3.5 text-[#10B981] opacity-70" />
-                      {item.text}
+                      <div className="text-left">
+                        <div className="font-bold text-slate-900">Regras de Negócio</div>
+                        <div className="text-[12px] text-slate-400">Quase inexistente</div>
+                      </div>
                     </div>
-                  ))}
-                </div>
 
-                <div className="mt-auto border-t border-[#DCFCE7] pt-3">
-                  <span className="text-[#10B981] font-bold text-[8px] uppercase tracking-wider mb-3 block text-left">Tudo incluso nos planos Pro e Premium</span>
-                  <div className="space-y-1">
-                    {[
-                      "Rastreador Inteligente incluso",
-                      "Agenda Inteligente inclusa",
-                      "IA 24/7 substitui funcionário",
-                      "CRM, automações e mais",
-                    ].map((feature, i) => (
-                      <div key={i} className="flex items-center gap-2 text-[11px] text-slate-600 font-medium">
-                        <Check className="h-3 w-3 text-[#10B981]" />
-                        {feature}
+                    {/* Item 3 */}
+                    <div className="bg-slate-50/50 rounded-2xl p-6 border border-slate-100 flex items-center gap-5 opacity-60">
+                      <div className="h-12 w-12 rounded-xl bg-white shadow-sm flex items-center justify-center text-[#F43F5E]">
+                        <Smartphone className="h-6 w-6" strokeWidth={1.5} />
                       </div>
-                    ))}
-                  </div>
-                  <div className="mt-4 pt-3 border-t border-dashed border-[#DCFCE7]">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <span className="font-bold text-slate-900 block text-[11px] text-left">Economize até</span>
-                        <span className="text-[8px] text-slate-400">Comparado a contratar separadamente</span>
+                      <div className="text-left">
+                        <div className="font-bold text-slate-900">Mobile</div>
+                        <div className="text-[12px] text-slate-400">Apps lentos e limitados</div>
                       </div>
-                      <span className="text-[#10B981] font-bold text-base font-space-grotesk">R$ 2.800+<span className="text-[9px] font-normal text-slate-400">/mês</span></span>
                     </div>
                   </div>
                 </div>
               </div>
+
+              {/* Coluna Central: Animação de Unificação */}
+              <div className="flex flex-col items-center justify-center py-12 px-4">
+                <div className="relative w-full max-w-[400px] aspect-square flex items-center justify-center">
+                  {/* Orbiting Elements */}
+                  <motion.div 
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    className="absolute inset-0 border border-dashed border-slate-200 rounded-full"
+                  />
+                  <motion.div 
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                    className="absolute inset-12 border border-dashed border-slate-100 rounded-full"
+                  />
+
+                  {/* Central Orb (The "Black Hole" / Core) */}
+                  <div className="relative z-20 h-24 w-24 rounded-full bg-[#0B1220] flex items-center justify-center shadow-[0_0_50px_rgba(0,0,0,0.3)]">
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#004DFF]/20 to-transparent animate-pulse" />
+                    <img src="/lovable-uploads/logo-next-pro.png" alt="Next Pro" className="h-10 w-10 object-contain invert" />
+                  </div>
+
+                  {/* Floating Tags */}
+                  <motion.div 
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute top-10 right-0 bg-white shadow-lg rounded-full px-4 py-2 border border-slate-100 flex items-center gap-2 z-30"
+                  >
+                    <div className="h-5 w-5 rounded-full bg-pink-50 flex items-center justify-center">
+                      <Instagram className="h-3 w-3 text-pink-500" />
+                    </div>
+                    <span className="text-[11px] font-bold text-slate-700 whitespace-nowrap">Resposta Instagram</span>
+                  </motion.div>
+
+                  <motion.div 
+                    animate={{ y: [0, 10, 0] }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                    className="absolute top-1/2 -left-16 -translate-y-1/2 bg-white shadow-lg rounded-full px-4 py-2 border border-slate-100 flex items-center gap-2 z-30"
+                  >
+                    <div className="h-5 w-5 rounded-full bg-emerald-50 flex items-center justify-center">
+                      <MessageSquare className="h-3 w-3 text-emerald-500" />
+                    </div>
+                    <span className="text-[11px] font-bold text-slate-700 whitespace-nowrap">WhatsApp Transfer</span>
+                  </motion.div>
+
+                  <motion.div 
+                    animate={{ x: [0, 10, 0] }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                    className="absolute bottom-20 -right-8 bg-white shadow-lg rounded-full px-4 py-2 border border-slate-100 flex items-center gap-2 z-30"
+                  >
+                    <div className="h-5 w-5 rounded-full bg-blue-50 flex items-center justify-center">
+                      <Zap className="h-3 w-3 text-blue-500" />
+                    </div>
+                    <span className="text-[11px] font-bold text-slate-700 whitespace-nowrap">Direct Auto</span>
+                  </motion.div>
+                </div>
+
+                <div className="text-center mt-8">
+                  <h4 className="text-2xl font-bold font-space-grotesk text-[#0B1220] mb-3">Unificação Total</h4>
+                  <p className="text-slate-500 text-sm max-w-[280px] leading-relaxed">
+                    Gerenciamento de todos os canais (WhatsApp, Instagram, API Oficial) aprovados pelo Meta
+                  </p>
+                  <div className="flex gap-2 justify-center mt-6">
+                    <div className="h-2 w-2 rounded-full bg-emerald-400" />
+                    <div className="h-2 w-2 rounded-full bg-pink-400" />
+                    <div className="h-2 w-2 rounded-full bg-blue-500" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Coluna Direita: Next Pro (Zionic no mockup) */}
+              <div className="bg-[#F8F9FB] rounded-[40px] p-10 border border-slate-100 shadow-[0_20px_50px_rgba(0,77,255,0.03)] relative overflow-hidden h-full flex flex-col justify-center">
+                <div className="relative z-10">
+                  <h3 className="text-[32px] font-bold font-space-grotesk text-slate-900 mb-2">
+                    Next Pro
+                  </h3>
+                  <p className="text-slate-400 text-sm mb-12">É tudo em um.</p>
+
+                  <div className="space-y-4">
+                    {[
+                      { title: "Resposta Comentários", desc: "Responde automaticamente no post", icon: Instagram, color: "text-pink-500", bg: "bg-pink-50" },
+                      { title: "Direct Automático", desc: "Chama no direct instantaneamente", icon: MessageCircle, color: "text-[#0B1220]", bg: "bg-slate-100", active: true },
+                      { title: "Transfere p/ WhatsApp", desc: "Conexão fluida entre canais", icon: MessageSquare, color: "text-emerald-500", bg: "bg-emerald-50" },
+                      { title: "Gerenciamento Total", desc: "WhatsApp, Instagram & API Oficial", icon: ShieldCheck, color: "text-slate-400", bg: "bg-slate-50" },
+                    ].map((item, i) => (
+                      <div 
+                        key={i} 
+                        className={`rounded-2xl p-5 border flex items-center gap-5 transition-all duration-300 ${
+                          item.active 
+                            ? "bg-white border-slate-200 shadow-lg shadow-slate-200/20 scale-[1.02]" 
+                            : "bg-white/50 border-slate-100"
+                        }`}
+                      >
+                        <div className={`h-12 w-12 rounded-xl ${item.bg} flex items-center justify-center ${item.color} shadow-sm`}>
+                          <item.icon className="h-6 w-6" strokeWidth={1.5} />
+                        </div>
+                        <div className="text-left">
+                          <div className="font-bold text-slate-900">{item.title}</div>
+                          <div className="text-[12px] text-slate-400">{item.desc}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
 
