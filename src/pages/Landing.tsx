@@ -3003,7 +3003,6 @@ export default function Landing() {
                   {/* Central Orb (The "Black Hole" / Core) */}
                   <div className="relative z-20 h-24 w-24 rounded-full bg-[#0B1220] flex items-center justify-center shadow-[0_0_50px_rgba(0,0,0,0.3)]">
                     <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#004DFF]/20 to-transparent animate-pulse" />
-                    <img src="/lovable-uploads/logo-next-pro.png" alt="Next Pro" className="h-10 w-10 object-contain invert" />
                   </div>
 
                   {/* Floating Tags */}
