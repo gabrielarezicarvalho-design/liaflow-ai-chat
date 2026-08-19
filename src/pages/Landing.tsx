@@ -3251,7 +3251,7 @@ export default function Landing() {
 
               <div className="mt-6 flex flex-wrap items-center gap-3">
                 <Link to="/auth">
-                  <Button className="h-9 rounded-xl bg-[#004DFF] px-5 text-sm font-semibold text-white hover:bg-[#0040d6]">
+                  <Button className="h-9 rounded-xl bg-[#004DFF] px-5 text-sm font-semibold text-white hover:bg-[#0040d6] shadow-[0_0_20px_rgba(0,77,255,0.4)] transition-all hover:scale-105 active:scale-95">
                     Testar grátis
                   </Button>
                 </Link>
