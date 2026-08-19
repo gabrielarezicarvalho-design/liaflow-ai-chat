@@ -143,7 +143,7 @@ function ChatComposer({
           type="submit"
           aria-label="Enviar"
           disabled={busy}
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#004DFF] text-white transition-colors hover:bg-[#003ACC] disabled:opacity-60"
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#004DFF] text-white transition-all hover:bg-[#003ACC] hover:scale-105 active:scale-95 disabled:opacity-60 shadow-sm"
         >
           <SendHorizontal className="h-4 w-4" />
         </button>

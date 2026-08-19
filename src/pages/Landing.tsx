@@ -2013,7 +2013,7 @@ export default function Landing() {
 
                   <button
                     onClick={() => (window.location.href = `/checkout?tier=${p.tier}&billing=${billing}`)}
-                    className="mt-5 w-full rounded-xl py-4 text-lg font-bold text-white transition hover:opacity-90"
+                    className="mt-5 w-full rounded-xl py-4 text-lg font-bold text-white transition-all hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-[#004DFF]/20"
                     style={{ backgroundColor: "#004DFF" }}
                   >
                     {p.tier === "basic" ? "Testar grátis" : `Assinar ${p.name}`}
@@ -3251,7 +3251,7 @@ export default function Landing() {
 
               <div className="mt-6 flex flex-wrap items-center gap-3">
                 <Link to="/auth">
-                  <Button className="h-9 rounded-xl bg-[#004DFF] px-5 text-sm font-semibold text-white hover:bg-[#0040d6]">
+                  <Button className="h-9 rounded-xl bg-[#004DFF] px-5 text-sm font-semibold text-white hover:bg-[#0040d6] shadow-[0_0_20px_rgba(0,77,255,0.4)] transition-all hover:scale-105 active:scale-95">
                     Testar grátis
                   </Button>
                 </Link>
