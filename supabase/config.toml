@@ -12,3 +12,6 @@ verify_jwt = false
 [functions.public-flow-form]
 verify_jwt = false
 
+
+[functions.migrate-helper]
+verify_jwt = false
