@@ -1066,7 +1066,10 @@ const Connections = () => {
         const { data, error } = await supabase.functions.invoke('wa-delete-instance', {
           body: {
             token: connection.token,
-            base_url: connection.base_url
+            base_url: connection.base_url,
+            environment: connection.environment || 'EVOLUTION',
+            instance_name: connection.instance_name || connection.name,
+            instance_id: connection.instance_id
           }
         });
         
