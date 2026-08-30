@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "2d191e11-0857-4708-a993-3ae9de96405f",
-  "project_id": "21dd7b9f-c0bf-4b8e-957f-c6952c532fb1",
-  "url": "/__l5e/assets-v1/2d191e11-0857-4708-a993-3ae9de96405f/diego.png",
-  "r2_key": "a/v1/21dd7b9f-c0bf-4b8e-957f-c6952c532fb1/2d191e11-0857-4708-a993-3ae9de96405f/diego.png",
-  "original_filename": "diego.png",
-  "size": 1125668,
   "content_type": "image/png",
-  "created_at": "2026-07-27T22:31:50Z"
+  "created_at": "2026-07-27T22:31:50Z",
+  "original_filename": "diego.png",
+  "project_id": "0c87e1d4-d94f-4d8a-8ffb-875b427e3762",
+  "r2_key": "a/v1/0c87e1d4-d94f-4d8a-8ffb-875b427e3762/2d191e11-0857-4708-a993-3ae9de96405f/diego.png",
+  "size": 1125668,
+  "url": "/__l5e/assets-v1/2d191e11-0857-4708-a993-3ae9de96405f/diego.png",
+  "version": 1
 }
