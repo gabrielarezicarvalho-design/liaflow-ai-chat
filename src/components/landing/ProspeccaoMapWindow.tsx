@@ -293,7 +293,7 @@ export function ProspeccaoMapWindow({
         </div>
 
         {/* Lista de leads reais */}
-        <div className="col-span-2 space-y-2">
+        <div className="sm:col-span-2 space-y-2">
           {displayLeads.length === 0 &&
             Array.from({ length: 4 }).map((_, i) => (
               <div key={`sk-${i}`} className="h-[52px] animate-pulse rounded-2xl bg-slate-200/60" />
