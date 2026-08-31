@@ -743,17 +743,18 @@ function MercadoSection() {
           </p>
 
           {/* Navigation Tabs */}
-          <div className="mt-10 inline-flex p-1 bg-slate-100 rounded-2xl border border-slate-200">
+          <div className="mt-10 flex max-w-full flex-wrap justify-center gap-1 p-1 bg-slate-100 rounded-2xl border border-slate-200">
             {Object.entries(tabs).map(([key, tab]) => (
               <button
                 key={key}
                 onClick={() => setActiveTab(key as any)}
-                className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all ${
+                className={`flex items-center gap-2 px-3 sm:px-6 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                   activeTab === key 
                     ? "bg-white text-[#004DFF] shadow-md border border-slate-100" 
                     : "text-slate-500 hover:text-slate-900"
                 }`}
               >
+
                 <tab.icon className="h-4 w-4" />
                 {tab.label}
               </button>
@@ -793,14 +794,15 @@ function MercadoSection() {
           </div>
 
           {/* Visual Mockup - Dynamic based on tab */}
-          <div className="relative aspect-[4/3] flex items-center justify-center p-6 group">
+          <div className="relative w-full min-w-0 lg:aspect-[4/3] flex items-center justify-center p-0 sm:p-4 lg:p-6 group">
             {activeTab === 'google' && (
-              <div className="w-full h-full rounded-xl overflow-hidden shadow-2xl">
+              <div className="w-full lg:h-full rounded-xl overflow-hidden shadow-2xl">
                 <ProspeccaoMapWindow />
               </div>
             )}
             {activeTab === 'social' && (
-              <div className="relative aspect-[9/18.5] w-full max-w-[232px] rounded-[34px] border-[5px] border-black bg-black shadow-2xl">
+              <div className="relative aspect-[9/18.5] w-full max-w-[212px] sm:max-w-[232px] rounded-[34px] border-[5px] border-black bg-black shadow-2xl">
+
                 <div className="absolute -left-[8px] top-[76px] h-9 w-[3px] rounded-l-sm bg-black" aria-hidden="true" />
                 <div className="absolute -left-[8px] top-[122px] h-14 w-[3px] rounded-l-sm bg-black" aria-hidden="true" />
                 <div className="absolute -right-[8px] top-[104px] h-20 w-[3px] rounded-r-sm bg-black" aria-hidden="true" />
