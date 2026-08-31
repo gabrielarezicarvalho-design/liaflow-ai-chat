@@ -1959,6 +1959,20 @@ export default function Landing() {
               <p className="mt-1 text-xs text-[#0B1220]/70">
                 Quando o cliente tá pronto, você recebe no WhatsApp.
               </p>
+              <ul className="mt-3 space-y-1.5">
+                <li className="flex items-center gap-2 text-[11px] text-[#0B1220]/80">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#004DFF]" />
+                  Notificação instantânea no seu WhatsApp
+                </li>
+                <li className="flex items-center gap-2 text-[11px] text-[#0B1220]/80">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#004DFF]" />
+                  Identifica intenção de compra automaticamente
+                </li>
+                <li className="flex items-center gap-2 text-[11px] text-[#0B1220]/80">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#004DFF]" />
+                  Prioriza leads com maior chance de fechar
+                </li>
+              </ul>
               <span className="mt-auto pt-4 text-[10px] font-bold uppercase tracking-widest text-[#004DFF]">
                 Alerta em tempo real
               </span>
