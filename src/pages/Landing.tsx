@@ -18,6 +18,7 @@ import iconOpenai from "@/assets/integrations/openai.png.asset.json";
 import zebraMockup from "@/assets/zebra_mockup.png.asset.json";
 import nextProLogo from "@/assets/next_pro_logo.png.asset.json";
 import whatsappBg from "@/assets/whatsapp-bg.webp.asset.json";
+import lovableIlimitado from "@/assets/lovable-ilimitado.png.asset.json";
 import userAvatar1 from "@/assets/user_avatar_1.png.asset.json";
 import userAvatar2 from "@/assets/user_avatar_2.png.asset.json";
 import userAvatar3 from "@/assets/user_avatar_3.png.asset.json";
