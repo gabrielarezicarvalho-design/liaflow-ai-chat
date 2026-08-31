@@ -36,7 +36,7 @@ import {
   Filter, Target, Calendar, Play, Clock, Bell,
   Instagram, FileText, UsersRound, Headphones, Volume2, Repeat, Wallet, Receipt, AlertCircle, Megaphone, MessageSquare, ListChecks, Ban, RefreshCw,
   Scale, Activity, Sun, Wrench, Twitter, Gift, Share2, HelpCircle, Shield, Cookie, Quote, ChevronRight, ChevronUp, CheckCircle2, XCircle, UserMinus,
-  Trophy, Globe, Mail, BarChart3, Tag, TrendingDown, Video, Phone, MoreVertical, Smartphone
+  Trophy, Globe, Mail, BarChart3, Tag, TrendingDown, Video, Phone, MoreVertical, Smartphone, ArrowLeft, Heart, Music2
 } from "lucide-react";
 import { ProspeccaoMapWindow } from "@/components/landing/ProspeccaoMapWindow";
 import CookieConsent from "@/components/landing/CookieConsent";
@@ -608,32 +608,6 @@ const MERCADO_CARDS = [
 
 function MercadoSection() {
   const [activeTab, setActiveTab] = useState<'whatsapp' | 'google' | 'social'>('whatsapp');
-  const [socialStep, setSocialStep] = useState(0);
-
-  useEffect(() => {
-    if (activeTab !== 'social') return;
-    const interval = setInterval(() => {
-      setSocialStep((prev) => (prev + 1) % 4);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [activeTab]);
-
-  const socialContents = [
-    { type: "Comentário", text: "Novo comentário: \"Como eu compro?\"", color: "emerald" },
-    { type: "Direct", text: "Novo Direct: \"Quero saber os preços\"", color: "blue" },
-    { type: "Mencão", text: "Menção nos Stories: \"Olha isso!\"", color: "purple" },
-    { type: "Anúncio", text: "Lead de Meta Ads: Cadastro efetuado", color: "orange" }
-  ];
-
-  const getColorClasses = (color: string) => {
-    const maps: Record<string, { bg: string, border: string, text: string, darkText: string }> = {
-      emerald: { bg: "bg-emerald-50", border: "border-emerald-100", text: "text-emerald-600", darkText: "text-slate-800" },
-      blue: { bg: "bg-blue-50", border: "border-blue-100", text: "text-blue-600", darkText: "text-slate-800" },
-      purple: { bg: "bg-purple-50", border: "border-purple-100", text: "text-purple-600", darkText: "text-slate-800" },
-      orange: { bg: "bg-orange-50", border: "border-orange-100", text: "text-orange-600", darkText: "text-slate-800" }
-    };
-    return maps[color] || maps.emerald;
-  };
 
   const tabs = {
     whatsapp: {
@@ -746,54 +720,69 @@ function MercadoSection() {
               </div>
             )}
             {activeTab === 'social' && (
-              <div className="w-full max-w-[220px] bg-white rounded-[28px] border-[5px] border-slate-900 aspect-[9/18.5] shadow-2xl relative overflow-hidden transform scale-90">
-                <div className="absolute top-0 left-0 w-full h-6 bg-slate-900 flex justify-center pt-1">
-                  <div className="w-16 h-3 bg-slate-800 rounded-full" />
+              <div className="relative aspect-[9/18.5] w-full max-w-[232px] overflow-hidden rounded-[30px] border-[5px] border-slate-900 bg-white shadow-2xl">
+                <div className="absolute inset-x-0 top-0 z-30 flex h-7 items-center justify-between bg-white px-3 text-[8px] font-semibold text-slate-800">
+                  <span>21:31</span>
+                  <div className="flex items-center gap-1"><span>LTE</span><span>▰</span><span>70%</span></div>
                 </div>
-                <div className="p-4 pt-10 space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-white overflow-hidden flex items-center justify-center">
-                      <img src={nextProLogo.url} alt="Next Pro Logo" className="w-full h-full object-cover" />
-                    </div>
-                    <div className="space-y-1">
-                      <div className="text-[10px] font-bold text-slate-800">nexxtpro.dev</div>
-                    </div>
+
+                <div className="absolute inset-x-0 top-7 z-20 bg-white">
+                  <div className="flex h-11 items-center gap-4 px-3">
+                    <ArrowLeft className="h-4 w-4" />
+                    <span className="text-[12px] font-bold">Posts</span>
                   </div>
-                  <div className="w-full aspect-square bg-slate-100 rounded-[28px] overflow-hidden flex items-center justify-center">
-                    <img src={zebraMockup.url} alt="Zebra Mockup" className="w-full h-full object-cover" />
+                  <div className="flex h-12 items-center gap-2 border-b border-slate-100 px-3">
+                    <div className="h-7 w-7 overflow-hidden rounded-full border border-slate-100 bg-white">
+                      <img src={nextProLogo.url} alt="Next Pro" className="h-full w-full object-cover" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[9px] font-semibold leading-none text-slate-900">nextprodev</p>
+                      <p className="mt-1 flex items-center gap-1 truncate text-[7px] text-slate-600"><Music2 className="h-2 w-2" /> l_araujo10ofc · Áudio original</p>
+                    </div>
+                    <MoreVertical className="h-4 w-4" />
                   </div>
-                  <div className="space-y-2">
-                    {socialContents.map((content, idx) => {
-                      const colors = getColorClasses(content.color);
-                      return (
-                        <div 
-                          key={idx}
-                          className={`absolute bottom-4 left-4 right-4 py-2 px-3 ${colors.bg} rounded-2xl border ${colors.border} shadow-lg transition-all duration-700 transform 
-                            ${socialStep === idx 
-                              ? 'opacity-100 translate-y-0 scale-100' 
-                              : 'opacity-0 translate-y-4 scale-95 pointer-events-none'
-                            }`}
-                        >
-                          <div className="flex items-center gap-2 mb-1">
-                            <div className={`w-1.5 h-1.5 rounded-full ${colors.text.replace('text-', 'bg-')}`} />
-                            <p className={`text-[8px] font-bold ${colors.text} uppercase tracking-wider`}>
-                              {content.type}
-                            </p>
-                          </div>
-                          <p className="text-[10px] font-semibold text-slate-800 leading-tight">
-                            {content.text}
-                          </p>
-                          <div className="mt-1.5 flex items-center gap-1.5 pt-1.5 border-t border-black/5">
-                            <div className="flex -space-x-1">
-                              {[1,2,3].map(i => (
-                                <div key={i} className="w-3 h-3 rounded-full bg-slate-200 border border-white" />
-                              ))}
-                            </div>
-                            <p className="text-[7px] text-slate-400 font-medium italic">Atendido por Next Pro</p>
-                          </div>
-                        </div>
-                      );
-                    })}
+                </div>
+
+                <div className="absolute inset-x-0 top-[104px] flex h-[128px] flex-col items-center justify-center bg-destructive px-5 text-destructive-foreground">
+                  <div className="mb-2 flex items-center gap-1.5 text-[9px] font-semibold">
+                    <img src={nextProLogo.url} alt="" className="h-5 w-5 rounded-full object-cover" />
+                    <span>Next Pro</span>
+                  </div>
+                  <div className="h-px w-full bg-white/70" />
+                  <div className="flex items-center py-2">
+                    <div className="pr-3 text-right text-[15px] font-black uppercase leading-[0.9]">
+                      <p>Next Pro</p><p>Ilimitado</p><p className="text-[9px] font-medium normal-case">teste por apenas</p>
+                    </div>
+                    <div className="border-l border-white/80 pl-3 text-[13px] font-bold">R$ <span className="text-[48px] leading-none">9</span><sup className="text-[12px]">,99</sup></div>
+                  </div>
+                  <div className="h-px w-full bg-white/70" />
+                </div>
+
+                <div className="absolute inset-x-0 bottom-0 top-[212px] z-20 flex flex-col rounded-t-[22px] bg-white shadow-[0_-8px_25px_rgba(0,0,0,0.14)]">
+                  <div className="flex h-10 flex-col items-center justify-center border-b border-slate-100">
+                    <div className="mb-1 h-0.5 w-5 rounded-full bg-slate-500" />
+                    <p className="text-[10px] font-medium text-slate-900">Comentários</p>
+                  </div>
+                  <div className="flex items-start gap-2 px-3 py-3">
+                    <img src={userAvatar1.url} alt="star_petshop1" className="h-7 w-7 rounded-full object-cover" />
+                    <div className="min-w-0 flex-1 text-[8px]">
+                      <p><strong className="text-slate-900">star_petshop1</strong> <span className="text-slate-400">3 sem</span></p>
+                      <p className="mt-1 text-[10px] text-slate-800">Qual o contato?</p>
+                      <p className="mt-1 font-medium text-slate-500">Responder</p>
+                    </div>
+                    <Heart className="mt-5 h-3.5 w-3.5 text-slate-500" />
+                    <MessageCircle className="mt-5 h-3.5 w-3.5 text-slate-500" />
+                  </div>
+                  <div className="mt-auto border-t border-slate-100 bg-white px-3 pb-4 pt-2">
+                    <div className="mb-2 flex justify-between px-1 text-[13px]"><span>❤️</span><span>🙌</span><span>🔥</span><span>👏</span><span>😢</span><span>😍</span><span>😮</span><span>😂</span></div>
+                    <div className="flex items-center gap-2">
+                      <img src={userAvatar2.url} alt="Seu perfil" className="h-6 w-6 rounded-full object-cover" />
+                      <div className="flex h-7 flex-1 items-center justify-between rounded-full border border-slate-200 px-2 text-[7px] text-slate-400">
+                        <span>Deixe um comentário para nextprodev</span>
+                        <div className="flex items-center gap-1 text-slate-800"><ImageIcon className="h-3.5 w-3.5" /><span className="rounded border border-slate-700 px-0.5 text-[6px] font-bold">GIF</span></div>
+                      </div>
+                    </div>
+                    <div className="mx-auto mt-3 h-0.5 w-16 rounded-full bg-slate-500" />
                   </div>
                 </div>
               </div>
