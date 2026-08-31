@@ -612,6 +612,10 @@ function MercadoSection() {
   const [isTyping, setIsTyping] = useState(false);
   const [showReply, setShowReply] = useState(false);
 
+  const [waStep, setWaStep] = useState(0);
+  const [waTyping, setWaTyping] = useState(false);
+  const [waText, setWaText] = useState("");
+
   useEffect(() => {
     if (activeTab !== 'social') {
       setReplyText("");
