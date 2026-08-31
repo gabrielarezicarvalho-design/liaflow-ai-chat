@@ -720,12 +720,12 @@ function MercadoSection() {
               </div>
             )}
             {activeTab === 'social' && (
-              <div className="relative aspect-[9/18.5] w-full max-w-[232px] rounded-[34px] border-[5px] border-foreground bg-foreground shadow-2xl">
-                <div className="absolute -left-[8px] top-[76px] h-9 w-[3px] rounded-l-sm bg-foreground" aria-hidden="true" />
-                <div className="absolute -left-[8px] top-[122px] h-14 w-[3px] rounded-l-sm bg-foreground" aria-hidden="true" />
-                <div className="absolute -right-[8px] top-[104px] h-20 w-[3px] rounded-r-sm bg-foreground" aria-hidden="true" />
-                <div className="absolute left-1/2 top-[7px] z-50 h-[11px] w-[11px] -translate-x-1/2 rounded-full border-2 border-muted-foreground bg-foreground shadow-sm" aria-hidden="true">
-                  <div className="absolute inset-[2px] rounded-full bg-primary/60" />
+              <div className="relative aspect-[9/18.5] w-full max-w-[232px] rounded-[34px] border-[5px] border-black bg-black shadow-2xl">
+                <div className="absolute -left-[8px] top-[76px] h-9 w-[3px] rounded-l-sm bg-black" aria-hidden="true" />
+                <div className="absolute -left-[8px] top-[122px] h-14 w-[3px] rounded-l-sm bg-black" aria-hidden="true" />
+                <div className="absolute -right-[8px] top-[104px] h-20 w-[3px] rounded-r-sm bg-black" aria-hidden="true" />
+                <div className="absolute left-1/2 top-[7px] z-50 h-[11px] w-[11px] -translate-x-1/2 rounded-full border-2 border-slate-600 bg-black shadow-sm" aria-hidden="true">
+                  <div className="absolute inset-[2px] rounded-full bg-slate-700" />
                 </div>
 
                 <div className="absolute inset-0 overflow-hidden rounded-[28px] bg-background">
