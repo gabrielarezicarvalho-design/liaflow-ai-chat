@@ -36,7 +36,7 @@ import {
   Filter, Target, Calendar, Play, Clock, Bell,
   Instagram, FileText, UsersRound, Headphones, Volume2, Repeat, Wallet, Receipt, AlertCircle, Megaphone, MessageSquare, ListChecks, Ban, RefreshCw,
   Scale, Activity, Sun, Wrench, Twitter, Gift, Share2, HelpCircle, Shield, Cookie, Quote, ChevronRight, ChevronUp, CheckCircle2, XCircle, UserMinus,
-  Trophy, Globe, Mail, BarChart3, Tag, TrendingDown, Video, Phone, MoreVertical, Smartphone, ArrowLeft, Heart, ThumbsDown, Music2
+  Trophy, Globe, Mail, BarChart3, Tag, TrendingDown, Video, Phone, MoreVertical, Smartphone, ArrowLeft, Heart, Music2
 } from "lucide-react";
 import { ProspeccaoMapWindow } from "@/components/landing/ProspeccaoMapWindow";
 import CookieConsent from "@/components/landing/CookieConsent";
@@ -743,7 +743,7 @@ function MercadoSection() {
                   </div>
                 </div>
 
-                <div className="absolute inset-x-0 top-[104px] flex h-[128px] flex-col items-center justify-center bg-red-800 px-5 text-white">
+                <div className="absolute inset-x-0 top-[104px] flex h-[128px] flex-col items-center justify-center bg-destructive px-5 text-destructive-foreground">
                   <div className="mb-2 flex items-center gap-1.5 text-[9px] font-semibold">
                     <img src={nextProLogo.url} alt="" className="h-5 w-5 rounded-full object-cover" />
                     <span>Next Pro</span>
@@ -771,7 +771,7 @@ function MercadoSection() {
                       <p className="mt-1 font-medium text-slate-500">Responder</p>
                     </div>
                     <Heart className="mt-5 h-3.5 w-3.5 text-slate-500" />
-                    <ThumbsDown className="mt-5 h-3.5 w-3.5 text-slate-500" />
+                    <MessageCircle className="mt-5 h-3.5 w-3.5 text-slate-500" />
                   </div>
                   <div className="mt-auto border-t border-slate-100 bg-white px-3 pb-4 pt-2">
                     <div className="mb-2 flex justify-between px-1 text-[13px]"><span>❤️</span><span>🙌</span><span>🔥</span><span>👏</span><span>😢</span><span>😍</span><span>😮</span><span>😂</span></div>
