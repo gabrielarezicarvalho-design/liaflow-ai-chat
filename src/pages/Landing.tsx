@@ -916,19 +916,48 @@ function MercadoSection() {
                   <div className="w-24 h-3 bg-white/20 rounded-full" />
                 </div>
                 <div className="p-4 space-y-4 min-h-[280px] flex flex-col justify-center">
-                  <div className="bg-white p-3 rounded-lg rounded-tl-none max-w-[80%] shadow-sm text-xs">
-                    Olá! Vi que você tem interesse no nosso serviço. Como posso te ajudar hoje?
-                  </div>
-                  <div className="bg-[#DCF8C6] p-3 rounded-lg rounded-tr-none max-w-[80%] ml-auto shadow-sm text-xs">
-                    Gostaria de agendar uma demonstração.
-                  </div>
-                  <div className="bg-white p-3 rounded-lg rounded-tl-none max-w-[80%] shadow-sm flex items-center gap-2 border border-[#004DFF]/20">
-                    <Bot className="h-3 w-3 text-[#004DFF]" />
-                    <div className="flex-1 space-y-1">
-                      <div className="h-1.5 w-full bg-slate-100 rounded" />
-                      <div className="h-1.5 w-2/3 bg-slate-100 rounded" />
+                  {waStep >= 1 && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.96 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{ duration: 0.3 }}
+                      className="bg-white p-3 rounded-lg rounded-tl-none max-w-[80%] shadow-sm text-xs"
+                    >
+                      Olá! Vi que você tem interesse no nosso serviço. Como posso te ajudar hoje?
+                    </motion.div>
+                  )}
+                  {waStep >= 2 && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.96 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{ duration: 0.3 }}
+                      className="bg-[#DCF8C6] p-3 rounded-lg rounded-tr-none max-w-[80%] ml-auto shadow-sm text-xs"
+                    >
+                      Gostaria de agendar uma demonstração.
+                    </motion.div>
+                  )}
+                  {waStep >= 3 && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.96 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{ duration: 0.3 }}
+                      className="bg-white p-3 rounded-lg rounded-tl-none max-w-[80%] shadow-sm text-xs"
+                    >
+                      Claro! Qual o melhor horário para você? Temos vagas amanhã às 14h ou 16h.
+                    </motion.div>
+                  )}
+                  {waTyping && (
+                    <div className={`flex ${waStep % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
+                      <div className={`${waStep % 2 === 0 ? 'bg-white rounded-tl-none' : 'bg-[#DCF8C6] rounded-tr-none'} p-3 rounded-lg max-w-[80%] shadow-sm flex items-center gap-2`}>
+                        <span className="text-xs text-slate-700 min-w-[20px]">{waText}</span>
+                        <span className="inline-flex h-4 items-end gap-0.5 pb-0.5">
+                          <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-400" style={{ animationDelay: '0ms' }} />
+                          <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-400" style={{ animationDelay: '120ms' }} />
+                          <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-400" style={{ animationDelay: '240ms' }} />
+                        </span>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
             )}
