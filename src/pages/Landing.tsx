@@ -608,6 +608,36 @@ const MERCADO_CARDS = [
 
 function MercadoSection() {
   const [activeTab, setActiveTab] = useState<'whatsapp' | 'google' | 'social'>('whatsapp');
+  const [replyText, setReplyText] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const [showReply, setShowReply] = useState(false);
+
+  useEffect(() => {
+    if (activeTab !== 'social') {
+      setReplyText("");
+      setIsTyping(false);
+      setShowReply(false);
+      return;
+    }
+
+    const message = "Oi! Me chama no WhatsApp: (11) 99999-9999 📲";
+    let i = 0;
+    setIsTyping(true);
+    setShowReply(false);
+    setReplyText("");
+
+    const interval = setInterval(() => {
+      i++;
+      setReplyText(message.slice(0, i));
+      if (i >= message.length) {
+        clearInterval(interval);
+        setIsTyping(false);
+        setShowReply(true);
+      }
+    }, 45);
+
+    return () => clearInterval(interval);
+  }, [activeTab]);
 
   const tabs = {
     whatsapp: {
