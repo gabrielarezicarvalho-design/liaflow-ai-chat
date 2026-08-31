@@ -1890,7 +1890,7 @@ export default function Landing() {
             </div>
 
             {/* Cards */}
-            <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto">
+            <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-5 items-start max-w-5xl mx-auto">
 
               {[
                 {
