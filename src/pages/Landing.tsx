@@ -831,19 +831,8 @@ function MercadoSection() {
                   </div>
                 </div>
 
-                <div className="absolute inset-x-0 top-[104px] flex h-[128px] flex-col items-center justify-center bg-destructive px-5 text-destructive-foreground">
-                  <div className="mb-2 flex items-center gap-1.5 text-[9px] font-semibold">
-                    <img src={nextProLogo.url} alt="" className="h-5 w-5 rounded-full object-cover" />
-                    <span>Next Pro</span>
-                  </div>
-                  <div className="h-px w-full bg-white/70" />
-                  <div className="flex items-center py-2">
-                    <div className="pr-3 text-right text-[15px] font-black uppercase leading-[0.9]">
-                      <p>Next Pro</p><p>Ilimitado</p><p className="text-[9px] font-medium normal-case">teste por apenas</p>
-                    </div>
-                    <div className="border-l border-white/80 pl-3 text-[13px] font-bold">R$ <span className="text-[48px] leading-none">9</span><sup className="text-[12px]">,99</sup></div>
-                  </div>
-                  <div className="h-px w-full bg-white/70" />
+                <div className="absolute inset-x-0 top-[104px] h-[128px] overflow-hidden">
+                  <img src={lovableIlimitado.url} alt="Lovable Ilimitado" className="h-full w-full object-cover" />
                 </div>
 
                 <div className="absolute inset-x-0 bottom-0 top-[212px] z-20 flex flex-col rounded-t-[22px] bg-white shadow-[0_-8px_25px_rgba(0,0,0,0.14)]">
