@@ -921,9 +921,12 @@ function MercadoSection() {
                       initial={{ opacity: 0, y: 10, scale: 0.96 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       transition={{ duration: 0.3 }}
-                      className="bg-white p-3 rounded-lg rounded-tl-none max-w-[80%] shadow-sm text-xs"
+                      className="flex items-end gap-2"
                     >
-                      Olá! Vi que você tem interesse no nosso serviço. Como posso te ajudar hoje?
+                      <img src={logoAurora.url} alt="Aurora IA" className="h-7 w-7 rounded-full object-cover border border-white/40 shadow-sm shrink-0" />
+                      <div className="bg-white p-3 rounded-lg rounded-tl-none max-w-[80%] shadow-sm text-xs">
+                        Olá! Vi que você tem interesse no nosso serviço. Como posso te ajudar hoje?
+                      </div>
                     </motion.div>
                   )}
                   {waStep >= 2 && (
@@ -931,9 +934,12 @@ function MercadoSection() {
                       initial={{ opacity: 0, y: 10, scale: 0.96 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       transition={{ duration: 0.3 }}
-                      className="bg-[#DCF8C6] p-3 rounded-lg rounded-tr-none max-w-[80%] ml-auto shadow-sm text-xs"
+                      className="flex items-end gap-2 flex-row-reverse"
                     >
-                      Gostaria de agendar uma demonstração.
+                      <img src={userAvatar2.url} alt="Cliente" className="h-7 w-7 rounded-full object-cover border border-white/40 shadow-sm shrink-0" />
+                      <div className="bg-[#DCF8C6] p-3 rounded-lg rounded-tr-none max-w-[80%] shadow-sm text-xs">
+                        Gostaria de agendar uma demonstração.
+                      </div>
                     </motion.div>
                   )}
                   {waStep >= 3 && (
@@ -941,13 +947,21 @@ function MercadoSection() {
                       initial={{ opacity: 0, y: 10, scale: 0.96 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       transition={{ duration: 0.3 }}
-                      className="bg-white p-3 rounded-lg rounded-tl-none max-w-[80%] shadow-sm text-xs"
+                      className="flex items-end gap-2"
                     >
-                      Claro! Qual o melhor horário para você? Temos vagas amanhã às 14h ou 16h.
+                      <img src={logoAurora.url} alt="Aurora IA" className="h-7 w-7 rounded-full object-cover border border-white/40 shadow-sm shrink-0" />
+                      <div className="bg-white p-3 rounded-lg rounded-tl-none max-w-[80%] shadow-sm text-xs">
+                        Claro! Qual o melhor horário para você? Temos vagas amanhã às 14h ou 16h.
+                      </div>
                     </motion.div>
                   )}
                   {waTyping && (
-                    <div className={`flex ${waStep % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
+                    <div className={`flex items-end gap-2 ${waStep % 2 === 0 ? '' : 'flex-row-reverse'}`}>
+                      <img
+                        src={waStep % 2 === 0 ? logoAurora.url : userAvatar2.url}
+                        alt={waStep % 2 === 0 ? "Aurora IA" : "Cliente"}
+                        className="h-7 w-7 rounded-full object-cover border border-white/40 shadow-sm shrink-0"
+                      />
                       <div className={`${waStep % 2 === 0 ? 'bg-white rounded-tl-none' : 'bg-[#DCF8C6] rounded-tr-none'} p-3 rounded-lg max-w-[80%] shadow-sm flex items-center gap-2`}>
                         <span className="text-xs text-slate-700 min-w-[20px]">{waText}</span>
                         <span className="inline-flex h-4 items-end gap-0.5 pb-0.5">
