@@ -793,14 +793,15 @@ function MercadoSection() {
           </div>
 
           {/* Visual Mockup - Dynamic based on tab */}
-          <div className="relative aspect-[4/3] flex items-center justify-center p-6 group">
+          <div className="relative w-full min-w-0 lg:aspect-[4/3] flex items-center justify-center p-0 sm:p-4 lg:p-6 group">
             {activeTab === 'google' && (
-              <div className="w-full h-full rounded-xl overflow-hidden shadow-2xl">
+              <div className="w-full lg:h-full rounded-xl overflow-hidden shadow-2xl">
                 <ProspeccaoMapWindow />
               </div>
             )}
             {activeTab === 'social' && (
-              <div className="relative aspect-[9/18.5] w-full max-w-[232px] rounded-[34px] border-[5px] border-black bg-black shadow-2xl">
+              <div className="relative aspect-[9/18.5] w-full max-w-[212px] sm:max-w-[232px] rounded-[34px] border-[5px] border-black bg-black shadow-2xl">
+
                 <div className="absolute -left-[8px] top-[76px] h-9 w-[3px] rounded-l-sm bg-black" aria-hidden="true" />
                 <div className="absolute -left-[8px] top-[122px] h-14 w-[3px] rounded-l-sm bg-black" aria-hidden="true" />
                 <div className="absolute -right-[8px] top-[104px] h-20 w-[3px] rounded-r-sm bg-black" aria-hidden="true" />
