@@ -621,26 +621,71 @@ function MercadoSection() {
       setReplyText("");
       setIsTyping(false);
       setShowReply(false);
-      return;
+    }
+    if (activeTab !== 'whatsapp') {
+      setWaStep(0);
+      setWaTyping(false);
+      setWaText("");
+    }
+    if (activeTab !== 'social' && activeTab !== 'whatsapp') return;
+
+    if (activeTab === 'social') {
+      const message = "Oi! Me chama no WhatsApp: (11) 99999-9999 📲";
+      let i = 0;
+      setIsTyping(true);
+      setShowReply(false);
+      setReplyText("");
+
+      const interval = setInterval(() => {
+        i++;
+        setReplyText(message.slice(0, i));
+        if (i >= message.length) {
+          clearInterval(interval);
+          setIsTyping(false);
+          setShowReply(true);
+        }
+      }, 45);
+
+      return () => clearInterval(interval);
     }
 
-    const message = "Oi! Me chama no WhatsApp: (11) 99999-9999 📲";
-    let i = 0;
-    setIsTyping(true);
-    setShowReply(false);
-    setReplyText("");
+    // whatsapp conversation animation
+    const conversation = [
+      { from: 'ai' as const, text: "Olá! Vi que você tem interesse no nosso serviço. Como posso te ajudar hoje?" },
+      { from: 'user' as const, text: "Gostaria de agendar uma demonstração." },
+      { from: 'ai' as const, text: "Claro! Qual o melhor horário para você? Temos vagas amanhã às 14h ou 16h." },
+    ];
 
-    const interval = setInterval(() => {
-      i++;
-      setReplyText(message.slice(0, i));
-      if (i >= message.length) {
-        clearInterval(interval);
-        setIsTyping(false);
-        setShowReply(true);
+    let step = 0;
+    let charIndex = 0;
+    let currentText = "";
+    setWaStep(0);
+    setWaTyping(true);
+    setWaText("");
+
+    const typeNext = () => {
+      if (step >= conversation.length) {
+        setWaTyping(false);
+        return;
       }
-    }, 45);
+      const item = conversation[step];
+      charIndex++;
+      currentText = item.text.slice(0, charIndex);
+      setWaText(currentText);
+      if (charIndex >= item.text.length) {
+        step++;
+        charIndex = 0;
+        currentText = "";
+        setWaStep(step);
+        setWaText("");
+        setTimeout(typeNext, 650);
+      } else {
+        setTimeout(typeNext, 35);
+      }
+    };
 
-    return () => clearInterval(interval);
+    const startTimeout = setTimeout(typeNext, 400);
+    return () => clearTimeout(startTimeout);
   }, [activeTab]);
 
   const tabs = {
