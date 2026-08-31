@@ -720,7 +720,15 @@ function MercadoSection() {
               </div>
             )}
             {activeTab === 'social' && (
-              <div className="relative aspect-[9/18.5] w-full max-w-[232px] overflow-hidden rounded-[30px] border-[5px] border-slate-900 bg-white shadow-2xl">
+              <div className="relative aspect-[9/18.5] w-full max-w-[232px] rounded-[34px] border-[5px] border-foreground bg-foreground shadow-2xl">
+                <div className="absolute -left-[8px] top-[76px] h-9 w-[3px] rounded-l-sm bg-foreground" aria-hidden="true" />
+                <div className="absolute -left-[8px] top-[122px] h-14 w-[3px] rounded-l-sm bg-foreground" aria-hidden="true" />
+                <div className="absolute -right-[8px] top-[104px] h-20 w-[3px] rounded-r-sm bg-foreground" aria-hidden="true" />
+                <div className="absolute left-1/2 top-[7px] z-50 h-[11px] w-[11px] -translate-x-1/2 rounded-full border-2 border-muted-foreground bg-foreground shadow-sm" aria-hidden="true">
+                  <div className="absolute inset-[2px] rounded-full bg-primary/60" />
+                </div>
+
+                <div className="absolute inset-0 overflow-hidden rounded-[28px] bg-background">
                 <div className="absolute inset-x-0 top-0 z-30 flex h-7 items-center justify-between bg-white px-3 text-[8px] font-semibold text-slate-800">
                   <span>21:31</span>
                   <div className="flex items-center gap-1"><span>LTE</span><span>▰</span><span>70%</span></div>
@@ -784,6 +792,7 @@ function MercadoSection() {
                     </div>
                     <div className="mx-auto mt-3 h-0.5 w-16 rounded-full bg-slate-500" />
                   </div>
+                </div>
                 </div>
               </div>
             )}
