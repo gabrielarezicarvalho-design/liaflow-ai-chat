@@ -801,15 +801,49 @@ function MercadoSection() {
                     <div className="mb-1 h-0.5 w-5 rounded-full bg-slate-500" />
                     <p className="text-[10px] font-medium text-slate-900">Comentários</p>
                   </div>
-                  <div className="flex items-start gap-2 px-3 py-3">
-                    <img src={userAvatar1.url} alt="star_petshop1" className="h-7 w-7 rounded-full object-cover" />
-                    <div className="min-w-0 flex-1 text-[8px]">
-                      <p><strong className="text-slate-900">star_petshop1</strong> <span className="text-slate-400">3 sem</span></p>
-                      <p className="mt-1 text-[10px] text-slate-800">Qual o contato?</p>
-                      <p className="mt-1 font-medium text-slate-500">Responder</p>
+                  <div className="flex flex-col gap-3 px-3 py-3">
+                    <div className="flex items-start gap-2">
+                      <img src={userAvatar1.url} alt="star_petshop1" className="h-7 w-7 rounded-full object-cover" />
+                      <div className="min-w-0 flex-1 text-[8px]">
+                        <p><strong className="text-slate-900">star_petshop1</strong> <span className="text-slate-400">3 sem</span></p>
+                        <p className="mt-1 text-[10px] text-slate-800">Qual o contato?</p>
+                        <p className="mt-1 font-medium text-slate-500">Responder</p>
+                      </div>
+                      <Heart className="mt-5 h-3.5 w-3.5 text-slate-500" />
+                      <MessageCircle className="mt-5 h-3.5 w-3.5 text-slate-500" />
                     </div>
-                    <Heart className="mt-5 h-3.5 w-3.5 text-slate-500" />
-                    <MessageCircle className="mt-5 h-3.5 w-3.5 text-slate-500" />
+
+                    {isTyping && (
+                      <div className="flex items-start gap-2">
+                        <img src={nextProLogo.url} alt="nextprodev" className="h-7 w-7 rounded-full object-cover" />
+                        <div className="min-w-0 flex-1 text-[8px]">
+                          <p><strong className="text-slate-900">nextprodev</strong> <span className="text-slate-400">Agora</span></p>
+                          <div className="mt-1 flex items-center gap-0.5 text-[10px] text-slate-800">
+                            <span>{replyText}</span>
+                            <span className="inline-flex h-3.5 items-end gap-0.5 pb-0.5">
+                              <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-400" style={{ animationDelay: '0ms' }} />
+                              <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-400" style={{ animationDelay: '120ms' }} />
+                              <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-400" style={{ animationDelay: '240ms' }} />
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {showReply && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.35 }}
+                        className="flex items-start gap-2"
+                      >
+                        <img src={nextProLogo.url} alt="nextprodev" className="h-7 w-7 rounded-full object-cover" />
+                        <div className="min-w-0 flex-1 text-[8px]">
+                          <p><strong className="text-slate-900">nextprodev</strong> <span className="text-slate-400">Agora</span></p>
+                          <p className="mt-1 text-[10px] text-slate-800">{replyText}</p>
+                        </div>
+                      </motion.div>
+                    )}
                   </div>
                   <div className="mt-auto border-t border-slate-100 bg-white px-3 pb-4 pt-2">
                     <div className="mb-2 flex justify-between px-1 text-[13px]"><span>❤️</span><span>🙌</span><span>🔥</span><span>👏</span><span>😢</span><span>😍</span><span>😮</span><span>😂</span></div>
