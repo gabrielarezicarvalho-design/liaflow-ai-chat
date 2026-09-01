@@ -1589,7 +1589,7 @@ export default function Landing() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-slate-900">
+    <div className="min-h-screen bg-white font-space-grotesk text-slate-900">
       {/* NAV flutuante fixa */}
       <header className="fixed left-0 right-0 top-0 z-50 px-4 pt-4">
         <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between rounded-2xl border border-white/40 bg-white/80 px-6 shadow-lg backdrop-blur-xl">
