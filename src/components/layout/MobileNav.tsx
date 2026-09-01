@@ -32,16 +32,16 @@ export function MobileNav({ items = defaultItems }: { items?: MobileNavItem[] })
           <Menu className="h-6 w-6" />
         </button>
       </SheetTrigger>
-      <SheetContent side="right" className="w-full max-w-sm border-l border-white/10 bg-[#0a0a0a] p-0 font-space-grotesk text-slate-100 [&>button]:hidden">
+      <SheetContent side="right" className="w-full max-w-sm border-l border-slate-200 bg-white p-0 font-space-grotesk text-slate-900 [&>button]:hidden">
         <div className="flex h-full flex-col">
-          <div className="flex h-16 items-center justify-between border-b border-white/10 px-6">
+          <div className="flex h-16 items-center justify-between border-b border-slate-100 px-6">
             <Link
               to="/homepage"
               onClick={() => {
                 window.scrollTo({ top: 0, behavior: "smooth" });
                 setOpen(false);
               }}
-              className="flex items-center gap-2 font-bold text-xl text-white"
+              className="flex items-center gap-2 font-bold text-xl text-slate-900"
             >
               <img src={logoAurora.url} alt="NEXT PRO" className="h-8 w-8 shrink-0 rounded-full object-cover" />
               <span>
@@ -50,7 +50,7 @@ export function MobileNav({ items = defaultItems }: { items?: MobileNavItem[] })
             </Link>
             <SheetClose asChild>
               <button
-                className="flex h-8 w-8 items-center justify-center rounded-lg text-white/60 transition-colors hover:bg-white/10 hover:text-white"
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900"
                 aria-label="Fechar menu"
               >
                 <X className="h-5 w-5" />
@@ -65,18 +65,18 @@ export function MobileNav({ items = defaultItems }: { items?: MobileNavItem[] })
                   <a
                     href={item.href}
                     onClick={handleNavClick}
-                    className="flex items-center justify-between rounded-xl px-4 py-3.5 text-lg font-medium text-white/80 transition-colors hover:bg-white/5 hover:text-white"
+                    className="flex items-center justify-between rounded-xl px-4 py-3.5 text-lg font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:text-slate-900"
                   >
                     {item.label}
-                    <ArrowRight className="h-4 w-4 text-white/30" />
+                    <ArrowRight className="h-4 w-4 text-slate-400" />
                   </a>
                 </li>
               ))}
             </ul>
           </nav>
 
-          <div className="space-y-3 border-t border-white/10 p-6">
-            <Link to="/auth" onClick={handleNavClick} className="block text-center text-[15px] font-medium text-white/70 hover:text-white">
+          <div className="space-y-3 border-t border-slate-100 p-6">
+            <Link to="/auth" onClick={handleNavClick} className="block text-center text-[15px] font-medium text-slate-600 hover:text-slate-900">
               Entrar
             </Link>
             <Link to="/auth" onClick={handleNavClick} className="block">
