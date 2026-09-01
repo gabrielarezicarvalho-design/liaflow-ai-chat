@@ -119,7 +119,7 @@ const Auth = () => {
 
 
   return (
-    <div className="h-screen flex overflow-hidden bg-white">
+    <div className="h-screen flex overflow-hidden bg-white font-space-grotesk">
       {/* Left Side - Stats & Features */}
       <motion.div 
         initial={{ x: -100, opacity: 0 }}
@@ -166,7 +166,7 @@ const Auth = () => {
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             />
             <div>
-              <h1 className="text-3xl font-bold tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+              <h1 className="text-3xl font-bold tracking-tight">
                 <span className="text-slate-900">Next</span>
                 <span className="text-[#004DFF]"> Pro</span>
               </h1>
@@ -258,7 +258,7 @@ const Auth = () => {
                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
               />
             </div>
-            <h1 className="text-3xl font-bold tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+            <h1 className="text-3xl font-bold tracking-tight">
               <span className="text-white">Next</span>
               <span className="text-[#004DFF]"> Pro</span>
             </h1>
