@@ -26,7 +26,7 @@ export function MobileNav({ items = defaultItems }: { items?: MobileNavItem[] })
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <button
-          className="flex h-10 w-10 items-center justify-center rounded-xl text-white transition-colors hover:bg-white/10 hover:text-white lg:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-xl text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 lg:hidden"
           aria-label="Abrir menu"
         >
           <Menu className="h-6 w-6" />
