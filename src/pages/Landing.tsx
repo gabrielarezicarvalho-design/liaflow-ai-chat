@@ -3210,7 +3210,7 @@ export default function Landing() {
               <div className="bg-[#F8F9FB] rounded-[40px] p-10 border border-slate-100 shadow-[0_20px_50px_rgba(0,77,255,0.03)] relative overflow-hidden h-full flex flex-col justify-center">
                 <div className="relative z-10">
                   <h3 className="text-[32px] font-bold font-space-grotesk text-slate-900 mb-2">
-                    Next Pro
+                    Next <span className="text-[#004DFF]">Pro</span>
                   </h3>
                   <p className="text-slate-400 text-sm mb-12">É tudo em um.</p>
 
