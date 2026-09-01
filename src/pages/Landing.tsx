@@ -1417,118 +1417,111 @@ function HeroChatCard() {
   const suggestions = remaining.length ? remaining.slice(0, 2) : [];
 
   return (
-    <div className="hero-reveal-right hero-d3 w-full max-w-[320px] self-end ml-auto relative">
-      {/* Moldura Motorola Edge 60 style (Edge-to-edge curved screen) */}
-      <div className="absolute inset-0 z-20 pointer-events-none rounded-[40px] ring-[4px] ring-slate-950 shadow-[0_0_0_1px_rgba(255,255,255,0.1)_inset,0_20px_50px_-12px_rgba(0,0,0,0.5)]">
-        {/* Camera Hole-punch (Centered) */}
-        <div className="absolute top-4 left-1/2 -translate-x-1/2 w-3.5 h-3.5 bg-slate-900 rounded-full border border-white/5 flex items-center justify-center">
-          <div className="w-1 h-1 bg-blue-500/20 rounded-full blur-[0.5px]" />
-        </div>
-        
-        {/* Curved Side Highlights */}
-        <div className="absolute inset-y-8 left-0 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent" />
-        <div className="absolute inset-y-8 right-0 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent" />
-        
-        {/* Motorola Style Buttons (Thin and flush) */}
-        <div className="absolute -right-[4px] top-32 w-[2px] h-12 bg-slate-800 rounded-r-sm" />
-        <div className="absolute -right-[4px] top-48 w-[2px] h-20 bg-slate-800 rounded-r-sm" />
-      </div>
-
-      <div className="flex h-[clamp(500px,65vh,600px)] flex-col rounded-[36px] bg-white overflow-hidden shadow-2xl relative border border-slate-200">
-        {/* Background Image (WhatsApp style) */}
-        <div 
-          className="absolute inset-0 opacity-[0.25] pointer-events-none"
-          style={{ 
-            backgroundImage: `url(${whatsappBg.url})`,
-            backgroundSize: '400px',
-            backgroundColor: '#f4f1ec'
-          }}
-        />
-        
-        <div className="relative z-10 flex items-center justify-between border-b border-slate-200/50 bg-white/80 backdrop-blur-md px-6 pb-3 pt-6">
-          <div className="flex items-center gap-3">
-            <div className="relative">
-              <img 
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150&h=150" 
-                alt="Amor" 
-                className="h-8 w-8 rounded-full object-cover border border-slate-100 shadow-sm"
-              />
-              <span className="absolute bottom-0.5 right-0.5 h-2 w-2 rounded-full border-2 border-white bg-emerald-500" />
-            </div>
-            <div>
-              <p className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
-                Aurora IA <span className="text-red-500"></span>
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-4 text-slate-400">
-            <Video className="h-[18px] w-[18px] cursor-pointer hover:text-[#004DFF] transition-colors" />
-            <Phone className="h-[18px] w-[18px] cursor-pointer hover:text-[#004DFF] transition-colors" />
-            <MoreVertical className="h-[18px] w-[18px] cursor-pointer hover:text-[#004DFF] transition-colors" />
-          </div>
+    <div className="hero-reveal-right hero-d3 w-full max-w-[260px] sm:max-w-[280px] self-end ml-auto relative">
+      {/* Moldura de celular (mesma dos outros mockups) */}
+      <div className="relative aspect-[9/18.5] w-full rounded-[34px] border-[5px] border-black bg-black shadow-2xl">
+        {/* Botões laterais */}
+        <div className="absolute -left-[8px] top-[76px] h-9 w-[3px] rounded-l-sm bg-black" aria-hidden="true" />
+        <div className="absolute -left-[8px] top-[122px] h-14 w-[3px] rounded-l-sm bg-black" aria-hidden="true" />
+        <div className="absolute -right-[8px] top-[104px] h-20 w-[3px] rounded-r-sm bg-black" aria-hidden="true" />
+        {/* Câmera frontal */}
+        <div className="absolute left-1/2 top-[7px] z-50 h-[11px] w-[11px] -translate-x-1/2 rounded-full border-2 border-slate-600 bg-black shadow-sm" aria-hidden="true">
+          <div className="absolute inset-[2px] rounded-full bg-slate-700" />
         </div>
 
-
-        <div ref={scrollRef} className="relative z-10 mt-6 px-6 flex-1 space-y-4 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200">
-          {messages.map((m, i) => (
-            <div key={i} className={m.from === "user" ? "flex justify-end" : "flex justify-start"}>
-              <div
-                className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm shadow-sm transition-all duration-300 ${
-                  m.from === "user"
-                    ? "rounded-tr-sm bg-[#004DFF] text-white"
-                    : "rounded-tl-sm bg-slate-100 text-slate-800 border border-slate-200/50"
-                }`}
-              >
-                {m.text}
-              </div>
-            </div>
-          ))}
-          {typing && (
-            <div className="flex justify-start">
-              <div className="flex items-center gap-1.5 rounded-2xl rounded-tl-sm bg-slate-100 border border-slate-200/50 px-4 py-3">
-                {[0, 1, 2].map((d) => (
-                  <span
-                    key={d}
-                    className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#004DFF]/40"
-                    style={{ animationDelay: `${d * 0.15}s` }}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-
-
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            sendFree();
-          }}
-          className="relative z-10 mt-3 mx-4 mb-6 flex items-center gap-3 rounded-full bg-white shadow-sm border border-slate-200 px-4 py-3"
-        >
-          <button type="button" onClick={() => setDraft((d) => d + " ")} className="text-slate-500 transition hover:text-[#004DFF]" aria-label="Anexar">
-            <Plus className="h-5 w-5" />
-          </button>
-          <button type="button" onClick={() => setDraft((d) => d + "😊")} className="text-slate-500 transition hover:text-[#004DFF]" aria-label="Emoji">
-            <Smile className="h-5 w-5" />
-          </button>
-          <input
-            value={draft}
-            onChange={(e) => setDraft(e.target.value)}
-            placeholder="Digite uma mensagem"
-            className="flex-1 bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400"
+        <div className="absolute inset-0 overflow-hidden rounded-[28px] bg-white flex flex-col">
+          {/* Background Image (WhatsApp style) */}
+          <div 
+            className="absolute inset-0 opacity-[0.25] pointer-events-none"
+            style={{ 
+              backgroundImage: `url(${whatsappBg.url})`,
+              backgroundSize: '400px',
+              backgroundColor: '#f4f1ec'
+            }}
           />
-          {draft.trim() ? (
-            <button type="submit" disabled={typing} className="text-[#004DFF] disabled:opacity-50" aria-label="Enviar">
-              <ArrowRight className="h-5 w-5" />
-            </button>
-          ) : (
-            <span className="text-slate-500" aria-hidden>
-              <Mic className="h-5 w-5" />
-            </span>
-          )}
-        </form>
 
+          <div className="relative z-10 flex items-center justify-between border-b border-slate-200/50 bg-white/80 backdrop-blur-md px-4 pb-2 pt-5">
+            <div className="flex items-center gap-2.5">
+              <div className="relative">
+                <img 
+                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150&h=150" 
+                  alt="Amor" 
+                  className="h-7 w-7 rounded-full object-cover border border-slate-100 shadow-sm"
+                />
+                <span className="absolute bottom-0.5 right-0.5 h-1.5 w-1.5 rounded-full border-2 border-white bg-emerald-500" />
+              </div>
+              <div>
+                <p className="font-bold text-slate-900 text-xs flex items-center gap-1">
+                  Aurora IA
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 text-slate-400">
+              <Video className="h-4 w-4 cursor-pointer hover:text-[#004DFF] transition-colors" />
+              <Phone className="h-4 w-4 cursor-pointer hover:text-[#004DFF] transition-colors" />
+              <MoreVertical className="h-4 w-4 cursor-pointer hover:text-[#004DFF] transition-colors" />
+            </div>
+          </div>
+
+          <div ref={scrollRef} className="relative z-10 mt-4 px-4 flex-1 space-y-3 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200">
+            {messages.map((m, i) => (
+              <div key={i} className={m.from === "user" ? "flex justify-end" : "flex justify-start"}>
+                <div
+                  className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-xs shadow-sm transition-all duration-300 ${
+                    m.from === "user"
+                      ? "rounded-tr-sm bg-[#004DFF] text-white"
+                      : "rounded-tl-sm bg-slate-100 text-slate-800 border border-slate-200/50"
+                  }`}
+                >
+                  {m.text}
+                </div>
+              </div>
+            ))}
+            {typing && (
+              <div className="flex justify-start">
+                <div className="flex items-center gap-1.5 rounded-2xl rounded-tl-sm bg-slate-100 border border-slate-200/50 px-3.5 py-2.5">
+                  {[0, 1, 2].map((d) => (
+                    <span
+                      key={d}
+                      className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#004DFF]/40"
+                      style={{ animationDelay: `${d * 0.15}s` }}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              sendFree();
+            }}
+            className="relative z-10 mt-2 mx-3 mb-4 flex items-center gap-2 rounded-full bg-white shadow-sm border border-slate-200 px-3 py-2"
+          >
+            <button type="button" onClick={() => setDraft((d) => d + " ")} className="text-slate-500 transition hover:text-[#004DFF]" aria-label="Anexar">
+              <Plus className="h-4 w-4" />
+            </button>
+            <button type="button" onClick={() => setDraft((d) => d + "😊")} className="text-slate-500 transition hover:text-[#004DFF]" aria-label="Emoji">
+              <Smile className="h-4 w-4" />
+            </button>
+            <input
+              value={draft}
+              onChange={(e) => setDraft(e.target.value)}
+              placeholder="Digite uma mensagem"
+              className="flex-1 bg-transparent text-xs text-slate-700 outline-none placeholder:text-slate-400"
+            />
+            {draft.trim() ? (
+              <button type="submit" disabled={typing} className="text-[#004DFF] disabled:opacity-50" aria-label="Enviar">
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            ) : (
+              <span className="text-slate-500" aria-hidden>
+                <Mic className="h-4 w-4" />
+              </span>
+            )}
+          </form>
+        </div>
       </div>
     </div>
   );
