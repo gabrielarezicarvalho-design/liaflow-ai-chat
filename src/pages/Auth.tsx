@@ -119,7 +119,7 @@ const Auth = () => {
 
 
   return (
-    <div className="h-screen flex overflow-hidden bg-white">
+    <div className="h-screen flex overflow-hidden bg-white font-space-grotesk">
       {/* Left Side - Stats & Features */}
       <motion.div 
         initial={{ x: -100, opacity: 0 }}
