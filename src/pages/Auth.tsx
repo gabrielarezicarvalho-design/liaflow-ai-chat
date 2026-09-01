@@ -347,8 +347,8 @@ const Auth = () => {
             <div className="text-center text-sm text-slate-500 mt-6 space-y-1">
               <p>Problemas para acessar? Entre em contato:</p>
               <div className="flex items-center justify-center gap-3 flex-wrap">
-                <a href="mailto:contato@nextpro.com.br" className="text-primary hover:underline transition-colors">
-                  contato@nextpro.com.br
+                <a href="mailto:suporte@nextprodev.com.br" className="text-primary hover:underline transition-colors">
+                  suporte@nextprodev.com.br
                 </a>
                 <span className="text-slate-600">•</span>
                 <a href="https://wa.me/5551992226536" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline transition-colors">
