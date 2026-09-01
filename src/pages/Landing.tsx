@@ -47,6 +47,7 @@ import { OnboardingSteps } from "@/components/landing/OnboardingSteps";
 import { KanbanMockup } from "@/components/landing/KanbanMockup";
 import ConversionBars from "@/components/landing/ConversionBars";
 import { CountUp } from "@/components/landing/CountUp";
+import { MobileNav } from "@/components/layout/MobileNav";
 
 
 

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import SectionLink from "@/components/layout/SectionLink";
+import { MobileNav } from "@/components/layout/MobileNav";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import logoAurora from "@/assets/logo-aurora.png.asset.json";
