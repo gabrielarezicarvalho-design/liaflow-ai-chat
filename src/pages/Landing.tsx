@@ -47,6 +47,7 @@ import { OnboardingSteps } from "@/components/landing/OnboardingSteps";
 import { KanbanMockup } from "@/components/landing/KanbanMockup";
 import ConversionBars from "@/components/landing/ConversionBars";
 import { CountUp } from "@/components/landing/CountUp";
+import { MobileNav } from "@/components/layout/MobileNav";
 
 
 
@@ -1663,6 +1664,10 @@ export default function Landing() {
                 Começar grátis <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
+          </div>
+
+          <div className="flex items-center lg:hidden">
+            <MobileNav />
           </div>
         </div>
       </header>

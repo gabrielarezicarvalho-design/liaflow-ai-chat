@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import SectionLink from "@/components/layout/SectionLink";
+import { MobileNav } from "@/components/layout/MobileNav";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import logoAurora from "@/assets/logo-aurora.png.asset.json";
@@ -172,6 +173,10 @@ const LandingNav = () => {
               Começar grátis <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </Link>
+        </div>
+
+        <div className="flex items-center lg:hidden">
+          <MobileNav />
         </div>
       </div>
     </header>
