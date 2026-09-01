@@ -32,7 +32,7 @@ export function MobileNav({ items = defaultItems }: { items?: MobileNavItem[] })
           <Menu className="h-6 w-6" />
         </button>
       </SheetTrigger>
-      <SheetContent side="right" className="w-full max-w-sm border-l border-white/10 bg-[#0a0a0a] p-0 font-space-grotesk text-slate-100">
+      <SheetContent side="right" className="w-full max-w-sm border-l border-white/10 bg-[#0a0a0a] p-0 font-space-grotesk text-slate-100 [&>button]:hidden">
         <div className="flex h-full flex-col">
           <div className="flex h-16 items-center justify-between border-b border-white/10 px-6">
             <Link
