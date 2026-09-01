@@ -1666,7 +1666,7 @@ export default function Landing() {
             </Link>
           </div>
 
-          <div className="flex items-center md:hidden">
+          <div className="flex items-center lg:hidden">
             <MobileNav />
           </div>
         </div>
