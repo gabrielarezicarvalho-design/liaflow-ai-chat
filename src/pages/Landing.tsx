@@ -1665,6 +1665,10 @@ export default function Landing() {
               </Button>
             </Link>
           </div>
+
+          <div className="flex items-center md:hidden">
+            <MobileNav />
+          </div>
         </div>
       </header>
 
