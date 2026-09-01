@@ -132,52 +132,94 @@ function FeaturesPopover({ label = "Funcionalidades" }: { label?: string }) {
       <PopoverContent
         align="start"
         sideOffset={12}
-        className="w-[900px] max-w-[95vw] overflow-hidden border border-slate-200 bg-white p-0 text-slate-900 shadow-2xl shadow-slate-900/10"
+        className="w-[980px] max-w-[95vw] overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a] p-0 font-space-grotesk text-slate-100 shadow-2xl shadow-black/60"
       >
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          {/* Grid de funcionalidades */}
-          <div className="grid grid-cols-2 gap-3 p-5">
-            {FEATURES.map((feature) => (
-              <a
-                key={feature.title}
-                href={feature.href}
-                className="group flex flex-col gap-2 rounded-xl bg-slate-50 p-3 transition-all hover:bg-white hover:ring-1 hover:ring-slate-200"
-              >
-                <div className="flex items-center gap-2.5">
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-[#004DFF] ring-1 ring-slate-200 transition-colors group-hover:bg-slate-50 group-hover:ring-[#004DFF]/30">
-                    <feature.icon className="h-4 w-4" />
+        <div className="flex flex-col md:flex-row">
+          {/* Main navigation area */}
+          <div className="flex-1 p-8">
+            <div className="mb-8 flex items-center justify-between">
+              <h2 className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-white/40">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#004DFF]" />
+                Soluções em Inteligência
+              </h2>
+              <div className="ml-4 h-px flex-1 bg-gradient-to-r from-white/10 to-transparent" />
+            </div>
+
+            <div className="grid grid-cols-1 gap-x-10 gap-y-7 sm:grid-cols-2">
+              {FEATURES.map((feature) => (
+                <a
+                  key={feature.title}
+                  href={feature.href}
+                  className="group flex items-start gap-4 rounded-xl p-2 -m-2 transition-colors hover:bg-white/5"
+                >
+                  <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-white/5 bg-white/5 text-white/60 transition-colors group-hover:border-[#004DFF]/30 group-hover:bg-[#004DFF]/10 group-hover:text-[#004DFF]">
+                    <feature.icon className="h-5 w-5" />
                   </div>
-                  <div className="flex flex-col">
+                  <div>
                     <div className="flex items-center gap-1.5">
-                      <span className="text-sm font-semibold text-slate-900">{feature.title}</span>
+                      <span className="text-[15px] font-semibold text-white/90 transition-colors group-hover:text-white">
+                        {feature.title}
+                      </span>
                       {feature.badge && (
-                        <span className="rounded-full bg-[#004DFF]/10 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#004DFF]">
+                        <span className="rounded bg-[#004DFF]/20 px-1 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#004DFF]">
                           {feature.badge}
                         </span>
                       )}
                     </div>
+                    <p className="mt-1 text-sm leading-relaxed text-white/40">{feature.description}</p>
                   </div>
-                </div>
-                <p className="text-[11px] leading-snug text-slate-500">{feature.description}</p>
+                </a>
+              ))}
+            </div>
+
+            <div className="mt-10 flex items-center gap-6">
+              <a
+                href="#recursos"
+                className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#004DFF] transition-colors hover:text-[#0036b3]"
+              >
+                Ver todos os recursos
+                <ArrowRight className="h-3.5 w-3.5" />
               </a>
-            ))}
+            </div>
           </div>
 
-          {/* Destaque lateral */}
-          <div className="relative flex flex-col justify-between overflow-hidden bg-gradient-to-br from-[#f0f4ff] to-white p-5">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,77,255,0.08),transparent_60%)]" />
+          {/* Highlighted side panel */}
+          <div className="relative flex w-full flex-col overflow-hidden border-t border-white/10 bg-white/[0.02] p-8 md:w-[360px] md:border-t-0 md:border-l">
+            <div className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-[#004DFF]/20 blur-[100px]" />
+
             <div className="relative z-10">
-              <div className="mb-3 flex items-center gap-2">
-                <Sparkles className="h-4 w-4 text-[#004DFF]" />
-                <span className="text-xs font-bold uppercase tracking-wider text-[#004DFF]">NOVIDADE</span>
-              </div>
-              <h3 className="mb-2 text-lg font-bold text-slate-900">Voz clonada com IA chegou.</h3>
-              <p className="text-xs leading-relaxed text-slate-600">
+              <span className="inline-flex items-center rounded border border-[#004DFF]/30 bg-[#004DFF]/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-[#4d8aff]">
+                <Sparkles className="mr-1 h-3 w-3" />
+                Novidade
+              </span>
+              <h3 className="mt-4 text-2xl font-bold leading-tight text-white">Voz clonada com IA chegou.</h3>
+              <p className="mt-4 leading-relaxed text-white/50">
                 Gere áudios com a sua voz clonada pelo ElevenLabs e envie respostas de áudio para seus clientes no WhatsApp automaticamente.
               </p>
+
+              <div className="mt-8 rounded-xl border border-white/10 bg-white/5 p-4">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-tr from-[#004DFF] to-[#7b61ff]">
+                    <Volume2 className="h-5 w-5 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                      <div className="h-full w-2/3 rounded-full bg-[#004DFF]" />
+                    </div>
+                    <div className="mt-2 flex justify-between">
+                      <span className="text-[10px] uppercase tracking-wider text-white/40">Naturalidade</span>
+                      <span className="text-[10px] font-semibold text-[#004DFF]">98.4%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <a href="#ia" className="relative z-10 mt-4 inline-flex items-center gap-2 text-xs font-semibold text-[#004DFF] transition-opacity hover:opacity-80">
-              Ver como funciona <ArrowRight className="h-3.5 w-3.5" />
+
+            <a
+              href="#ia"
+              className="relative z-10 mt-8 inline-flex w-full items-center justify-center rounded-xl bg-white py-3 text-sm font-bold text-[#0a0a0a] transition-colors hover:bg-slate-200"
+            >
+              Ver como funciona
             </a>
           </div>
         </div>
