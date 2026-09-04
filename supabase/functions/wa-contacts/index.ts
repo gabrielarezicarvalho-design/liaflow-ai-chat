@@ -189,6 +189,7 @@ serve(async (req) => {
         seen.add(p);
         rows.push({
           user_id: ownerId,
+          company_id: companyId,
           phone: p,
           name: contactName(contact),
           source: "WhatsApp Sync",
