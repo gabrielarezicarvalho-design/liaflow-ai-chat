@@ -577,8 +577,7 @@ const Contacts = () => {
                         );
                       })}
                     </>
-                  );
-                })}
+                ))}
               </TableBody>
             </Table>
           </div>
