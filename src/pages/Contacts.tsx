@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -86,17 +86,40 @@ const Contacts = () => {
   
   const activeConnection = connections.find(c => c.status === 'connected');
 
-  const filteredLeads = leads.filter((lead) =>
-    lead.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    lead.phone?.includes(searchTerm) ||
-    lead.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (lead.tags && lead.tags.some((tag: string) => tag.toLowerCase().includes(searchTerm.toLowerCase())))
-  );
+  const filteredLeads = leads
+    .filter((lead) =>
+      lead.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      lead.phone?.includes(searchTerm) ||
+      lead.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (lead.tags && lead.tags.some((tag: string) => tag.toLowerCase().includes(searchTerm.toLowerCase())))
+    )
+    .sort((a, b) => {
+      const nameA = (a.name || "").toLowerCase().trim();
+      const nameB = (b.name || "").toLowerCase().trim();
+      return nameA.localeCompare(nameB, "pt-BR");
+    });
 
   // Pagination
   const totalPages = Math.ceil(filteredLeads.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedLeads = filteredLeads.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+  // Group paginated contacts by first letter
+  const getLetter = (name: string) => {
+    const firstChar = (name || "#").trim().charAt(0).toUpperCase();
+    return /^[A-Z]$/i.test(firstChar) ? firstChar : "#";
+  };
+
+  const paginatedGroups = paginatedLeads.reduce((acc, lead) => {
+    const letter = getLetter(lead.name);
+    if (!acc[letter]) acc[letter] = [];
+    acc[letter].push(lead);
+    return acc;
+  }, {} as Record<string, typeof paginatedLeads>);
+
+  const sortedLetters = Object.keys(paginatedGroups).sort((a, b) =>
+    a === "#" ? 1 : b === "#" ? -1 : a.localeCompare(b, "pt-BR")
+  );
 
   const handleSyncFromWhatsApp = async () => {
     if (!activeConnection) {
@@ -429,114 +452,131 @@ const Contacts = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {paginatedLeads.map((lead, index) => (
-                  <TableRow key={lead.id}>
-                    <TableCell className="font-medium text-muted-foreground">
-                      {startIndex + index + 1}
-                    </TableCell>
-                    <TableCell className="font-medium max-w-[180px] truncate">
-                      {lead.name}
-                    </TableCell>
-                    <TableCell className="text-muted-foreground">
-                      {lead.phone}
-                    </TableCell>
-                    <TableCell className="text-muted-foreground max-w-[150px] truncate">
-                      {lead.email || "-"}
-                    </TableCell>
-                    <TableCell>
-                      <Popover 
-                        open={tagPopoverOpen === lead.id} 
-                        onOpenChange={(open) => setTagPopoverOpen(open ? lead.id : null)}
-                      >
-                        <PopoverTrigger asChild>
-                          <Button 
-                            variant="ghost" 
-                            size="sm" 
-                            className="h-auto p-1 min-w-[80px] justify-start"
-                          >
-                            {lead.tags && lead.tags.length > 0 ? (
-                              <div className="flex flex-wrap gap-1">
-                                {lead.tags.slice(0, 2).map((tag: string, idx: number) => (
-                                  <Badge key={idx} variant="outline" className="text-xs">
-                                    {tag}
-                                  </Badge>
-                                ))}
-                                {lead.tags.length > 2 && (
-                                  <Badge variant="secondary" className="text-xs">
-                                    +{lead.tags.length - 2}
-                                  </Badge>
-                                )}
-                              </div>
-                            ) : (
-                              <span className="text-muted-foreground text-sm flex items-center gap-1">
-                                <Tag className="w-3 h-3" />
-                                Adicionar
-                              </span>
-                            )}
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-56 p-2" align="start">
-                          <div className="space-y-1">
-                            <p className="text-sm font-medium px-2 py-1">Etiquetas</p>
-                            {availableTags.length === 0 ? (
-                              <p className="text-sm text-muted-foreground px-2 py-2">
-                                Nenhuma etiqueta disponível. Crie etiquetas em Segmentação.
-                              </p>
-                            ) : (
-                              availableTags.map((tag: any) => {
-                                const isSelected = lead.tags?.includes(tag.name);
-                                const isLoading = applyingTag === `${lead.id}-${tag.name}`;
-                                
-                                return (
-                                  <div
-                                    key={tag.id}
-                                    className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-accent cursor-pointer"
-                                    onClick={() => !isLoading && handleToggleTag(lead, tag.name)}
+                {sortedLetters.map((letter) => (
+                  <Fragment key={`letter-${letter}`}>
+                    <TableRow className="bg-muted/50 hover:bg-muted/50">
+                      <TableCell colSpan={7} className="py-2 px-4">
+                        <div className="flex items-center gap-3">
+                          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-background border border-border text-sm font-bold text-foreground shadow-sm">
+                            {letter}
+                          </span>
+                          <div className="h-px flex-1 bg-border" />
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                    {paginatedGroups[letter].map((lead) => {
+                        const globalIndex = filteredLeads.indexOf(lead);
+                        return (
+                          <TableRow key={lead.id}>
+                            <TableCell className="font-medium text-muted-foreground">
+                              {globalIndex + 1}
+                            </TableCell>
+                            <TableCell className="font-medium max-w-[180px] truncate">
+                              {lead.name}
+                            </TableCell>
+                            <TableCell className="text-muted-foreground">
+                              {lead.phone}
+                            </TableCell>
+                            <TableCell className="text-muted-foreground max-w-[150px] truncate">
+                              {lead.email || "-"}
+                            </TableCell>
+                            <TableCell>
+                              <Popover 
+                                open={tagPopoverOpen === lead.id} 
+                                onOpenChange={(open) => setTagPopoverOpen(open ? lead.id : null)}
+                              >
+                                <PopoverTrigger asChild>
+                                  <Button 
+                                    variant="ghost" 
+                                    size="sm" 
+                                    className="h-auto p-1 min-w-[80px] justify-start"
                                   >
-                                    {isLoading ? (
-                                      <Loader2 className="w-4 h-4 animate-spin" />
+                                    {lead.tags && lead.tags.length > 0 ? (
+                                      <div className="flex flex-wrap gap-1">
+                                        {lead.tags.slice(0, 2).map((tag: string, idx: number) => (
+                                          <Badge key={idx} variant="outline" className="text-xs">
+                                            {tag}
+                                          </Badge>
+                                        ))}
+                                        {lead.tags.length > 2 && (
+                                          <Badge variant="secondary" className="text-xs">
+                                            +{lead.tags.length - 2}
+                                          </Badge>
+                                        )}
+                                      </div>
                                     ) : (
-                                      <Checkbox checked={isSelected} />
+                                      <span className="text-muted-foreground text-sm flex items-center gap-1">
+                                        <Tag className="w-3 h-3" />
+                                        Adicionar
+                                      </span>
                                     )}
-                                    <div 
-                                      className="w-3 h-3 rounded-full" 
-                                      style={{ backgroundColor: tag.color || '#6b7280' }}
-                                    />
-                                    <span className="text-sm flex-1">{tag.name}</span>
+                                  </Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-56 p-2" align="start">
+                                  <div className="space-y-1">
+                                    <p className="text-sm font-medium px-2 py-1">Etiquetas</p>
+                                    {availableTags.length === 0 ? (
+                                      <p className="text-sm text-muted-foreground px-2 py-2">
+                                        Nenhuma etiqueta disponível. Crie etiquetas em Segmentação.
+                                      </p>
+                                    ) : (
+                                      availableTags.map((tag: any) => {
+                                        const isSelected = lead.tags?.includes(tag.name);
+                                        const isLoading = applyingTag === `${lead.id}-${tag.name}`;
+                                        
+                                        return (
+                                          <div
+                                            key={tag.id}
+                                            className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-accent cursor-pointer"
+                                            onClick={() => !isLoading && handleToggleTag(lead, tag.name)}
+                                          >
+                                            {isLoading ? (
+                                              <Loader2 className="w-4 h-4 animate-spin" />
+                                            ) : (
+                                              <Checkbox checked={isSelected} />
+                                            )}
+                                            <div 
+                                              className="w-3 h-3 rounded-full" 
+                                              style={{ backgroundColor: tag.color || '#6b7280' }}
+                                            />
+                                            <span className="text-sm flex-1">{tag.name}</span>
+                                          </div>
+                                        );
+                                      })
+                                    )}
                                   </div>
-                                );
-                              })
-                            )}
-                          </div>
-                        </PopoverContent>
-                      </Popover>
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant="secondary" className="text-xs">
-                        {lead.source || 'Manual'}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <div className="flex gap-1 justify-end">
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="h-8 w-8"
-                          onClick={() => handleOpenDialog(lead)}
-                        >
-                          <Pencil className="w-4 h-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="h-8 w-8 text-destructive hover:text-destructive"
-                          onClick={() => handleDelete(lead.id)}
-                        >
-                          <X className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
+                                </PopoverContent>
+                              </Popover>
+                            </TableCell>
+                            <TableCell>
+                              <Badge variant="secondary" className="text-xs">
+                                {lead.source || 'Manual'}
+                              </Badge>
+                            </TableCell>
+                            <TableCell className="text-right">
+                              <div className="flex gap-1 justify-end">
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="h-8 w-8"
+                                  onClick={() => handleOpenDialog(lead)}
+                                >
+                                  <Pencil className="w-4 h-4" />
+                                </Button>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="h-8 w-8 text-destructive hover:text-destructive"
+                                  onClick={() => handleDelete(lead.id)}
+                                >
+                                  <X className="w-4 h-4" />
+                                </Button>
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                  </Fragment>
                 ))}
               </TableBody>
             </Table>
