@@ -19,16 +19,25 @@ export const EVOLUTION_EVENTS = [
   "CALL",
 ];
 
-export function normalizeEvolutionBaseUrl(value?: string | null): string | null {
-  const raw = (value ?? Deno.env.get("EVOLUTION_BASE_URL") ?? "").trim();
-  if (!raw) return null;
+function parseBaseUrl(raw: string): string | null {
+  let t = raw.trim();
+  if (!t || t.includes("PLACEHOLDER_VALUE_TO_BE_REPLACED")) return null;
+  if (!/^https?:\/\//i.test(t)) t = `https://${t}`;
   try {
-    const u = new URL(raw);
+    const u = new URL(t);
     if (!["http:", "https:"].includes(u.protocol)) return null;
     return u.toString().replace(/\/+$/, "");
   } catch {
     return null;
   }
+}
+
+export function normalizeEvolutionBaseUrl(value?: string | null): string | null {
+  // Tenta o valor recebido; se vazio/inválido, cai para o secret EVOLUTION_BASE_URL.
+  return (
+    parseBaseUrl(String(value ?? "")) ??
+    parseBaseUrl(Deno.env.get("EVOLUTION_BASE_URL") ?? "")
+  );
 }
 
 export function getEvolutionApiKey(): string | null {
