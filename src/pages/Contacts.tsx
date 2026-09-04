@@ -576,7 +576,7 @@ const Contacts = () => {
                           </TableRow>
                         );
                       })}
-                    </>
+                  </Fragment>
                 ))}
               </TableBody>
             </Table>
