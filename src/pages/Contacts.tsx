@@ -452,32 +452,19 @@ const Contacts = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {sortedLetters.map((letter) => {
-                  const letterLeads = groupedLeads[letter].slice(
-                    Math.max(0, startIndex - filteredLeads.findIndex((l) => groupedLeads[letter].includes(l))),
-                    Math.max(0, startIndex + ITEMS_PER_PAGE - filteredLeads.findIndex((l) => groupedLeads[letter].includes(l)))
-                  );
-                  
-                  const groupStartIndex = filteredLeads.findIndex((l) => groupedLeads[letter].includes(l));
-                  const pageStartInGroup = Math.max(0, startIndex - groupStartIndex);
-                  const pageEndInGroup = Math.max(0, startIndex + ITEMS_PER_PAGE - groupStartIndex);
-                  const visibleLeads = groupedLeads[letter].slice(pageStartInGroup, pageEndInGroup);
-                  
-                  if (visibleLeads.length === 0) return null;
-
-                  return (
-                    <>
-                      <TableRow key={`letter-${letter}`} className="bg-muted/50 hover:bg-muted/50">
-                        <TableCell colSpan={7} className="py-2 px-4">
-                          <div className="flex items-center gap-3">
-                            <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-background border border-border text-sm font-bold text-foreground shadow-sm">
-                              {letter}
-                            </span>
-                            <div className="h-px flex-1 bg-border" />
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                      {visibleLeads.map((lead) => {
+                {sortedLetters.map((letter) => (
+                  <>
+                    <TableRow key={`letter-${letter}`} className="bg-muted/50 hover:bg-muted/50">
+                      <TableCell colSpan={7} className="py-2 px-4">
+                        <div className="flex items-center gap-3">
+                          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-background border border-border text-sm font-bold text-foreground shadow-sm">
+                            {letter}
+                          </span>
+                          <div className="h-px flex-1 bg-border" />
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                    {paginatedGroups[letter].map((lead) => {
                         const globalIndex = filteredLeads.indexOf(lead);
                         return (
                           <TableRow key={lead.id}>
