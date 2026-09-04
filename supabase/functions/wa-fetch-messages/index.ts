@@ -78,15 +78,27 @@ serve(async (req) => {
     const creds = resolveEvolutionCreds(connection);
     if (!creds) return json({ error: "Conexão Evolution incompleta" }, 400);
 
+    const pickRecords = (d: any): any[] =>
+      Array.isArray(d) ? d : (d?.messages?.records || d?.messages || d?.records || d?.data || []);
+
     const remoteJid = `${conversation.contact_phone}@s.whatsapp.net`;
     const r = await evolutionFindMessages({ ...creds, remoteJid, limit: Number(limit) || 50 });
     if (!r.ok) {
       return json({ success: false, error: "Falha ao buscar mensagens", details: r.data });
     }
 
-    const raw: any[] = Array.isArray(r.data)
-      ? r.data
-      : (r.data?.messages?.records || r.data?.messages || r.data?.records || r.data?.data || []);
+    let raw: any[] = pickRecords(r.data);
+
+    // Newer Evolution versions address chats by @lid: retry using remoteJidAlt.
+    if (raw.length === 0) {
+      const alt = await evolutionFindMessages({
+        ...creds,
+        remoteJid,
+        limit: Number(limit) || 50,
+        byAlt: true,
+      });
+      if (alt.ok) raw = pickRecords(alt.data);
+    }
 
     if (!Array.isArray(raw) || raw.length === 0) {
       return json({ success: true, imported: 0, total: 0 });
