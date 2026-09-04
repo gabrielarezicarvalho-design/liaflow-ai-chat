@@ -109,7 +109,8 @@ serve(async (req) => {
 
     const raw: any[] = Array.isArray(r.data)
       ? r.data
-      : (r.data?.chats || r.data?.data || r.data?.response || []);
+      : (r.data?.records || r.data?.chats?.records || r.data?.chats || r.data?.data || r.data?.response || []);
+    console.log("findChats shape:", Array.isArray(r.data) ? `array(${r.data.length})` : JSON.stringify(r.data).slice(0, 600));
 
     const max = Number(limit) > 0 ? Number(limit) : 500;
 
