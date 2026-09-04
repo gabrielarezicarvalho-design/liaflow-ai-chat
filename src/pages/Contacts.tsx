@@ -453,8 +453,8 @@ const Contacts = () => {
               </TableHeader>
               <TableBody>
                 {sortedLetters.map((letter) => (
-                  <>
-                    <TableRow key={`letter-${letter}`} className="bg-muted/50 hover:bg-muted/50">
+                  <Fragment key={`letter-${letter}`}>
+                    <TableRow className="bg-muted/50 hover:bg-muted/50">
                       <TableCell colSpan={7} className="py-2 px-4">
                         <div className="flex items-center gap-3">
                           <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-background border border-border text-sm font-bold text-foreground shadow-sm">
