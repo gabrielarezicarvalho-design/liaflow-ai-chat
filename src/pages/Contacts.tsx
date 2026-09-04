@@ -94,21 +94,17 @@ const Contacts = () => {
       (lead.tags && lead.tags.some((tag: string) => tag.toLowerCase().includes(searchTerm.toLowerCase())))
     )
     .sort((a, b) => {
-      const nameA = (a.name || "").toLowerCase().trim();
-      const nameB = (b.name || "").toLowerCase().trim();
-      return nameA.localeCompare(nameB, "pt-BR");
+      const keyA = getNameSortKey(a.name);
+      const keyB = getNameSortKey(b.name);
+      // Contacts without a real name (symbols/emojis only) always go last
+      if (keyA.hasLetter !== keyB.hasLetter) return keyA.hasLetter ? -1 : 1;
+      return keyA.sortKey.localeCompare(keyB.sortKey, "pt-BR");
     });
 
   // Pagination
   const totalPages = Math.ceil(filteredLeads.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedLeads = filteredLeads.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-
-  // Group paginated contacts by first letter
-  const getLetter = (name: string) => {
-    const firstChar = (name || "#").trim().charAt(0).toUpperCase();
-    return /^[A-Z]$/i.test(firstChar) ? firstChar : "#";
-  };
 
   const paginatedGroups = paginatedLeads.reduce((acc, lead) => {
     const letter = getLetter(lead.name);
