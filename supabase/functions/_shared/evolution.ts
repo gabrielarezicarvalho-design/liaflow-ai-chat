@@ -465,3 +465,39 @@ export function normalizeEvolutionInstance(raw: any) {
     created: inst?.createdAt ?? inst?.created ?? null,
   };
 }
+
+// ---------- Chats / Messages sync ----------
+
+export async function evolutionFindChats(opts: {
+  baseUrl: string;
+  apiKey: string;
+  instanceName: string;
+}) {
+  return evoFetch(
+    opts.baseUrl,
+    `/chat/findChats/${encodeURIComponent(opts.instanceName)}`,
+    opts.apiKey,
+    { method: "POST", body: JSON.stringify({}) },
+  );
+}
+
+export async function evolutionFindMessages(opts: {
+  baseUrl: string;
+  apiKey: string;
+  instanceName: string;
+  remoteJid: string;
+  limit?: number;
+}) {
+  return evoFetch(
+    opts.baseUrl,
+    `/chat/findMessages/${encodeURIComponent(opts.instanceName)}`,
+    opts.apiKey,
+    {
+      method: "POST",
+      body: JSON.stringify({
+        where: { key: { remoteJid: opts.remoteJid } },
+        limit: opts.limit ?? 50,
+      }),
+    },
+  );
+}

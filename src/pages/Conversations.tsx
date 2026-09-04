@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { useConversations } from "@/hooks/useConversations";
+import { useConnections } from "@/hooks/useConnections";
 import { useMessages } from "@/hooks/useMessages";
 import { useAuth } from "@/hooks/useAuth";
 import { useCompanyId } from "@/hooks/useCompanyId";
@@ -31,7 +32,7 @@ import {
   GitBranch,
   ArrowRightLeft,
   Users,
-
+  RefreshCw,
 } from "lucide-react";
 import { formatDistanceToNow, format, isToday, isYesterday } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -43,7 +44,10 @@ import { MessageContent } from "@/components/conversations/MessageContent";
 import { EditContactDialog } from "@/components/conversations/EditContactDialog";
 
 const Conversations = () => {
-  const { conversations, isLoading, deleteConversation, updateConversation } = useConversations();
+  const { conversations, isLoading, deleteConversation, updateConversation, refetch } = useConversations();
+  const { connections } = useConnections();
+  const [syncingChats, setSyncingChats] = useState(false);
+  const historyFetchedRef = useRef<Set<string>>(new Set());
   const { user } = useAuth();
   const { companyId } = useCompanyId();
   const [searchTerm, setSearchTerm] = useState("");
@@ -159,6 +163,50 @@ const Conversations = () => {
     return () => viewport.removeEventListener("scroll", handler);
   }, [selectedConversationId, selectedConversation?.unread_count]);
 
+
+  // Importa todas as conversas do WhatsApp (Evolution) para a lateral
+  const handleSyncChats = async () => {
+    if (syncingChats) return;
+    const evoConnections = (connections || []).filter(
+      (c: any) => String(c.environment || "").toUpperCase() === "EVOLUTION" || c.is_active
+    );
+    if (evoConnections.length === 0) {
+      toast.error("Nenhuma conexão de WhatsApp encontrada");
+      return;
+    }
+    setSyncingChats(true);
+    try {
+      let imported = 0;
+      for (const conn of evoConnections) {
+        const { data, error } = await supabase.functions.invoke("wa-sync-chats", {
+          body: { connectionId: conn.id },
+        });
+        if (error) continue;
+        if ((data as any)?.success) imported += (data as any).imported || 0;
+      }
+      await refetch?.();
+      toast.success(
+        imported > 0
+          ? `${imported} conversa(s) importada(s) do WhatsApp`
+          : "Nenhuma conversa nova encontrada"
+      );
+    } catch (e) {
+      toast.error("Erro ao sincronizar conversas");
+    } finally {
+      setSyncingChats(false);
+    }
+  };
+
+  // Carrega o histórico da Evolution na primeira vez que a conversa é aberta
+  useEffect(() => {
+    if (!selectedConversationId || messagesLoading) return;
+    if (historyFetchedRef.current.has(selectedConversationId)) return;
+    if ((messages?.length ?? 0) > 0) return;
+    historyFetchedRef.current.add(selectedConversationId);
+    supabase.functions
+      .invoke("wa-fetch-messages", { body: { conversationId: selectedConversationId } })
+      .catch(() => {});
+  }, [selectedConversationId, messagesLoading, messages?.length]);
 
   const getInitials = (name: string | null) => {
     if (!name) return "??";
@@ -326,9 +374,22 @@ const Conversations = () => {
         {/* Header */}
         <div className="px-4 py-3 flex items-center justify-between border-b border-border">
           <h2 className="text-lg font-semibold text-foreground">Conversas</h2>
-          <Badge variant="secondary" className="text-xs">
-            {filteredConversations.length}
-          </Badge>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleSyncChats}
+              disabled={syncingChats}
+              title="Sincronizar conversas do WhatsApp"
+              className="h-8 px-2 text-xs gap-1.5"
+            >
+              <RefreshCw className={cn("w-3.5 h-3.5", syncingChats && "animate-spin")} />
+              <span className="hidden sm:inline">{syncingChats ? "Sincronizando..." : "Sincronizar"}</span>
+            </Button>
+            <Badge variant="secondary" className="text-xs">
+              {filteredConversations.length}
+            </Badge>
+          </div>
         </div>
 
         {/* Search */}
