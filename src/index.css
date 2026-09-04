@@ -131,6 +131,7 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: "Space Grotesk", sans-serif;
   }
 
   /* Thin blue scrollbar */
