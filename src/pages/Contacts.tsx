@@ -86,11 +86,30 @@ const Contacts = () => {
   
   const activeConnection = connections.find(c => c.status === 'connected');
 
-  const filteredLeads = leads.filter((lead) =>
-    lead.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    lead.phone?.includes(searchTerm) ||
-    lead.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (lead.tags && lead.tags.some((tag: string) => tag.toLowerCase().includes(searchTerm.toLowerCase())))
+  const filteredLeads = leads
+    .filter((lead) =>
+      lead.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      lead.phone?.includes(searchTerm) ||
+      lead.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (lead.tags && lead.tags.some((tag: string) => tag.toLowerCase().includes(searchTerm.toLowerCase())))
+    )
+    .sort((a, b) => {
+      const nameA = (a.name || "").toLowerCase().trim();
+      const nameB = (b.name || "").toLowerCase().trim();
+      return nameA.localeCompare(nameB, "pt-BR");
+    });
+
+  // Group by first letter
+  const groupedLeads = filteredLeads.reduce((acc, lead) => {
+    const firstChar = (lead.name || "#").trim().charAt(0).toUpperCase();
+    const letter = /^[A-Z]$/i.test(firstChar) ? firstChar : "#";
+    if (!acc[letter]) acc[letter] = [];
+    acc[letter].push(lead);
+    return acc;
+  }, {} as Record<string, typeof filteredLeads>);
+
+  const sortedLetters = Object.keys(groupedLeads).sort((a, b) =>
+    a === "#" ? 1 : b === "#" ? -1 : a.localeCompare(b, "pt-BR")
   );
 
   // Pagination
