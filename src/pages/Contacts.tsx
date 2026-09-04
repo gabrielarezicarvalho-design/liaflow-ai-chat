@@ -99,23 +99,27 @@ const Contacts = () => {
       return nameA.localeCompare(nameB, "pt-BR");
     });
 
-  // Group by first letter
-  const groupedLeads = filteredLeads.reduce((acc, lead) => {
-    const firstChar = (lead.name || "#").trim().charAt(0).toUpperCase();
-    const letter = /^[A-Z]$/i.test(firstChar) ? firstChar : "#";
-    if (!acc[letter]) acc[letter] = [];
-    acc[letter].push(lead);
-    return acc;
-  }, {} as Record<string, typeof filteredLeads>);
-
-  const sortedLetters = Object.keys(groupedLeads).sort((a, b) =>
-    a === "#" ? 1 : b === "#" ? -1 : a.localeCompare(b, "pt-BR")
-  );
-
   // Pagination
   const totalPages = Math.ceil(filteredLeads.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedLeads = filteredLeads.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+  // Group paginated contacts by first letter
+  const getLetter = (name: string) => {
+    const firstChar = (name || "#").trim().charAt(0).toUpperCase();
+    return /^[A-Z]$/i.test(firstChar) ? firstChar : "#";
+  };
+
+  const paginatedGroups = paginatedLeads.reduce((acc, lead) => {
+    const letter = getLetter(lead.name);
+    if (!acc[letter]) acc[letter] = [];
+    acc[letter].push(lead);
+    return acc;
+  }, {} as Record<string, typeof paginatedLeads>);
+
+  const sortedLetters = Object.keys(paginatedGroups).sort((a, b) =>
+    a === "#" ? 1 : b === "#" ? -1 : a.localeCompare(b, "pt-BR")
+  );
 
   const handleSyncFromWhatsApp = async () => {
     if (!activeConnection) {
