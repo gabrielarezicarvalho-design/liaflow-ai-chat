@@ -3729,6 +3729,21 @@ ${safeTelegramText}`;
       conversationData = existingConv;
     }
 
+    // Buscar foto de perfil do contato via Evolution API apenas quando necessário
+    // (conversa nova ou conversa existente sem foto)
+    let contactAvatar: string | null = payload?.chat?.imagePreview || null;
+    const needsAvatar = !conversationData || !conversationData.contact_avatar;
+    if (!contactAvatar && needsAvatar && isEvolutionConnection(connection)) {
+      const creds = resolveEvolutionCreds(connection);
+      if (creds) {
+        contactAvatar = await evolutionFetchProfilePictureUrl({
+          ...creds,
+          phone: cleanPhone,
+        });
+        if (contactAvatar) console.log("📸 Foto de perfil obtida via Evolution");
+      }
+    }
+
     // Flag para indicar se é uma conversa nova (para decidir se inicia fluxo)
     let isNewConversation = false;
     let conversationInQueue = false;
