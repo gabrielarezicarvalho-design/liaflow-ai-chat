@@ -124,7 +124,6 @@ serve(async (req) => {
     const raw: any[] = Array.isArray(r.data)
       ? r.data
       : (r.data?.records || r.data?.chats?.records || r.data?.chats || r.data?.data || r.data?.response || []);
-    console.log("findChats shape:", Array.isArray(r.data) ? `array(${r.data.length})` : JSON.stringify(r.data).slice(0, 600));
 
     const max = Number(limit) > 0 ? Number(limit) : 500;
 
@@ -152,13 +151,7 @@ serve(async (req) => {
       .slice(0, max);
 
     if (chats.length === 0) {
-      return json({
-        success: true,
-        imported: 0,
-        updated: 0,
-        total: 0,
-        debug: JSON.stringify(r.data).slice(0, 800),
-      });
+      return json({ success: true, imported: 0, updated: 0, total: 0 });
     }
 
     // Existing conversations for this connection
