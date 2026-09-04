@@ -3700,15 +3700,28 @@ ${safeTelegramText}`;
       console.log("⚠️ Número inválido (possível ID de Facebook/Instagram) - não criando lead:", cleanPhone);
     }
 
+    // Buscar foto de perfil do contato via Evolution API (quando aplicável)
+    let contactAvatar: string | null = payload?.chat?.imagePreview || null;
+    if (!contactAvatar && isEvolutionConnection(connection)) {
+      const creds = resolveEvolutionCreds(connection);
+      if (creds) {
+        contactAvatar = await evolutionFetchProfilePictureUrl({
+          ...creds,
+          phone: cleanPhone,
+        });
+        if (contactAvatar) console.log("📸 Foto de perfil obtida via Evolution");
+      }
+    }
+
     // Buscar conversa existente (qualquer status exceto 'closed')
     // Inclui flow_state, assigned_agent_id e status para verificar estado pendente e IA
     let conversationData = null;
-    
+
     // Se temos lead, buscar por lead_id
     if (leadData) {
       const { data: existingConv } = await supabase
         .from("conversations")
-        .select("id, status, department_id, assigned_to, attendance_type, flow_state")
+        .select("id, status, department_id, assigned_to, attendance_type, flow_state, contact_avatar")
         .eq("contact_phone", cleanPhone)
         .eq("connection_id", connectionId)
         .not("status", "eq", "closed")
@@ -3719,7 +3732,7 @@ ${safeTelegramText}`;
     } else {
       const { data: existingConv } = await supabase
         .from("conversations")
-        .select("id, status, department_id, assigned_to, attendance_type, flow_state")
+        .select("id, status, department_id, assigned_to, attendance_type, flow_state, contact_avatar")
         .eq("contact_phone", cleanPhone)
         .eq("connection_id", connectionId)
         .not("status", "eq", "closed")
@@ -3746,7 +3759,7 @@ ${safeTelegramText}`;
           connection_id: connectionId,
           contact_phone: cleanPhone,
           contact_name: contactName || cleanPhone,
-          contact_avatar: payload?.chat?.imagePreview || null,
+          contact_avatar: contactAvatar,
           status: "open",
           attendance_type: "ura",
           last_message: mensagem,
@@ -3773,14 +3786,18 @@ ${safeTelegramText}`;
       console.log(`   - Na fila: ${conversationInQueue}`);
       console.log(`   - Em atendimento: ${conversationInAttendance}`);
       
-      // Atualizar última mensagem
+      // Atualizar última mensagem (e foto de perfil se ainda não tiver)
+      const convUpdate: Record<string, unknown> = {
+        last_message: mensagem,
+        last_message_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
+      if (!conversationData.contact_avatar && contactAvatar) {
+        convUpdate.contact_avatar = contactAvatar;
+      }
       await supabase
         .from("conversations")
-        .update({ 
-          last_message: mensagem,
-          last_message_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        })
+        .update(convUpdate)
         .eq("id", conversationData.id);
     }
 
