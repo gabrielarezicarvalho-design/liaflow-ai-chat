@@ -8,7 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -467,6 +467,9 @@ const Conversations = () => {
                   )}
                 >
                   <Avatar className="h-11 w-11 shrink-0">
+                    {conv.contact_avatar && (
+                      <AvatarImage src={conv.contact_avatar} alt={conv.contact_name || "Contato"} />
+                    )}
                     <AvatarFallback className="bg-primary/10 text-primary text-sm font-medium">
                       {getInitials(conv.contact_name)}
                     </AvatarFallback>
@@ -530,6 +533,9 @@ const Conversations = () => {
               </Button>
 
               <Avatar className="h-10 w-10 shrink-0">
+                {selectedConversation.contact_avatar && (
+                  <AvatarImage src={selectedConversation.contact_avatar} alt={selectedConversation.contact_name || "Contato"} />
+                )}
                 <AvatarFallback className="bg-primary/10 text-primary text-sm font-medium">
                   {getInitials(selectedConversation.contact_name)}
                 </AvatarFallback>
