@@ -23,9 +23,10 @@ const isIndividualJid = (jid: string): boolean => {
   if (s.includes("@g.us")) return false;
   if (s.includes("@broadcast")) return false;
   if (s.includes("@newsletter")) return false;
-  if (s.includes("@lid")) return false;
   if (s.startsWith("status@")) return false;
-  return s.includes("@s.whatsapp.net") || s.includes("@c.us") || /^\d+$/.test(s);
+  return (
+    s.includes("@s.whatsapp.net") || s.includes("@c.us") || s.includes("@lid") || /^\d+$/.test(s)
+  );
 };
 
 const phoneFromJid = (jid: string) =>
@@ -37,7 +38,20 @@ const chatName = (chat: any, phone: string): string => {
 };
 
 const chatJid = (chat: any): string =>
-  chat?.remoteJid || chat?.id || chat?.key?.remoteJid || chat?.jid || "";
+  chat?.remoteJid || chat?.key?.remoteJid || chat?.jid || chat?.id || "";
+
+// Newer Evolution versions address chats by @lid; the real phone number lives
+// in remoteJidAlt on the last message.
+const realPhoneJid = (chat: any): string => {
+  const jid = chatJid(chat);
+  if (!String(jid).toLowerCase().includes("@lid")) return jid;
+  const alt =
+    chat?.lastMessage?.key?.remoteJidAlt ||
+    chat?.remoteJidAlt ||
+    chat?.lastMessage?.key?.participantAlt ||
+    "";
+  return alt || "";
+};
 
 const lastMessageText = (chat: any): string | null => {
   const m = chat?.lastMessage?.message || chat?.lastMsg?.message;
@@ -117,10 +131,11 @@ serve(async (req) => {
     // Dedupe by phone, keep most recent
     const byPhone = new Map<string, { phone: string; name: string; avatar: string | null; last: string | null; at: string | null }>();
     for (const chat of raw) {
-      const jid = chatJid(chat);
-      if (!isIndividualJid(jid)) continue;
+      if (!isIndividualJid(chatJid(chat))) continue;
+      const jid = realPhoneJid(chat);
+      if (!jid) continue;
       const phone = phoneFromJid(jid);
-      if (!phone || phone.length < 8) continue;
+      if (!phone || phone.length < 8 || phone.length > 15) continue;
       const entry = {
         phone,
         name: chatName(chat, phone),
