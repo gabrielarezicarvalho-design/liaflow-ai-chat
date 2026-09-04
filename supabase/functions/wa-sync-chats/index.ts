@@ -137,7 +137,13 @@ serve(async (req) => {
       .slice(0, max);
 
     if (chats.length === 0) {
-      return json({ success: true, imported: 0, updated: 0, total: 0 });
+      return json({
+        success: true,
+        imported: 0,
+        updated: 0,
+        total: 0,
+        debug: JSON.stringify(r.data).slice(0, 800),
+      });
     }
 
     // Existing conversations for this connection
