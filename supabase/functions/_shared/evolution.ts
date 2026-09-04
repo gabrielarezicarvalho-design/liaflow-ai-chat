@@ -487,17 +487,16 @@ export async function evolutionFindMessages(opts: {
   instanceName: string;
   remoteJid: string;
   limit?: number;
+  byAlt?: boolean;
 }) {
+  const key = opts.byAlt ? { remoteJidAlt: opts.remoteJid } : { remoteJid: opts.remoteJid };
   return evoFetch(
     opts.baseUrl,
     `/chat/findMessages/${encodeURIComponent(opts.instanceName)}`,
     opts.apiKey,
     {
       method: "POST",
-      body: JSON.stringify({
-        where: { key: { remoteJid: opts.remoteJid } },
-        limit: opts.limit ?? 50,
-      }),
+      body: JSON.stringify({ where: { key }, limit: opts.limit ?? 50 }),
     },
   );
 }
