@@ -411,6 +411,20 @@ export async function evolutionListInstances(opts: {
   });
 }
 
+// Logout (disconnect) an Evolution instance. Required before delete when connected.
+export async function evolutionLogoutInstance(opts: {
+  baseUrl: string;
+  apiKey: string;
+  instanceName: string;
+}) {
+  return evoFetch(
+    opts.baseUrl,
+    `/instance/logout/${encodeURIComponent(opts.instanceName)}`,
+    opts.apiKey,
+    { method: "DELETE" },
+  );
+}
+
 // Permanently delete an Evolution instance (admin operation).
 export async function evolutionDeleteInstance(opts: {
   baseUrl: string;

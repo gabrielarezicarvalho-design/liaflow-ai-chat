@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import {
   evolutionDeleteInstance,
+  evolutionLogoutInstance,
   getEvolutionApiKey,
   normalizeEvolutionBaseUrl,
 } from "../_shared/evolution.ts";
@@ -33,11 +34,27 @@ serve(async (req) => {
       if (!baseUrl || !apiKey) return json({ error: "Evolution não configurado" }, 400);
       if (!name) return json({ error: "instance_name obrigatório" }, 400);
 
-      const res = await evolutionDeleteInstance({
+      // Evolution recusa (400) deletar instâncias ainda conectadas: desconecta antes.
+      try {
+        await evolutionLogoutInstance({ baseUrl, apiKey, instanceName: String(name) });
+      } catch (_) { /* ignora: instância pode já estar desconectada */ }
+
+      let res = await evolutionDeleteInstance({
         baseUrl,
         apiKey,
         instanceName: String(name),
       });
+
+      // Retry curto: o Evolution pode levar um instante para liberar a instância.
+      if (!res.ok && res.status === 400) {
+        await new Promise((r) => setTimeout(r, 1500));
+        res = await evolutionDeleteInstance({
+          baseUrl,
+          apiKey,
+          instanceName: String(name),
+        });
+      }
+
       if (!res.ok) {
         const errMsg = JSON.stringify(res.data || {});
         const notFound =
