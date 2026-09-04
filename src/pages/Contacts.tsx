@@ -86,6 +86,20 @@ const Contacts = () => {
   
   const activeConnection = connections.find(c => c.status === 'connected');
 
+  // First letter of the name (A-Z), ignoring symbols/emojis/digits; "#" when there's no letter
+  const getLetter = (name?: string | null) => {
+    const match = (name || "").match(/[A-Za-zÀ-ÖØ-öø-ÿ]/);
+    return match ? match[0].toUpperCase() : "#";
+  };
+
+  // Sort key: real names (starting with/containing letters) first, symbol/emoji junk last
+  const getNameSortKey = (name?: string | null) => {
+    const cleaned = (name || "").normalize("NFC").trim();
+    const firstLetter = cleaned.match(/[A-Za-zÀ-ÖØ-öø-ÿ]/);
+    if (!firstLetter) return { hasLetter: false, sortKey: "" };
+    return { hasLetter: true, sortKey: cleaned.slice(firstLetter.index).toLowerCase() };
+  };
+
   const filteredLeads = leads
     .filter((lead) =>
       lead.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -94,21 +108,17 @@ const Contacts = () => {
       (lead.tags && lead.tags.some((tag: string) => tag.toLowerCase().includes(searchTerm.toLowerCase())))
     )
     .sort((a, b) => {
-      const nameA = (a.name || "").toLowerCase().trim();
-      const nameB = (b.name || "").toLowerCase().trim();
-      return nameA.localeCompare(nameB, "pt-BR");
+      const keyA = getNameSortKey(a.name);
+      const keyB = getNameSortKey(b.name);
+      // Contacts without a real name (symbols/emojis only) always go last
+      if (keyA.hasLetter !== keyB.hasLetter) return keyA.hasLetter ? -1 : 1;
+      return keyA.sortKey.localeCompare(keyB.sortKey, "pt-BR");
     });
 
   // Pagination
   const totalPages = Math.ceil(filteredLeads.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedLeads = filteredLeads.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-
-  // Group paginated contacts by first letter
-  const getLetter = (name: string) => {
-    const firstChar = (name || "#").trim().charAt(0).toUpperCase();
-    return /^[A-Z]$/i.test(firstChar) ? firstChar : "#";
-  };
 
   const paginatedGroups = paginatedLeads.reduce((acc, lead) => {
     const letter = getLetter(lead.name);
