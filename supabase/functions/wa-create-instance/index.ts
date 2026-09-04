@@ -83,11 +83,7 @@ serve(async (req) => {
     if (envUpper === "EVOLUTION") {
       const baseUrl = normalizeEvolutionBaseUrl();
       const apiKey = getEvolutionApiKey();
-      if (!baseUrl) {
-        const raw = Deno.env.get("EVOLUTION_BASE_URL") ?? "";
-        console.log("🔎 EVOLUTION_BASE_URL diag:", { present: raw.length > 0, length: raw.length, prefix: raw.slice(0, 12) });
-        return json({ error: "EVOLUTION_BASE_URL não configurada." }, 500);
-      }
+      if (!baseUrl) return json({ error: "EVOLUTION_BASE_URL não configurada." }, 500);
       if (!apiKey) return json({ error: "EVOLUTION_API_KEY não configurada." }, 500);
 
       const hook = webhookUrl();
