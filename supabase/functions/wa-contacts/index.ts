@@ -119,6 +119,18 @@ serve(async (req) => {
         });
       }
 
+      // Leads are listed by company in the app, so the sync MUST stamp company_id.
+      let companyId: string | null = connection?.company_id ?? null;
+      if (!companyId) {
+        const { data: prof } = await supabase
+          .from("profiles")
+          .select("company_id")
+          .eq("id", ownerId)
+          .maybeSingle();
+        companyId = prof?.company_id ?? null;
+      }
+
+
       let contacts: any[] = [];
       if (isEvo && evoCreds) {
         const r = await evolutionFindContacts(evoCreds);
