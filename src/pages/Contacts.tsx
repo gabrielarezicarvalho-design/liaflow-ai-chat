@@ -86,6 +86,20 @@ const Contacts = () => {
   
   const activeConnection = connections.find(c => c.status === 'connected');
 
+  // First letter of the name (A-Z), ignoring symbols/emojis/digits; "#" when there's no letter
+  const getLetter = (name?: string | null) => {
+    const match = (name || "").match(/[A-Za-zÀ-ÖØ-öø-ÿ]/);
+    return match ? match[0].toUpperCase() : "#";
+  };
+
+  // Sort key: real names (starting with/containing letters) first, symbol/emoji junk last
+  const getNameSortKey = (name?: string | null) => {
+    const cleaned = (name || "").normalize("NFC").trim();
+    const firstLetter = cleaned.match(/[A-Za-zÀ-ÖØ-öø-ÿ]/);
+    if (!firstLetter) return { hasLetter: false, sortKey: "" };
+    return { hasLetter: true, sortKey: cleaned.slice(firstLetter.index).toLowerCase() };
+  };
+
   const filteredLeads = leads
     .filter((lead) =>
       lead.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
