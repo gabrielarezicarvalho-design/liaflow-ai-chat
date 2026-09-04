@@ -3700,19 +3700,6 @@ ${safeTelegramText}`;
       console.log("⚠️ Número inválido (possível ID de Facebook/Instagram) - não criando lead:", cleanPhone);
     }
 
-    // Buscar foto de perfil do contato via Evolution API (quando aplicável)
-    let contactAvatar: string | null = payload?.chat?.imagePreview || null;
-    if (!contactAvatar && isEvolutionConnection(connection)) {
-      const creds = resolveEvolutionCreds(connection);
-      if (creds) {
-        contactAvatar = await evolutionFetchProfilePictureUrl({
-          ...creds,
-          phone: cleanPhone,
-        });
-        if (contactAvatar) console.log("📸 Foto de perfil obtida via Evolution");
-      }
-    }
-
     // Buscar conversa existente (qualquer status exceto 'closed')
     // Inclui flow_state, assigned_agent_id e status para verificar estado pendente e IA
     let conversationData = null;
