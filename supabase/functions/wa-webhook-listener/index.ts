@@ -1,5 +1,10 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.38.0";
+import {
+  isEvolutionConnection,
+  resolveEvolutionCreds,
+  evolutionFetchProfilePictureUrl,
+} from "../_shared/evolution.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -3698,12 +3703,12 @@ ${safeTelegramText}`;
     // Buscar conversa existente (qualquer status exceto 'closed')
     // Inclui flow_state, assigned_agent_id e status para verificar estado pendente e IA
     let conversationData = null;
-    
+
     // Se temos lead, buscar por lead_id
     if (leadData) {
       const { data: existingConv } = await supabase
         .from("conversations")
-        .select("id, status, department_id, assigned_to, attendance_type, flow_state")
+        .select("id, status, department_id, assigned_to, attendance_type, flow_state, contact_avatar")
         .eq("contact_phone", cleanPhone)
         .eq("connection_id", connectionId)
         .not("status", "eq", "closed")
@@ -3714,7 +3719,7 @@ ${safeTelegramText}`;
     } else {
       const { data: existingConv } = await supabase
         .from("conversations")
-        .select("id, status, department_id, assigned_to, attendance_type, flow_state")
+        .select("id, status, department_id, assigned_to, attendance_type, flow_state, contact_avatar")
         .eq("contact_phone", cleanPhone)
         .eq("connection_id", connectionId)
         .not("status", "eq", "closed")
@@ -3722,6 +3727,21 @@ ${safeTelegramText}`;
         .limit(1)
         .maybeSingle();
       conversationData = existingConv;
+    }
+
+    // Buscar foto de perfil do contato via Evolution API apenas quando necessário
+    // (conversa nova ou conversa existente sem foto)
+    let contactAvatar: string | null = payload?.chat?.imagePreview || null;
+    const needsAvatar = !conversationData || !conversationData.contact_avatar;
+    if (!contactAvatar && needsAvatar && isEvolutionConnection(connection)) {
+      const creds = resolveEvolutionCreds(connection);
+      if (creds) {
+        contactAvatar = await evolutionFetchProfilePictureUrl({
+          ...creds,
+          phone: cleanPhone,
+        });
+        if (contactAvatar) console.log("📸 Foto de perfil obtida via Evolution");
+      }
     }
 
     // Flag para indicar se é uma conversa nova (para decidir se inicia fluxo)
@@ -3741,7 +3761,7 @@ ${safeTelegramText}`;
           connection_id: connectionId,
           contact_phone: cleanPhone,
           contact_name: contactName || cleanPhone,
-          contact_avatar: payload?.chat?.imagePreview || null,
+          contact_avatar: contactAvatar,
           status: "open",
           attendance_type: "ura",
           last_message: mensagem,
@@ -3768,14 +3788,18 @@ ${safeTelegramText}`;
       console.log(`   - Na fila: ${conversationInQueue}`);
       console.log(`   - Em atendimento: ${conversationInAttendance}`);
       
-      // Atualizar última mensagem
+      // Atualizar última mensagem (e foto de perfil se ainda não tiver)
+      const convUpdate: Record<string, unknown> = {
+        last_message: mensagem,
+        last_message_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
+      if (!conversationData.contact_avatar && contactAvatar) {
+        convUpdate.contact_avatar = contactAvatar;
+      }
       await supabase
         .from("conversations")
-        .update({ 
-          last_message: mensagem,
-          last_message_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        })
+        .update(convUpdate)
         .eq("id", conversationData.id);
     }
 

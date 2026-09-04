@@ -371,6 +371,34 @@ export async function evolutionHandleLabel(opts: {
   );
 }
 
+// Fetch a contact's WhatsApp profile picture URL.
+export async function evolutionFetchProfilePictureUrl(opts: {
+  baseUrl: string;
+  apiKey: string;
+  instanceName: string;
+  phone: string;
+}): Promise<string | null> {
+  try {
+    const res = await evoFetch(
+      opts.baseUrl,
+      `/chat/fetchProfilePictureUrl/${encodeURIComponent(opts.instanceName)}`,
+      opts.apiKey,
+      {
+        method: "POST",
+        body: JSON.stringify({ number: cleanNumber(opts.phone) }),
+      },
+    );
+    const url =
+      res?.data?.profilePictureUrl ??
+      res?.data?.profilePicUrl ??
+      res?.data?.url ??
+      null;
+    return typeof url === "string" && url.startsWith("http") ? url : null;
+  } catch {
+    return null;
+  }
+}
+
 // ---------- Admin / Multi-tenant (Phase 4) ----------
 
 // Fetch all instances from Evolution API (admin-level, requires global apikey).
