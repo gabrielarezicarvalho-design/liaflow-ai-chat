@@ -742,12 +742,13 @@ const Conversations = () => {
                       >
                         <div
                           className={cn(
-                            "relative max-w-[75%] rounded-2xl px-3 py-2 text-sm shadow-sm",
+                            "relative max-w-[75%] rounded-2xl px-3 py-2 text-sm",
                             isAgent
                               ? "rounded-tr-sm bg-primary text-primary-foreground"
                               : "rounded-tl-sm border border-border bg-card text-foreground"
                           )}
                         >
+
                           <MessageContent 
                             content={msg.content || ''} 
                             type={msg.message_type || 'text'} 
@@ -794,7 +795,7 @@ const Conversations = () => {
                   </Button>
                 </div>
               ) : (
-                <div className="mx-auto flex max-w-3xl items-center gap-2 rounded-2xl border border-border bg-muted/50 px-2 py-1.5 transition-shadow focus-within:ring-2 focus-within:ring-primary/20">
+                <div className="mx-auto flex max-w-3xl items-center gap-2 rounded-2xl border border-border bg-muted/50 px-2 py-1.5">
                   <EmojiPickerPopover
                     disabled={sending}
                     onSelect={(emoji) => {
@@ -814,7 +815,7 @@ const Conversations = () => {
                       }}
                     />
                   ) : (
-                    <Button variant="ghost" size="icon" disabled className="h-9 w-9 shrink-0 text-muted-foreground">
+                    <Button variant="ghost" size="icon" disabled className="h-9 w-9 shrink-0 text-muted-foreground transition-none">
                       <Paperclip className="w-5 h-5" />
                     </Button>
                   )}
@@ -825,18 +826,19 @@ const Conversations = () => {
                     value={messageText}
                     onChange={(e) => setMessageText(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    className="h-10 flex-1 border-0 bg-transparent shadow-none focus-visible:ring-0"
+                    className="h-10 flex-1 border-0 bg-transparent shadow-none focus-visible:ring-0 transition-none"
                     disabled={sending}
                   />
                   <Button
                     size="icon"
-                    className="h-9 w-9 shrink-0 rounded-xl shadow-sm"
+                    className="h-9 w-9 shrink-0 rounded-xl transition-none"
                     onClick={handleSendMessage}
                     disabled={!messageText.trim() || sending}
                   >
                     <Send className="w-4 h-4" />
                   </Button>
                 </div>
+
               )}
             </div>
           </>
@@ -844,9 +846,10 @@ const Conversations = () => {
           /* Empty state - no conversation selected */
           <div className="flex flex-1 flex-col items-center justify-center bg-card p-8 text-center">
 
-            <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">
+            <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary text-primary-foreground transition-none">
               <MessageSquare className="h-8 w-8" />
             </div>
+
             <h3 className="mb-2 text-xl font-semibold text-foreground">
               NEXT PRO&nbsp;Chat
             </h3>
