@@ -102,11 +102,14 @@ serve(async (req) => {
 
     const { data: existing } = await supabase
       .from("messages")
-      .select("external_id")
-      .eq("conversation_id", conversationId)
-      .not("external_id", "is", null);
+      .select("id, external_id, content, sender_type, created_at")
+      .eq("conversation_id", conversationId);
 
-    const known = new Set((existing || []).map((m: any) => String(m.external_id)));
+    const known = new Set(
+      (existing || []).filter((m: any) => m.external_id).map((m: any) => String(m.external_id)),
+    );
+    // Mensagens salvas localmente (sem ID do WhatsApp) para casar com o histórico
+    const pending = (existing || []).filter((m: any) => !m.external_id);
 
     const rows: any[] = [];
     for (const m of raw) {
@@ -116,6 +119,21 @@ serve(async (req) => {
       if (!normalized) continue;
       const { content, type, media, metadata } = normalized;
       const fromMe = Boolean(m?.key?.fromMe);
+      const createdAt = tsToIso(m?.messageTimestamp);
+
+      // Se já existe a mesma mensagem gravada localmente, apenas vincula o ID
+      const matchIndex = pending.findIndex((p: any) =>
+        (p.content || "") === (content || "") &&
+        p.sender_type === (fromMe ? "agent" : "contact") &&
+        Math.abs(new Date(p.created_at).getTime() - new Date(createdAt).getTime()) < 5 * 60 * 1000
+      );
+      if (matchIndex >= 0) {
+        const match = pending.splice(matchIndex, 1)[0];
+        await supabase.from("messages").update({ external_id: String(externalId) }).eq("id", match.id);
+        known.add(String(externalId));
+        continue;
+      }
+
       rows.push({
         conversation_id: conversationId,
         sender_type: fromMe ? "agent" : "contact",
@@ -125,11 +143,12 @@ serve(async (req) => {
         media_url: media,
         status: "read",
         external_id: String(externalId),
-        created_at: tsToIso(m?.messageTimestamp),
+        created_at: createdAt,
         metadata: { source: "evolution-history", ...metadata },
       });
       known.add(String(externalId));
     }
+
 
     if (rows.length === 0) return json({ success: true, imported: 0, total: raw.length });
 
