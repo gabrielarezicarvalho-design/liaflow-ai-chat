@@ -42,6 +42,7 @@ import { CloseConversationDialog } from "@/components/conversations/CloseConvers
 import { TransferDialog } from "@/components/conversations/TransferDialog";
 import { MessageContent } from "@/components/conversations/MessageContent";
 import { EditContactDialog } from "@/components/conversations/EditContactDialog";
+import { NewConversationDialog } from "@/components/conversations/NewConversationDialog";
 
 const Conversations = () => {
   const { conversations, isLoading, deleteConversation, updateConversation, refetch } = useConversations();
@@ -198,11 +199,10 @@ const Conversations = () => {
     }
   };
 
-  // Carrega o histórico da Evolution na primeira vez que a conversa é aberta
+  // Atualiza o histórico completo da Evolution na primeira vez que a conversa é aberta
   useEffect(() => {
     if (!selectedConversationId || messagesLoading) return;
     if (historyFetchedRef.current.has(selectedConversationId)) return;
-    if ((messages?.length ?? 0) > 0) return;
     historyFetchedRef.current.add(selectedConversationId);
     const convId = selectedConversationId;
     supabase.functions
@@ -213,7 +213,7 @@ const Conversations = () => {
         }
       })
       .catch(() => {});
-  }, [selectedConversationId, messagesLoading, messages?.length]);
+  }, [selectedConversationId, messagesLoading, queryClient]);
 
   const getInitials = (name: string | null) => {
     if (!name) return "??";
@@ -382,6 +382,13 @@ const Conversations = () => {
         <div className="px-4 py-3 flex items-center justify-between border-b border-border">
           <h2 className="text-lg font-semibold text-foreground">Conversas</h2>
           <div className="flex items-center gap-2">
+            <NewConversationDialog
+              onConversationOpened={async (id) => {
+                setActiveTab("agent");
+                await refetch?.();
+                setSelectedConversationId(id);
+              }}
+            />
             <Button
               variant="ghost"
               size="sm"
@@ -694,7 +701,7 @@ const Conversations = () => {
                               <Bot className="w-3 h-3 text-primary/70" />
                               <span className="font-medium text-primary/80">Sistema</span>
                             </div>
-                            <MessageContent content={msg.content || ''} type={msg.message_type || 'text'} isSent={false} />
+                            <MessageContent content={msg.content || ''} type={msg.message_type || 'text'} mediaUrl={msg.media_url} metadata={msg.metadata} isSent={false} />
                             <div className="flex justify-end mt-1">
                               <span className="text-[10px] text-muted-foreground/50">
                                 {formatMessageTime(msg.created_at)}
@@ -724,6 +731,8 @@ const Conversations = () => {
                           <MessageContent 
                             content={msg.content || ''} 
                             type={msg.message_type || 'text'} 
+                             mediaUrl={msg.media_url}
+                             metadata={msg.metadata}
                             isSent={isAgent} 
                           />
                           <div className={cn("flex items-center gap-1 mt-1 justify-end")}>

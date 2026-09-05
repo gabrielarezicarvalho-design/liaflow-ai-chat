@@ -5,6 +5,7 @@ import {
   resolveEvolutionCreds,
   evolutionFindMessages,
 } from "../_shared/evolution.ts";
+import { normalizeEvolutionMessage } from "../_shared/evolution-message.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -17,26 +18,6 @@ const json = (body: unknown, status = 200) =>
     headers: { ...corsHeaders, "Content-Type": "application/json" },
   });
 
-const textFromMessage = (m: any): { content: string | null; type: string; media: string | null } => {
-  const msg = m?.message || {};
-  if (msg.conversation) return { content: msg.conversation, type: "text", media: null };
-  if (msg.extendedTextMessage?.text)
-    return { content: msg.extendedTextMessage.text, type: "text", media: null };
-  if (msg.imageMessage)
-    return { content: msg.imageMessage.caption || null, type: "image", media: msg.imageMessage.url || null };
-  if (msg.videoMessage)
-    return { content: msg.videoMessage.caption || null, type: "video", media: msg.videoMessage.url || null };
-  if (msg.audioMessage) return { content: null, type: "audio", media: msg.audioMessage.url || null };
-  if (msg.documentMessage)
-    return {
-      content: msg.documentMessage.fileName || null,
-      type: "document",
-      media: msg.documentMessage.url || null,
-    };
-  if (msg.stickerMessage) return { content: null, type: "image", media: msg.stickerMessage.url || null };
-  return { content: null, type: "text", media: null };
-};
-
 const tsToIso = (t: any): string => {
   const n = Number(t);
   if (Number.isFinite(n) && n > 0) return new Date(n > 1e12 ? n : n * 1000).toISOString();
@@ -48,7 +29,7 @@ serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const { conversationId, limit } = await req.json();
+    const { conversationId } = await req.json();
     if (!conversationId) return json({ error: "conversationId é obrigatório" }, 400);
 
     const supabase = createClient(
@@ -78,30 +59,42 @@ serve(async (req) => {
     const creds = resolveEvolutionCreds(connection);
     if (!creds) return json({ error: "Conexão Evolution incompleta" }, 400);
 
-    const pickRecords = (d: any): any[] =>
-      Array.isArray(d) ? d : (d?.messages?.records || d?.messages || d?.records || d?.data || []);
+    const pickRecords = (d: any): any[] => {
+      const value = d?.messages?.records || d?.records || d?.data?.records || d?.data || d?.messages || d;
+      return Array.isArray(value) ? value : [];
+    };
+    const pageCount = (d: any): number =>
+      Number(d?.messages?.pages || d?.pages || d?.data?.pages || 0);
 
     const rawPhone = String(conversation.contact_phone || "");
     const remoteJid = rawPhone.toLowerCase().includes("@lid")
       ? `${rawPhone.replace(/@.*$/, "")}@lid`
       : `${rawPhone}@s.whatsapp.net`;
-    const r = await evolutionFindMessages({ ...creds, remoteJid, limit: Number(limit) || 50 });
-    if (!r.ok) {
-      return json({ success: false, error: "Falha ao buscar mensagens", details: r.data });
-    }
+    const fetchAllPages = async (byAlt = false) => {
+      const all: any[] = [];
+      const seenPages = new Set<string>();
+      let expectedPages = 1;
+      for (let page = 1; page <= Math.min(expectedPages, 200); page += 1) {
+        const result = await evolutionFindMessages({ ...creds, remoteJid, page, offset: 100, byAlt });
+        if (!result.ok) {
+          if (page === 1) throw new Error("Falha ao buscar mensagens na Evolution");
+          break;
+        }
+        const records = pickRecords(result.data);
+        expectedPages = Math.max(expectedPages, pageCount(result.data) || page);
+        if (records.length === 0) break;
+        const fingerprint = records.map((item) => item?.key?.id || item?.id).filter(Boolean).join("|");
+        if (fingerprint && seenPages.has(fingerprint)) break;
+        if (fingerprint) seenPages.add(fingerprint);
+        all.push(...records);
+        if (!pageCount(result.data) && records.length < 100) break;
+        if (!pageCount(result.data)) expectedPages = page + 1;
+      }
+      return all;
+    };
 
-    let raw: any[] = pickRecords(r.data);
-
-    // Newer Evolution versions address chats by @lid: retry using remoteJidAlt.
-    if (raw.length === 0) {
-      const alt = await evolutionFindMessages({
-        ...creds,
-        remoteJid,
-        limit: Number(limit) || 50,
-        byAlt: true,
-      });
-      if (alt.ok) raw = pickRecords(alt.data);
-    }
+    let raw = await fetchAllPages(false);
+    if (raw.length === 0) raw = await fetchAllPages(true);
 
     if (!Array.isArray(raw) || raw.length === 0) {
       return json({ success: true, imported: 0, total: 0 });
@@ -119,8 +112,9 @@ serve(async (req) => {
     for (const m of raw) {
       const externalId = m?.key?.id || m?.id;
       if (!externalId || known.has(String(externalId))) continue;
-      const { content, type, media } = textFromMessage(m);
-      if (!content && !media) continue;
+      const normalized = normalizeEvolutionMessage(m);
+      if (!normalized) continue;
+      const { content, type, media, metadata } = normalized;
       const fromMe = Boolean(m?.key?.fromMe);
       rows.push({
         conversation_id: conversationId,
@@ -132,7 +126,7 @@ serve(async (req) => {
         status: "read",
         external_id: String(externalId),
         created_at: tsToIso(m?.messageTimestamp),
-        metadata: { source: "evolution-history" },
+        metadata: { source: "evolution-history", ...metadata },
       });
       known.add(String(externalId));
     }
@@ -141,8 +135,10 @@ serve(async (req) => {
 
     rows.sort((a, b) => a.created_at.localeCompare(b.created_at));
 
-    const { error } = await supabase.from("messages").insert(rows);
-    if (error) return json({ success: false, error: error.message }, 500);
+    for (let index = 0; index < rows.length; index += 500) {
+      const { error } = await supabase.from("messages").insert(rows.slice(index, index + 500));
+      if (error) return json({ success: false, error: error.message }, 500);
+    }
 
     // Importing history triggers the unread counter; restore previous state.
     await supabase
