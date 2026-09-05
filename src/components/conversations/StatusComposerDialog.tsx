@@ -40,6 +40,7 @@ interface StatusComposerDialogProps {
 export const StatusComposerDialog = ({ connections }: StatusComposerDialogProps) => {
   const [open, setOpen] = useState(false);
   const [sending, setSending] = useState(false);
+  const [triggerLoading, setTriggerLoading] = useState(false);
   const [type, setType] = useState<StatusType>("text");
   const [text, setText] = useState("");
   const [caption, setCaption] = useState("");
@@ -48,6 +49,12 @@ export const StatusComposerDialog = ({ connections }: StatusComposerDialogProps)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [connectionId, setConnectionId] = useState<string>(connections[0]?.id ?? "");
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!triggerLoading) return;
+    const t = setTimeout(() => setTriggerLoading(false), 600);
+    return () => clearTimeout(t);
+  }, [triggerLoading]);
 
   const activeConnectionId = useMemo(
     () => connectionId || connections[0]?.id || "",
