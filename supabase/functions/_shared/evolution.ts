@@ -513,3 +513,41 @@ export async function evolutionFindMessages(opts: {
     },
   );
 }
+
+// Publica um status (stories) no WhatsApp.
+// Docs: POST /message/sendStatus/{instance}
+export async function evolutionSendStatus(opts: {
+  baseUrl: string;
+  apiKey: string;
+  instanceName: string;
+  type: "text" | "image" | "video" | "audio";
+  content: string; // texto, URL ou base64
+  caption?: string;
+  backgroundColor?: string;
+  font?: number;
+  allContacts?: boolean;
+  statusJidList?: string[];
+}) {
+  const body: Record<string, unknown> = {
+    type: opts.type,
+    content: opts.content,
+    allContacts: opts.allContacts ?? true,
+  };
+  if (opts.caption) body.caption = opts.caption;
+  if (opts.type === "text") {
+    body.backgroundColor = opts.backgroundColor || "#004DFF";
+    body.font = typeof opts.font === "number" ? opts.font : 1;
+  }
+  if (opts.statusJidList?.length) {
+    body.statusJidList = opts.statusJidList.map((j) =>
+      j.includes("@") ? j : `${cleanNumber(j)}@s.whatsapp.net`
+    );
+    body.allContacts = false;
+  }
+  return evoFetch(
+    opts.baseUrl,
+    `/message/sendStatus/${encodeURIComponent(opts.instanceName)}`,
+    opts.apiKey,
+    { method: "POST", body: JSON.stringify(body) },
+  );
+}
