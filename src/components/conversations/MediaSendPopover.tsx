@@ -123,17 +123,34 @@ export const MediaSendPopover = ({
     }
   };
 
+  const fileToBase64 = (file: File): Promise<string> =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = String(reader.result || "");
+        resolve(result.includes(",") ? result.split(",")[1] : result);
+      };
+      reader.onerror = () => reject(new Error("Não foi possível ler o arquivo"));
+      reader.readAsDataURL(file);
+    });
+
   const handleSend = async () => {
     if (!selectedFile) return;
-    
+
     setSending(true);
-    
+
     try {
-      // Upload to VPS storage
-      const uploadResult = await uploadToCloud(selectedFile);
-      
-      if (!uploadResult.success) {
-        throw new Error(uploadResult.error || 'Erro no upload para o servidor');
+      // Tenta upload para o storage; se falhar, envia em base64 direto pela Evolution
+      let filePayload: string | null = null;
+      try {
+        const uploadResult = await uploadToCloud(selectedFile);
+        if (uploadResult.success) filePayload = uploadResult.url;
+      } catch {
+        filePayload = null;
+      }
+
+      if (!filePayload) {
+        filePayload = await fileToBase64(selectedFile);
       }
 
       const fileType = getFileType(selectedFile);
@@ -144,12 +161,13 @@ export const MediaSendPopover = ({
           connectionId,
           phone,
           type: fileType,
-          file: uploadResult.url,
+          file: filePayload,
           caption: caption || undefined,
           docName: fileType === 'document' ? selectedFile.name : undefined,
           conversationId
         }
       });
+
 
       if (error) throw error;
       if (!data?.success) throw new Error(data?.error || 'Erro ao enviar');
