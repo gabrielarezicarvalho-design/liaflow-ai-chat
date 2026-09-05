@@ -199,7 +199,7 @@ export const MediaSendPopover = ({
                 onChange={handleFileSelect}
               />
               
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-4 gap-2">
                 <Button
                   variant="outline"
                   className="h-20 flex-col gap-2 transition-none"
