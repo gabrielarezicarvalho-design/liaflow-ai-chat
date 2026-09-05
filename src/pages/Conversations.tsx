@@ -423,13 +423,13 @@ const Conversations = () => {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 overflow-x-auto border-b border-border px-3 pb-3 scrollbar-hide">
+        <div className="flex justify-between gap-1 overflow-x-auto border-b border-border px-3 pb-3 scrollbar-hide">
           <Button
             variant="ghost"
             size="sm"
             onClick={() => { setActiveTab("agent"); setSelectedConversationId(null); }}
             className={cn(
-              "h-6 shrink-0 gap-0.5 rounded-full border px-2 text-[10px] font-medium",
+              "h-6 flex-1 shrink-0 gap-0.5 whitespace-nowrap rounded-full border px-2 text-[10px] font-medium",
               activeTab === "agent"
                 ? "border-primary/20 bg-primary/10 text-primary hover:bg-primary/10"
                 : "border-border bg-card text-muted-foreground hover:bg-muted"
@@ -448,7 +448,7 @@ const Conversations = () => {
             size="sm"
             onClick={() => { setActiveTab("ai"); setSelectedConversationId(null); }}
             className={cn(
-              "h-6 shrink-0 gap-0.5 rounded-full border px-2 text-[10px] font-medium",
+              "h-6 flex-1 shrink-0 gap-0.5 whitespace-nowrap rounded-full border px-2 text-[10px] font-medium",
               activeTab === "ai"
                 ? "border-primary/20 bg-primary/10 text-primary hover:bg-primary/10"
                 : "border-border bg-card text-muted-foreground hover:bg-muted"
@@ -467,7 +467,7 @@ const Conversations = () => {
             size="sm"
             onClick={() => { setActiveTab("ura"); setSelectedConversationId(null); }}
             className={cn(
-              "h-6 shrink-0 gap-0.5 rounded-full border px-2 text-[10px] font-medium",
+              "h-6 flex-1 shrink-0 gap-0.5 whitespace-nowrap rounded-full border px-2 text-[10px] font-medium",
               activeTab === "ura"
                 ? "border-primary/20 bg-primary/10 text-primary hover:bg-primary/10"
                 : "border-border bg-card text-muted-foreground hover:bg-muted"
@@ -486,7 +486,7 @@ const Conversations = () => {
             size="sm"
             onClick={() => { setActiveTab("queue"); setSelectedConversationId(null); }}
             className={cn(
-              "h-6 shrink-0 gap-0.5 rounded-full border px-2 text-[10px] font-medium",
+              "h-6 flex-1 shrink-0 gap-0.5 whitespace-nowrap rounded-full border px-2 text-[10px] font-medium",
               activeTab === "queue"
                 ? "border-primary/20 bg-primary/10 text-primary hover:bg-primary/10"
                 : "border-border bg-card text-muted-foreground hover:bg-muted"
