@@ -687,7 +687,8 @@ const Conversations = () => {
             </div>
 
             {/* Messages area */}
-            <ScrollArea className="conversation-canvas flex-1 px-4 py-5" data-conversation-viewport>
+            <ScrollArea className="flex-1 bg-card px-4 py-5" data-conversation-viewport>
+
               <div className="mx-auto max-w-3xl space-y-2">
                 {messagesLoading ? (
                   <div className="flex items-center justify-center py-16">
@@ -837,7 +838,8 @@ const Conversations = () => {
           </>
         ) : (
           /* Empty state - no conversation selected */
-          <div className="conversation-canvas flex flex-1 flex-col items-center justify-center p-8 text-center">
+          <div className="flex flex-1 flex-col items-center justify-center bg-card p-8 text-center">
+
             <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">
               <MessageSquare className="h-8 w-8" />
             </div>
