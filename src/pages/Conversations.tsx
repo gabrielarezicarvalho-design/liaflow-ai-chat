@@ -4,7 +4,7 @@ import { useConnections } from "@/hooks/useConnections";
 import { useMessages } from "@/hooks/useMessages";
 import { useAuth } from "@/hooks/useAuth";
 import { useCompanyId } from "@/hooks/useCompanyId";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -46,6 +46,7 @@ import { EditContactDialog } from "@/components/conversations/EditContactDialog"
 const Conversations = () => {
   const { conversations, isLoading, deleteConversation, updateConversation, refetch } = useConversations();
   const { connections } = useConnections();
+  const queryClient = useQueryClient();
   const [syncingChats, setSyncingChats] = useState(false);
   const historyFetchedRef = useRef<Set<string>>(new Set());
   const { user } = useAuth();
@@ -203,8 +204,14 @@ const Conversations = () => {
     if (historyFetchedRef.current.has(selectedConversationId)) return;
     if ((messages?.length ?? 0) > 0) return;
     historyFetchedRef.current.add(selectedConversationId);
+    const convId = selectedConversationId;
     supabase.functions
-      .invoke("wa-fetch-messages", { body: { conversationId: selectedConversationId } })
+      .invoke("wa-fetch-messages", { body: { conversationId: convId } })
+      .then(({ data }: any) => {
+        if (data?.imported > 0) {
+          queryClient.invalidateQueries({ queryKey: ["messages", convId] });
+        }
+      })
       .catch(() => {});
   }, [selectedConversationId, messagesLoading, messages?.length]);
 
