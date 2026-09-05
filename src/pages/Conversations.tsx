@@ -366,11 +366,12 @@ const Conversations = () => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      <div className="flex items-center justify-center h-[calc(100vh-4rem)] text-sm text-muted-foreground">
+        Carregando conversas…
       </div>
     );
   }
+
 
   return (
     <div className="flex h-[calc(100vh-4rem)] overflow-hidden bg-card font-sans">
@@ -401,11 +402,12 @@ const Conversations = () => {
               onClick={handleSyncChats}
               disabled={syncingChats}
               title="Sincronizar conversas do WhatsApp"
-              className="h-8 w-8 p-0 text-muted-foreground hover:bg-primary/10 hover:text-primary"
+              className="h-8 w-8 p-0 text-muted-foreground transition-none"
             >
-              <RefreshCw className={cn("h-4 w-4", syncingChats && "animate-spin")} />
+              <RefreshCw className="h-4 w-4" />
               <span className="sr-only">{syncingChats ? "Sincronizando..." : "Sincronizar"}</span>
             </Button>
+
             <Badge variant="secondary" className="h-6 min-w-6 justify-center rounded-full px-1.5 text-[10px]">
               {filteredConversations.length}
             </Badge>
@@ -420,10 +422,11 @@ const Conversations = () => {
               placeholder="Pesquisar ou iniciar uma conversa"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="h-10 rounded-lg border-0 bg-muted/60 pl-9 text-sm shadow-none focus-visible:ring-1"
+              className="h-10 rounded-lg border-0 bg-muted/60 pl-9 text-sm shadow-none focus-visible:ring-0 transition-none"
             />
           </div>
         </div>
+
 
         {/* Tabs */}
         <div className="flex justify-between gap-1 overflow-x-auto border-b border-border px-3 pb-3 scrollbar-hide">
@@ -432,10 +435,10 @@ const Conversations = () => {
             size="sm"
             onClick={() => { setActiveTab("agent"); setSelectedConversationId(null); }}
             className={cn(
-              "h-6 flex-1 shrink-0 gap-0.5 whitespace-nowrap rounded-full border px-2 text-[10px] font-medium",
+              "h-6 flex-1 shrink-0 gap-0.5 whitespace-nowrap rounded-full border px-2 text-[10px] font-medium transition-none",
               activeTab === "agent"
-                ? "border-primary/20 bg-primary/10 text-primary hover:bg-primary/10"
-                : "border-border bg-card text-muted-foreground hover:bg-muted"
+                ? "border-primary/20 bg-primary/10 text-primary"
+                : "border-border bg-card text-muted-foreground"
             )}
           >
             <Headphones className="w-2.5 h-2.5" />
@@ -451,10 +454,10 @@ const Conversations = () => {
             size="sm"
             onClick={() => { setActiveTab("ai"); setSelectedConversationId(null); }}
             className={cn(
-              "h-6 flex-1 shrink-0 gap-0.5 whitespace-nowrap rounded-full border px-2 text-[10px] font-medium",
+              "h-6 flex-1 shrink-0 gap-0.5 whitespace-nowrap rounded-full border px-2 text-[10px] font-medium transition-none",
               activeTab === "ai"
-                ? "border-primary/20 bg-primary/10 text-primary hover:bg-primary/10"
-                : "border-border bg-card text-muted-foreground hover:bg-muted"
+                ? "border-primary/20 bg-primary/10 text-primary"
+                : "border-border bg-card text-muted-foreground"
             )}
           >
             <Bot className="w-2.5 h-2.5" />
@@ -470,10 +473,10 @@ const Conversations = () => {
             size="sm"
             onClick={() => { setActiveTab("ura"); setSelectedConversationId(null); }}
             className={cn(
-              "h-6 flex-1 shrink-0 gap-0.5 whitespace-nowrap rounded-full border px-2 text-[10px] font-medium",
+              "h-6 flex-1 shrink-0 gap-0.5 whitespace-nowrap rounded-full border px-2 text-[10px] font-medium transition-none",
               activeTab === "ura"
-                ? "border-primary/20 bg-primary/10 text-primary hover:bg-primary/10"
-                : "border-border bg-card text-muted-foreground hover:bg-muted"
+                ? "border-primary/20 bg-primary/10 text-primary"
+                : "border-border bg-card text-muted-foreground"
             )}
           >
             <GitBranch className="w-2.5 h-2.5" />
@@ -489,10 +492,10 @@ const Conversations = () => {
             size="sm"
             onClick={() => { setActiveTab("queue"); setSelectedConversationId(null); }}
             className={cn(
-              "h-6 flex-1 shrink-0 gap-0.5 whitespace-nowrap rounded-full border px-2 text-[10px] font-medium",
+              "h-6 flex-1 shrink-0 gap-0.5 whitespace-nowrap rounded-full border px-2 text-[10px] font-medium transition-none",
               activeTab === "queue"
-                ? "border-primary/20 bg-primary/10 text-primary hover:bg-primary/10"
-                : "border-border bg-card text-muted-foreground hover:bg-muted"
+                ? "border-primary/20 bg-primary/10 text-primary"
+                : "border-border bg-card text-muted-foreground"
             )}
           >
             <Users className="w-2.5 h-2.5" />
@@ -505,6 +508,7 @@ const Conversations = () => {
           </Button>
 
         </div>
+
 
         {/* Filter: Meus / Todos (only on agent tab) */}
         {activeTab === "agent" && (
@@ -551,8 +555,8 @@ const Conversations = () => {
                   key={conv.id}
                   onClick={() => setSelectedConversationId(conv.id)}
                   className={cn(
-                    "my-1 flex cursor-pointer items-center gap-3 rounded-lg border border-transparent px-3 py-3 transition-colors hover:bg-muted/60",
-                    selectedConversationId === conv.id && "border-primary/10 bg-primary/10 hover:bg-primary/10"
+                    "my-1 flex cursor-pointer items-center gap-3 rounded-lg border border-transparent px-3 py-3 transition-none",
+                    selectedConversationId === conv.id && "border-primary/10 bg-primary/10"
                   )}
                 >
                   <Avatar className="h-12 w-12 shrink-0">
@@ -580,7 +584,7 @@ const Conversations = () => {
                         </p>
                       </div>
                       {conv.unread_count && conv.unread_count > 0 ? (
-                        <Badge className="h-5 min-w-5 shrink-0 rounded-full bg-primary px-1.5 text-[10px] text-primary-foreground hover:bg-primary">
+                        <Badge className="h-5 min-w-5 shrink-0 rounded-full bg-primary px-1.5 text-[10px] text-primary-foreground">
                           {conv.unread_count}
                         </Badge>
                       ) : null}
@@ -596,6 +600,7 @@ const Conversations = () => {
                   </div>
                 </div>
               ))}
+
             </div>
           )}
         </ScrollArea>
@@ -611,11 +616,11 @@ const Conversations = () => {
         {selectedConversation ? (
           <>
             {/* Chat header */}
-            <div className="flex h-16 items-center gap-3 border-b border-border bg-card/95 px-4 backdrop-blur-sm">
+            <div className="flex h-16 items-center gap-3 border-b border-border bg-card px-4">
               <Button
                 variant="ghost"
                 size="icon"
-                className="md:hidden shrink-0"
+                className="md:hidden shrink-0 transition-none"
                 onClick={() => setSelectedConversationId(null)}
               >
                 <ArrowLeft className="w-5 h-5" />
@@ -631,10 +636,11 @@ const Conversations = () => {
               </Avatar>
 
               <div 
-                className="flex-1 min-w-0 cursor-pointer hover:opacity-80 transition-opacity"
+                className="flex-1 min-w-0 cursor-pointer"
                 onClick={() => setEditContactDialogOpen(true)}
                 title="Clique para editar dados do contato"
               >
+
                 <h3 className="truncate text-sm font-semibold text-foreground">
                   {selectedConversation.contact_name || selectedConversation.contact_phone}
                 </h3>
@@ -661,26 +667,28 @@ const Conversations = () => {
                     <Button
                       variant="ghost"
                       size="sm"
-                       className="h-8 px-2 text-primary hover:bg-primary/10 hover:text-primary"
+                      className="h-8 px-2 text-primary transition-none"
                       onClick={() => setHeaderTransferDialogOpen(true)}
                       title="Transferir conversa"
                     >
                       <ArrowRightLeft className="w-4 h-4 mr-1" />
                       <span className="text-xs hidden sm:inline">Transferir</span>
                     </Button>
-                     <Button
+
+                    <Button
                       variant="ghost"
                       size="sm"
-                      className="h-8 px-2 text-destructive hover:text-destructive hover:bg-destructive/10"
+                      className="h-8 px-2 text-destructive transition-none"
                       onClick={() => setCloseDialogOpen(true)}
                       title="Encerrar conversa"
                     >
                       <XCircle className="w-4 h-4 mr-1" />
                       <span className="text-xs hidden sm:inline">Encerrar</span>
                     </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground" title="Mais opções">
+                    <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground transition-none" title="Mais opções">
                       <MoreVertical className="h-4 w-4" />
                     </Button>
+
                   </>
                 )}
               </div>
@@ -690,10 +698,11 @@ const Conversations = () => {
             <ScrollArea className="flex-1 bg-card px-4 py-5" data-conversation-viewport>
 
               <div className="mx-auto max-w-3xl space-y-2">
-                {messagesLoading ? (
-                  <div className="flex items-center justify-center py-16">
-                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
-                  </div>
+                  {messagesLoading ? (
+                    <div className="flex items-center justify-center py-16 text-sm text-muted-foreground">
+                      Carregando mensagens…
+                    </div>
+
                 ) : messages.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-16 text-center">
                     <MessageSquare className="w-10 h-10 text-muted-foreground/30 mb-3" />
@@ -712,7 +721,7 @@ const Conversations = () => {
                     if (isSystem) {
                       return (
                         <div key={msg.id} className="flex justify-center mb-2">
-                           <div className="max-w-[85%] rounded-lg border border-border/60 bg-card/90 px-4 py-2 text-xs text-muted-foreground shadow-sm backdrop-blur-sm">
+                           <div className="max-w-[85%] rounded-lg border border-border/60 bg-card/90 px-4 py-2 text-xs text-muted-foreground">
                             <div className="flex items-center gap-1.5 mb-1">
                               <Bot className="w-3 h-3 text-primary/70" />
                               <span className="font-medium text-primary/80">Sistema</span>
@@ -728,6 +737,7 @@ const Conversations = () => {
                       );
                     }
 
+
                     return (
                       <div
                         key={msg.id}
@@ -738,12 +748,13 @@ const Conversations = () => {
                       >
                         <div
                           className={cn(
-                            "relative max-w-[75%] rounded-2xl px-3 py-2 text-sm shadow-sm",
+                            "relative max-w-[75%] rounded-2xl px-3 py-2 text-sm",
                             isAgent
                               ? "rounded-tr-sm bg-primary text-primary-foreground"
                               : "rounded-tl-sm border border-border bg-card text-foreground"
                           )}
                         >
+
                           <MessageContent 
                             content={msg.content || ''} 
                             type={msg.message_type || 'text'} 
@@ -790,7 +801,7 @@ const Conversations = () => {
                   </Button>
                 </div>
               ) : (
-                <div className="mx-auto flex max-w-3xl items-center gap-2 rounded-2xl border border-border bg-muted/50 px-2 py-1.5 transition-shadow focus-within:ring-2 focus-within:ring-primary/20">
+                <div className="mx-auto flex max-w-3xl items-center gap-2 rounded-2xl border border-border bg-muted/50 px-2 py-1.5">
                   <EmojiPickerPopover
                     disabled={sending}
                     onSelect={(emoji) => {
@@ -810,7 +821,7 @@ const Conversations = () => {
                       }}
                     />
                   ) : (
-                    <Button variant="ghost" size="icon" disabled className="h-9 w-9 shrink-0 text-muted-foreground">
+                    <Button variant="ghost" size="icon" disabled className="h-9 w-9 shrink-0 text-muted-foreground transition-none">
                       <Paperclip className="w-5 h-5" />
                     </Button>
                   )}
@@ -821,18 +832,19 @@ const Conversations = () => {
                     value={messageText}
                     onChange={(e) => setMessageText(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    className="h-10 flex-1 border-0 bg-transparent shadow-none focus-visible:ring-0"
+                    className="h-10 flex-1 border-0 bg-transparent shadow-none focus-visible:ring-0 transition-none"
                     disabled={sending}
                   />
                   <Button
                     size="icon"
-                    className="h-9 w-9 shrink-0 rounded-xl shadow-sm"
+                    className="h-9 w-9 shrink-0 rounded-xl transition-none"
                     onClick={handleSendMessage}
                     disabled={!messageText.trim() || sending}
                   >
                     <Send className="w-4 h-4" />
                   </Button>
                 </div>
+
               )}
             </div>
           </>
@@ -840,9 +852,10 @@ const Conversations = () => {
           /* Empty state - no conversation selected */
           <div className="flex flex-1 flex-col items-center justify-center bg-card p-8 text-center">
 
-            <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">
+            <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary text-primary-foreground transition-none">
               <MessageSquare className="h-8 w-8" />
             </div>
+
             <h3 className="mb-2 text-xl font-semibold text-foreground">
               NEXT PRO&nbsp;Chat
             </h3>

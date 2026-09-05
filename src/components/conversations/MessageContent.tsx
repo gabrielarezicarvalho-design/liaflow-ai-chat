@@ -121,7 +121,7 @@ export const MessageContent = ({ content, type, mediaUrl, metadata, isSent }: Me
       <div className="space-y-2">
         <div className="relative rounded-lg overflow-hidden bg-muted/50 max-w-[280px]">
           {!imageLoaded && !imageError && (
-            <div className="flex items-center justify-center h-32 animate-pulse">
+            <div className="flex items-center justify-center h-32">
               <ImageIcon className="w-8 h-8 text-muted-foreground" />
             </div>
           )}
@@ -136,13 +136,14 @@ export const MessageContent = ({ content, type, mediaUrl, metadata, isSent }: Me
             <img 
               src={mediaData.url} 
               alt="Imagem enviada"
-              className={`w-full h-auto max-h-[300px] object-cover cursor-pointer transition-opacity ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+              className={`w-full h-auto max-h-[300px] object-cover cursor-pointer ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
               onLoad={() => setImageLoaded(true)}
               onError={() => setImageError(true)}
               onClick={() => window.open(mediaData.url, '_blank')}
             />
           )}
         </div>
+
         {mediaData.caption && (
           <p className={`text-sm ${isSent ? "text-primary-foreground" : "text-foreground"}`}>
             {mediaData.caption}
@@ -222,8 +223,8 @@ export const MessageContent = ({ content, type, mediaUrl, metadata, isSent }: Me
           href={mediaData.url} 
           target="_blank" 
           rel="noopener noreferrer"
-          className={`flex items-center gap-3 p-3 rounded-lg transition-colors ${
-            isSent ? 'bg-primary-foreground/20 hover:bg-primary-foreground/30' : 'bg-muted hover:bg-muted/80'
+          className={`flex items-center gap-3 p-3 rounded-lg ${
+            isSent ? 'bg-primary-foreground/20' : 'bg-muted'
           }`}
         >
           <FileText className={`w-8 h-8 ${isSent ? 'text-primary-foreground' : 'text-primary'}`} />
@@ -237,6 +238,7 @@ export const MessageContent = ({ content, type, mediaUrl, metadata, isSent }: Me
           </div>
           <Download className={`w-4 h-4 ${isSent ? 'text-primary-foreground/70' : 'text-muted-foreground'}`} />
         </a>
+
         {mediaData.caption && (
           <p className={`text-sm ${isSent ? "text-primary-foreground" : "text-foreground"}`}>
             {mediaData.caption}

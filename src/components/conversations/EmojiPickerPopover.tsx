@@ -55,11 +55,12 @@ export const EmojiPickerPopover = ({ onSelect, disabled, className }: EmojiPicke
           variant="ghost"
           size="icon"
           disabled={disabled}
-          className={cn("h-9 w-9 shrink-0 text-muted-foreground hover:text-primary", className)}
+          className={cn("h-9 w-9 shrink-0 text-muted-foreground transition-none", className)}
           aria-label="Inserir emoji"
         >
           <Smile className="w-5 h-5" />
         </Button>
+
       </PopoverTrigger>
       <PopoverContent align="start" side="top" className="w-[320px] p-2">
         <div className="mb-2 flex items-center gap-1">
@@ -86,7 +87,8 @@ export const EmojiPickerPopover = ({ onSelect, disabled, className }: EmojiPicke
                   onSelect(emoji);
                   setOpen(false);
                 }}
-                className="flex h-9 w-9 items-center justify-center rounded-md text-xl transition-colors hover:bg-muted"
+                className="flex h-9 w-9 items-center justify-center rounded-md text-xl"
+
               >
                 {emoji}
               </button>

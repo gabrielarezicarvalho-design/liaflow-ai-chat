@@ -135,11 +135,12 @@ export const MediaSendPopover = ({
         <Button 
           variant="ghost" 
           size="icon" 
-          className="h-8 w-8 text-muted-foreground hover:text-foreground"
+          className="h-8 w-8 text-muted-foreground transition-none"
           disabled={disabled}
         >
           <Paperclip className="w-5 h-5" />
         </Button>
+
       </PopoverTrigger>
       <PopoverContent className="w-80" side="top" align="start">
         <div className="space-y-4">
@@ -165,7 +166,7 @@ export const MediaSendPopover = ({
               <div className="grid grid-cols-3 gap-2">
                 <Button
                   variant="outline"
-                  className="h-20 flex-col gap-2"
+                  className="h-20 flex-col gap-2 transition-none"
                   onClick={() => {
                     if (fileInputRef.current) {
                       fileInputRef.current.accept = "image/*";
@@ -179,7 +180,7 @@ export const MediaSendPopover = ({
                 
                 <Button
                   variant="outline"
-                  className="h-20 flex-col gap-2"
+                  className="h-20 flex-col gap-2 transition-none"
                   onClick={() => {
                     if (fileInputRef.current) {
                       fileInputRef.current.accept = "video/*";
@@ -193,7 +194,7 @@ export const MediaSendPopover = ({
                 
                 <Button
                   variant="outline"
-                  className="h-20 flex-col gap-2"
+                  className="h-20 flex-col gap-2 transition-none"
                   onClick={() => {
                     if (fileInputRef.current) {
                       fileInputRef.current.accept = ".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt";
@@ -204,6 +205,7 @@ export const MediaSendPopover = ({
                   <FileText className="w-6 h-6 text-blue-500" />
                   <span className="text-xs">Documento</span>
                 </Button>
+
               </div>
               
               <p className="text-xs text-muted-foreground text-center">
@@ -257,19 +259,13 @@ export const MediaSendPopover = ({
               </div>
 
               <Button 
-                className="w-full" 
+                className="w-full transition-none" 
                 onClick={handleSend}
                 disabled={sending}
               >
-                {sending ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Enviando...
-                  </>
-                ) : (
-                  'Enviar'
-                )}
+                {sending ? 'Enviando...' : 'Enviar'}
               </Button>
+
             </div>
           )}
         </div>
