@@ -220,7 +220,7 @@ export const MediaSendPopover = ({
               <div className="grid grid-cols-4 gap-2">
                 <Button
                   variant="outline"
-                  className="h-20 flex-col gap-2 transition-none"
+                  className="h-[72px] flex-col gap-1.5 px-1 transition-none"
                   onClick={() => {
                     if (fileInputRef.current) {
                       fileInputRef.current.accept = "image/*";
@@ -228,13 +228,13 @@ export const MediaSendPopover = ({
                     }
                   }}
                 >
-                  <Image className="w-6 h-6 text-green-500" />
-                  <span className="text-xs">Imagem</span>
+                  <Image className="w-5 h-5 text-green-500" />
+                  <span className="text-[10px] leading-tight">Imagem</span>
                 </Button>
                 
                 <Button
                   variant="outline"
-                  className="h-20 flex-col gap-2 transition-none"
+                  className="h-[72px] flex-col gap-1.5 px-1 transition-none"
                   onClick={() => {
                     if (fileInputRef.current) {
                       fileInputRef.current.accept = "video/*";
@@ -242,13 +242,13 @@ export const MediaSendPopover = ({
                     }
                   }}
                 >
-                  <Video className="w-6 h-6 text-purple-500" />
-                  <span className="text-xs">Vídeo</span>
+                  <Video className="w-5 h-5 text-purple-500" />
+                  <span className="text-[10px] leading-tight">Vídeo</span>
                 </Button>
                 
                 <Button
                   variant="outline"
-                  className="h-20 flex-col gap-2 transition-none"
+                  className="h-[72px] flex-col gap-1.5 px-1 transition-none"
                   onClick={() => {
                     if (fileInputRef.current) {
                       fileInputRef.current.accept = ".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt";
@@ -256,13 +256,13 @@ export const MediaSendPopover = ({
                     }
                   }}
                 >
-                  <FileText className="w-6 h-6 text-blue-500" />
-                  <span className="text-xs">Documento</span>
+                  <FileText className="w-5 h-5 text-blue-500" />
+                  <span className="text-[10px] leading-tight">Documento</span>
                 </Button>
 
                 <Button
                   variant="outline"
-                  className="h-20 flex-col gap-2 transition-none"
+                  className="h-[72px] flex-col gap-1.5 px-1 transition-none"
                   onClick={() => {
                     if (fileInputRef.current) {
                       fileInputRef.current.accept = "audio/*";
@@ -270,8 +270,8 @@ export const MediaSendPopover = ({
                     }
                   }}
                 >
-                  <Music className="w-6 h-6 text-orange-500" />
-                  <span className="text-xs">Áudio</span>
+                  <Music className="w-5 h-5 text-orange-500" />
+                  <span className="text-[10px] leading-tight">Áudio</span>
                 </Button>
               </div>
 
