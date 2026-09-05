@@ -116,14 +116,32 @@ serve(async (req) => {
       companyId = prof?.company_id ?? null;
     }
 
-    const r = await evolutionFindChats(creds);
-    if (!r.ok) {
-      return json({ success: false, error: "Falha ao buscar conversas na Evolution", details: r.data });
-    }
+    // Paginate through all chats (Evolution may return only the first page)
+    const raw: any[] = [];
+    const seenPageKeys = new Set<string>();
+    const PAGE_SIZE = 200;
+    const MAX_PAGES = 20;
+    for (let page = 0; page < MAX_PAGES; page++) {
+      const r = await evolutionFindChats({ ...creds, limit: PAGE_SIZE, offset: page * PAGE_SIZE });
+      if (!r.ok) {
+        if (page === 0) {
+          return json({ success: false, error: "Falha ao buscar conversas na Evolution", details: r.data });
+        }
+        break;
+      }
+      const batch: any[] = Array.isArray(r.data)
+        ? r.data
+        : (r.data?.records || r.data?.chats?.records || r.data?.chats || r.data?.data || r.data?.response || []);
+      if (!Array.isArray(batch) || batch.length === 0) break;
 
-    const raw: any[] = Array.isArray(r.data)
-      ? r.data
-      : (r.data?.records || r.data?.chats?.records || r.data?.chats || r.data?.data || r.data?.response || []);
+      // Detect APIs that ignore pagination and keep returning the same first page
+      const pageKey = String(batch[0]?.id ?? batch[0]?.remoteJid ?? batch[0]?.jid ?? JSON.stringify(batch[0]).slice(0, 80));
+      if (page > 0 && seenPageKeys.has(pageKey)) break;
+      seenPageKeys.add(pageKey);
+
+      raw.push(...batch);
+      if (batch.length < PAGE_SIZE) break;
+    }
 
     const max = Number(limit) > 0 ? Number(limit) : 500;
 
