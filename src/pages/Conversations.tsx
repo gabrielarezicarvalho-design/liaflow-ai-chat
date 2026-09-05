@@ -203,8 +203,14 @@ const Conversations = () => {
     if (historyFetchedRef.current.has(selectedConversationId)) return;
     if ((messages?.length ?? 0) > 0) return;
     historyFetchedRef.current.add(selectedConversationId);
+    const convId = selectedConversationId;
     supabase.functions
-      .invoke("wa-fetch-messages", { body: { conversationId: selectedConversationId } })
+      .invoke("wa-fetch-messages", { body: { conversationId: convId } })
+      .then(({ data }: any) => {
+        if (data?.imported > 0) {
+          queryClient.invalidateQueries({ queryKey: ["messages", convId] });
+        }
+      })
       .catch(() => {});
   }, [selectedConversationId, messagesLoading, messages?.length]);
 
