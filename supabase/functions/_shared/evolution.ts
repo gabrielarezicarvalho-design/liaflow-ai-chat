@@ -198,7 +198,10 @@ export function extractInstanceApiKey(data: any): string | null {
 // ---------- Sending helpers (Evolution API v2) ----------
 
 function cleanNumber(phone: string): string {
-  return String(phone || "").replace(/\D/g, "");
+  const s = String(phone || "");
+  const digits = s.replace(/@.*$/, "").replace(/\D/g, "");
+  // Newer WhatsApp accounts are addressed by LID; keep the suffix for Evolution.
+  return s.toLowerCase().includes("@lid") ? `${digits}@lid` : digits;
 }
 
 export async function evolutionSendText(opts: {

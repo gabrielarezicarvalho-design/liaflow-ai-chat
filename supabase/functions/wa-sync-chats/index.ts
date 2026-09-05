@@ -29,8 +29,13 @@ const isIndividualJid = (jid: string): boolean => {
   );
 };
 
-const phoneFromJid = (jid: string) =>
-  String(jid || "").replace(/@.*$/, "").replace(/\D/g, "");
+// Keeps the @lid suffix so LID-only chats stay addressable by Evolution.
+const phoneFromJid = (jid: string) => {
+  const s = String(jid || "");
+  const digits = s.replace(/@.*$/, "").replace(/\D/g, "");
+  if (!digits) return "";
+  return s.toLowerCase().includes("@lid") ? `${digits}@lid` : digits;
+};
 
 const chatName = (chat: any, phone: string): string => {
   const v = chat?.pushName || chat?.name || chat?.contact?.name || chat?.subject;
@@ -50,7 +55,7 @@ const realPhoneJid = (chat: any): string => {
     chat?.remoteJidAlt ||
     chat?.lastMessage?.key?.participantAlt ||
     "";
-  return alt || "";
+  return alt || jid;
 };
 
 const lastMessageText = (chat: any): string | null => {
@@ -152,10 +157,11 @@ serve(async (req) => {
       const jid = realPhoneJid(chat);
       if (!jid) continue;
       const phone = phoneFromJid(jid);
-      if (!phone || phone.length < 8 || phone.length > 15) continue;
+      const digits = phone.replace(/@.*$/, "");
+      if (!digits || digits.length < 8 || digits.length > 20) continue;
       const entry = {
         phone,
-        name: chatName(chat, phone),
+        name: chatName(chat, digits),
         avatar: chat?.profilePicUrl || chat?.profilePictureUrl || null,
         last: lastMessageText(chat),
         at: lastMessageAt(chat),
