@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CircleDashed, Image as ImageIcon, Music, Type, Video, X } from "lucide-react";
+import { CircleDashed, Image as ImageIcon, Loader2, Music, Type, Video, X } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
@@ -40,6 +40,7 @@ interface StatusComposerDialogProps {
 export const StatusComposerDialog = ({ connections }: StatusComposerDialogProps) => {
   const [open, setOpen] = useState(false);
   const [sending, setSending] = useState(false);
+  const [triggerLoading, setTriggerLoading] = useState(false);
   const [type, setType] = useState<StatusType>("text");
   const [text, setText] = useState("");
   const [caption, setCaption] = useState("");
@@ -48,6 +49,12 @@ export const StatusComposerDialog = ({ connections }: StatusComposerDialogProps)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [connectionId, setConnectionId] = useState<string>(connections[0]?.id ?? "");
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!triggerLoading) return;
+    const t = setTimeout(() => setTriggerLoading(false), 600);
+    return () => clearTimeout(t);
+  }, [triggerLoading]);
 
   const activeConnectionId = useMemo(
     () => connectionId || connections[0]?.id || "",
@@ -143,9 +150,15 @@ export const StatusComposerDialog = ({ connections }: StatusComposerDialogProps)
           variant="ghost"
           size="sm"
           title="Publicar status"
+          disabled={triggerLoading}
+          onClick={() => setTriggerLoading(true)}
           className="h-8 w-8 p-0 text-muted-foreground transition-none"
         >
-          <CircleDashed className="h-4 w-4" />
+          {triggerLoading ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <CircleDashed className="h-4 w-4" />
+          )}
           <span className="sr-only">Publicar status</span>
         </Button>
       </DialogTrigger>
