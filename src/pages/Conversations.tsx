@@ -423,7 +423,6 @@ const Conversations = () => {
               ) as any}
             />
             <Button
-
               variant="ghost"
               size="sm"
               onClick={handleSyncChats}
@@ -431,7 +430,7 @@ const Conversations = () => {
               title="Sincronizar conversas do WhatsApp"
               className="h-8 w-8 p-0 text-muted-foreground transition-none"
             >
-              <RefreshCw className="h-4 w-4" />
+              <RefreshCw className={cn("h-4 w-4", syncingChats && "animate-spin")} />
               <span className="sr-only">{syncingChats ? "Sincronizando..." : "Sincronizar"}</span>
             </Button>
 
