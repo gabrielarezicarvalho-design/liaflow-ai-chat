@@ -135,11 +135,12 @@ export const MediaSendPopover = ({
         <Button 
           variant="ghost" 
           size="icon" 
-          className="h-8 w-8 text-muted-foreground hover:text-foreground"
+          className="h-8 w-8 text-muted-foreground transition-none"
           disabled={disabled}
         >
           <Paperclip className="w-5 h-5" />
         </Button>
+
       </PopoverTrigger>
       <PopoverContent className="w-80" side="top" align="start">
         <div className="space-y-4">
