@@ -150,9 +150,15 @@ export const StatusComposerDialog = ({ connections }: StatusComposerDialogProps)
           variant="ghost"
           size="sm"
           title="Publicar status"
+          disabled={triggerLoading}
+          onClick={() => setTriggerLoading(true)}
           className="h-8 w-8 p-0 text-muted-foreground transition-none"
         >
-          <CircleDashed className="h-4 w-4" />
+          {triggerLoading ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <CircleDashed className="h-4 w-4" />
+          )}
           <span className="sr-only">Publicar status</span>
         </Button>
       </DialogTrigger>
