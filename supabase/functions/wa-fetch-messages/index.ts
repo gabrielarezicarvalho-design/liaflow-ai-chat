@@ -81,7 +81,10 @@ serve(async (req) => {
     const pickRecords = (d: any): any[] =>
       Array.isArray(d) ? d : (d?.messages?.records || d?.messages || d?.records || d?.data || []);
 
-    const remoteJid = `${conversation.contact_phone}@s.whatsapp.net`;
+    const rawPhone = String(conversation.contact_phone || "");
+    const remoteJid = rawPhone.toLowerCase().includes("@lid")
+      ? `${rawPhone.replace(/@.*$/, "")}@lid`
+      : `${rawPhone}@s.whatsapp.net`;
     const r = await evolutionFindMessages({ ...creds, remoteJid, limit: Number(limit) || 50 });
     if (!r.ok) {
       return json({ success: false, error: "Falha ao buscar mensagens", details: r.data });
