@@ -242,8 +242,39 @@ export const MediaSendPopover = ({
                   <span className="text-xs">Documento</span>
                 </Button>
 
+                <Button
+                  variant="outline"
+                  className="h-20 flex-col gap-2 transition-none"
+                  onClick={() => {
+                    if (fileInputRef.current) {
+                      fileInputRef.current.accept = "audio/*";
+                      fileInputRef.current.click();
+                    }
+                  }}
+                >
+                  <Music className="w-6 h-6 text-orange-500" />
+                  <span className="text-xs">Áudio</span>
+                </Button>
               </div>
-              
+
+              <Button
+                variant={recording ? "destructive" : "secondary"}
+                className="w-full transition-none"
+                onClick={recording ? stopRecording : startRecording}
+              >
+                {recording ? (
+                  <>
+                    <Square className="w-4 h-4 mr-2" />
+                    Parar gravação
+                  </>
+                ) : (
+                  <>
+                    <Mic className="w-4 h-4 mr-2" />
+                    Gravar áudio
+                  </>
+                )}
+              </Button>
+
               <p className="text-xs text-muted-foreground text-center">
                 Imagens 16MB, vídeos 1GB, docs 100MB
               </p>
@@ -270,7 +301,17 @@ export const MediaSendPopover = ({
                   />
                 </div>
               )}
-              
+
+              {previewUrl && selectedFile?.type.startsWith('audio/') && (
+                <div className="p-3 bg-muted rounded-lg space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Mic className="w-4 h-4 text-orange-500" />
+                    <p className="text-xs font-medium truncate">{selectedFile.name}</p>
+                  </div>
+                  <audio src={previewUrl} controls className="w-full h-8" />
+                </div>
+              )}
+
               {!previewUrl && (
                 <div className="flex items-center gap-3 p-3 bg-muted rounded-lg">
                   <FileText className="w-8 h-8 text-muted-foreground" />
