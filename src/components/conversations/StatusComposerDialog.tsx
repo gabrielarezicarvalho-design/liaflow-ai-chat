@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CircleDashed, Image as ImageIcon, Music, Type, Video, X } from "lucide-react";
+import { CircleDashed, Image as ImageIcon, Loader2, Music, Type, Video, X } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
