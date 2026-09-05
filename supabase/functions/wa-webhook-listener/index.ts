@@ -3700,6 +3700,40 @@ ${safeTelegramText}`;
       console.log("⚠️ Número inválido (possível ID de Facebook/Instagram) - não criando lead:", cleanPhone);
     }
 
+    // Conversas importadas por LID (@lid) viram a conversa do número real
+    try {
+      const lidJid = String(telefone || "").toLowerCase().includes("@lid")
+        ? String(telefone)
+        : (String((payload?.data?.key?.remoteJid) || "").toLowerCase().includes("@lid")
+          ? String(payload.data.key.remoteJid)
+          : "");
+      const lidDigits = lidJid.replace(/@.*/, "").replace(/\D/g, "");
+      if (lidDigits && lidDigits !== cleanPhone) {
+        const { data: lidConv } = await supabase
+          .from("conversations")
+          .select("id")
+          .eq("contact_phone", `${lidDigits}@lid`)
+          .eq("connection_id", connectionId)
+          .maybeSingle();
+        if (lidConv) {
+          const { data: realConv } = await supabase
+            .from("conversations")
+            .select("id")
+            .eq("contact_phone", cleanPhone)
+            .eq("connection_id", connectionId)
+            .maybeSingle();
+          if (realConv) {
+            await supabase.from("messages").update({ conversation_id: realConv.id }).eq("conversation_id", lidConv.id);
+            await supabase.from("conversations").delete().eq("id", lidConv.id);
+          } else {
+            await supabase.from("conversations").update({ contact_phone: cleanPhone }).eq("id", lidConv.id);
+          }
+        }
+      }
+    } catch (e) {
+      console.error("merge lid conversation error", e);
+    }
+
     // Buscar conversa existente (qualquer status exceto 'closed')
     // Inclui flow_state, assigned_agent_id e status para verificar estado pendente e IA
     let conversationData = null;
