@@ -43,6 +43,9 @@ import { TransferDialog } from "@/components/conversations/TransferDialog";
 import { MessageContent } from "@/components/conversations/MessageContent";
 import { EditContactDialog } from "@/components/conversations/EditContactDialog";
 import { NewConversationDialog } from "@/components/conversations/NewConversationDialog";
+import { MediaSendPopover } from "@/components/conversations/MediaSendPopover";
+import { EmojiPickerPopover } from "@/components/conversations/EmojiPickerPopover";
+
 
 const Conversations = () => {
   const { conversations, isLoading, deleteConversation, updateConversation, refetch } = useConversations();
