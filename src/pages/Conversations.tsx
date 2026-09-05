@@ -690,16 +690,45 @@ const Conversations = () => {
                 </Badge>
                 {selectedConversation.status === "open" && (
                   <>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-8 px-2 text-primary transition-none"
-                      onClick={() => setHeaderTransferDialogOpen(true)}
-                      title="Transferir conversa"
-                    >
-                      <ArrowRightLeft className="w-4 h-4 mr-1" />
-                      <span className="text-xs hidden sm:inline">Transferir</span>
-                    </Button>
+                    {(selectedConversation as any)?.attendance_type === "agent" ? (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-8 px-2 text-primary transition-none"
+                        onClick={() => setHeaderTransferDialogOpen(true)}
+                        title="Transferir conversa"
+                      >
+                        <ArrowRightLeft className="w-4 h-4 mr-1" />
+                        <span className="text-xs hidden sm:inline">Transferir</span>
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-8 px-2 text-primary transition-none"
+                        disabled={transferring}
+                        onClick={async () => {
+                          if (!selectedConversationId || !user?.id) return;
+                          setTransferring(true);
+                          try {
+                            await updateConversation.mutateAsync({
+                              id: selectedConversationId,
+                              updates: { attendance_type: "agent", assigned_to: user.id, department_id: null },
+                            });
+                            toast.success("Conversa assumida com sucesso!");
+                            setActiveTab("agent");
+                          } catch {
+                            toast.error("Erro ao assumir conversa");
+                          } finally {
+                            setTransferring(false);
+                          }
+                        }}
+                        title="Assumir conversa"
+                      >
+                        <Headphones className="w-4 h-4 mr-1" />
+                        <span className="text-xs hidden sm:inline">{transferring ? "Assumindo..." : "Assumir"}</span>
+                      </Button>
+                    )}
 
                     <Button
                       variant="ghost"
