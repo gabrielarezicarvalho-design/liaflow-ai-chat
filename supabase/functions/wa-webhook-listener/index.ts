@@ -3845,6 +3845,12 @@ ${safeTelegramText}`;
         sender_type: "customer",
         content: mensagem,
         message_type: tipo || "text",
+        media_url: isAudioMessage ? (audioUrl || null) : (mediaUrl || null),
+        metadata: {
+          source: "evolution-webhook",
+          media_type: mediaType || tipo || "text",
+          caption: mediaCaption || null,
+        },
         status: "received",
         external_id: messageId || null
       })
