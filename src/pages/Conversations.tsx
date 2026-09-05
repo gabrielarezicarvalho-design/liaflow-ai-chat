@@ -45,6 +45,8 @@ import { EditContactDialog } from "@/components/conversations/EditContactDialog"
 import { NewConversationDialog } from "@/components/conversations/NewConversationDialog";
 import { MediaSendPopover } from "@/components/conversations/MediaSendPopover";
 import { EmojiPickerPopover } from "@/components/conversations/EmojiPickerPopover";
+import { StatusComposerDialog } from "@/components/conversations/StatusComposerDialog";
+
 
 
 const Conversations = () => {
@@ -414,7 +416,14 @@ const Conversations = () => {
                 setSelectedConversationId(id);
               }}
             />
+            <StatusComposerDialog
+              connections={(connections || []).filter(
+                (c: any) =>
+                  String(c.environment || "").toUpperCase() === "EVOLUTION" || c.is_active
+              ) as any}
+            />
             <Button
+
               variant="ghost"
               size="sm"
               onClick={handleSyncChats}
