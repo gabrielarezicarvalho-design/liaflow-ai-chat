@@ -46,6 +46,7 @@ import { EditContactDialog } from "@/components/conversations/EditContactDialog"
 const Conversations = () => {
   const { conversations, isLoading, deleteConversation, updateConversation, refetch } = useConversations();
   const { connections } = useConnections();
+  const queryClient = useQueryClient();
   const [syncingChats, setSyncingChats] = useState(false);
   const historyFetchedRef = useRef<Set<string>>(new Set());
   const { user } = useAuth();
