@@ -661,26 +661,28 @@ const Conversations = () => {
                     <Button
                       variant="ghost"
                       size="sm"
-                       className="h-8 px-2 text-primary hover:bg-primary/10 hover:text-primary"
+                      className="h-8 px-2 text-primary transition-none"
                       onClick={() => setHeaderTransferDialogOpen(true)}
                       title="Transferir conversa"
                     >
                       <ArrowRightLeft className="w-4 h-4 mr-1" />
                       <span className="text-xs hidden sm:inline">Transferir</span>
                     </Button>
-                     <Button
+
+                    <Button
                       variant="ghost"
                       size="sm"
-                      className="h-8 px-2 text-destructive hover:text-destructive hover:bg-destructive/10"
+                      className="h-8 px-2 text-destructive transition-none"
                       onClick={() => setCloseDialogOpen(true)}
                       title="Encerrar conversa"
                     >
                       <XCircle className="w-4 h-4 mr-1" />
                       <span className="text-xs hidden sm:inline">Encerrar</span>
                     </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground" title="Mais opções">
+                    <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground transition-none" title="Mais opções">
                       <MoreVertical className="h-4 w-4" />
                     </Button>
+
                   </>
                 )}
               </div>
