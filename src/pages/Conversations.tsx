@@ -555,8 +555,8 @@ const Conversations = () => {
                   key={conv.id}
                   onClick={() => setSelectedConversationId(conv.id)}
                   className={cn(
-                    "my-1 flex cursor-pointer items-center gap-3 rounded-lg border border-transparent px-3 py-3 transition-colors hover:bg-muted/60",
-                    selectedConversationId === conv.id && "border-primary/10 bg-primary/10 hover:bg-primary/10"
+                    "my-1 flex cursor-pointer items-center gap-3 rounded-lg border border-transparent px-3 py-3 transition-none",
+                    selectedConversationId === conv.id && "border-primary/10 bg-primary/10"
                   )}
                 >
                   <Avatar className="h-12 w-12 shrink-0">
@@ -584,7 +584,7 @@ const Conversations = () => {
                         </p>
                       </div>
                       {conv.unread_count && conv.unread_count > 0 ? (
-                        <Badge className="h-5 min-w-5 shrink-0 rounded-full bg-primary px-1.5 text-[10px] text-primary-foreground hover:bg-primary">
+                        <Badge className="h-5 min-w-5 shrink-0 rounded-full bg-primary px-1.5 text-[10px] text-primary-foreground">
                           {conv.unread_count}
                         </Badge>
                       ) : null}
@@ -600,6 +600,7 @@ const Conversations = () => {
                   </div>
                 </div>
               ))}
+
             </div>
           )}
         </ScrollArea>
@@ -615,11 +616,11 @@ const Conversations = () => {
         {selectedConversation ? (
           <>
             {/* Chat header */}
-            <div className="flex h-16 items-center gap-3 border-b border-border bg-card/95 px-4 backdrop-blur-sm">
+            <div className="flex h-16 items-center gap-3 border-b border-border bg-card px-4">
               <Button
                 variant="ghost"
                 size="icon"
-                className="md:hidden shrink-0"
+                className="md:hidden shrink-0 transition-none"
                 onClick={() => setSelectedConversationId(null)}
               >
                 <ArrowLeft className="w-5 h-5" />
@@ -635,10 +636,11 @@ const Conversations = () => {
               </Avatar>
 
               <div 
-                className="flex-1 min-w-0 cursor-pointer hover:opacity-80 transition-opacity"
+                className="flex-1 min-w-0 cursor-pointer"
                 onClick={() => setEditContactDialogOpen(true)}
                 title="Clique para editar dados do contato"
               >
+
                 <h3 className="truncate text-sm font-semibold text-foreground">
                   {selectedConversation.contact_name || selectedConversation.contact_phone}
                 </h3>
