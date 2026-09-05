@@ -472,12 +472,17 @@ export async function evolutionFindChats(opts: {
   baseUrl: string;
   apiKey: string;
   instanceName: string;
+  limit?: number;
+  offset?: number;
 }) {
+  const body: Record<string, unknown> = {};
+  if (opts.limit) body.limit = opts.limit;
+  if (opts.offset) body.offset = opts.offset;
   return evoFetch(
     opts.baseUrl,
     `/chat/findChats/${encodeURIComponent(opts.instanceName)}`,
     opts.apiKey,
-    { method: "POST", body: JSON.stringify({}) },
+    { method: "POST", body: JSON.stringify(body) },
   );
 }
 
