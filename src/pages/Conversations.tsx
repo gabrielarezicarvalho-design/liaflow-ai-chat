@@ -429,16 +429,16 @@ const Conversations = () => {
             size="sm"
             onClick={() => { setActiveTab("agent"); setSelectedConversationId(null); }}
             className={cn(
-              "h-8 shrink-0 gap-1.5 rounded-full border px-3 text-xs font-medium",
+              "h-7 shrink-0 gap-1 rounded-full border px-2.5 text-[11px] font-medium",
               activeTab === "agent"
                 ? "border-primary/20 bg-primary/10 text-primary hover:bg-primary/10"
                 : "border-border bg-card text-muted-foreground hover:bg-muted"
             )}
           >
-            <Headphones className="w-3.5 h-3.5" />
+            <Headphones className="w-3 h-3" />
             <span>Atendente</span>
             {getTabCount("agent") > 0 && (
-              <Badge variant="secondary" className="h-4 min-w-4 px-1 text-[10px] rounded-full">
+              <Badge variant="secondary" className="h-3.5 min-w-3.5 px-1 text-[9px] rounded-full">
                 {getTabCount("agent")}
               </Badge>
             )}
@@ -448,16 +448,16 @@ const Conversations = () => {
             size="sm"
             onClick={() => { setActiveTab("ai"); setSelectedConversationId(null); }}
             className={cn(
-              "h-8 shrink-0 gap-1.5 rounded-full border px-3 text-xs font-medium",
+              "h-7 shrink-0 gap-1 rounded-full border px-2.5 text-[11px] font-medium",
               activeTab === "ai"
                 ? "border-primary/20 bg-primary/10 text-primary hover:bg-primary/10"
                 : "border-border bg-card text-muted-foreground hover:bg-muted"
             )}
           >
-            <Bot className="w-3.5 h-3.5" />
+            <Bot className="w-3 h-3" />
             <span>IA</span>
             {getTabCount("ai") > 0 && (
-              <Badge variant="secondary" className="h-4 min-w-4 px-1 text-[10px] rounded-full">
+              <Badge variant="secondary" className="h-3.5 min-w-3.5 px-1 text-[9px] rounded-full">
                 {getTabCount("ai")}
               </Badge>
             )}
@@ -467,16 +467,16 @@ const Conversations = () => {
             size="sm"
             onClick={() => { setActiveTab("ura"); setSelectedConversationId(null); }}
             className={cn(
-              "h-8 shrink-0 gap-1.5 rounded-full border px-3 text-xs font-medium",
+              "h-7 shrink-0 gap-1 rounded-full border px-2.5 text-[11px] font-medium",
               activeTab === "ura"
                 ? "border-primary/20 bg-primary/10 text-primary hover:bg-primary/10"
                 : "border-border bg-card text-muted-foreground hover:bg-muted"
             )}
           >
-            <GitBranch className="w-3.5 h-3.5" />
+            <GitBranch className="w-3 h-3" />
             <span>URA</span>
             {getTabCount("ura") > 0 && (
-              <Badge variant="secondary" className="h-4 min-w-4 px-1 text-[10px] rounded-full">
+              <Badge variant="secondary" className="h-3.5 min-w-3.5 px-1 text-[9px] rounded-full">
                 {getTabCount("ura")}
               </Badge>
             )}
@@ -486,16 +486,16 @@ const Conversations = () => {
             size="sm"
             onClick={() => { setActiveTab("queue"); setSelectedConversationId(null); }}
             className={cn(
-              "h-8 shrink-0 gap-1.5 rounded-full border px-3 text-xs font-medium",
+              "h-7 shrink-0 gap-1 rounded-full border px-2.5 text-[11px] font-medium",
               activeTab === "queue"
                 ? "border-primary/20 bg-primary/10 text-primary hover:bg-primary/10"
                 : "border-border bg-card text-muted-foreground hover:bg-muted"
             )}
           >
-            <Users className="w-3.5 h-3.5" />
+            <Users className="w-3 h-3" />
             <span>Fila</span>
             {getTabCount("queue") > 0 && (
-              <Badge variant="secondary" className="h-4 min-w-4 px-1 text-[10px] rounded-full">
+              <Badge variant="secondary" className="h-3.5 min-w-3.5 px-1 text-[9px] rounded-full">
                 {getTabCount("queue")}
               </Badge>
             )}
