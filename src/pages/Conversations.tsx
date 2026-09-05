@@ -435,10 +435,10 @@ const Conversations = () => {
             size="sm"
             onClick={() => { setActiveTab("agent"); setSelectedConversationId(null); }}
             className={cn(
-              "h-6 flex-1 shrink-0 gap-0.5 whitespace-nowrap rounded-full border px-2 text-[10px] font-medium",
+              "h-6 flex-1 shrink-0 gap-0.5 whitespace-nowrap rounded-full border px-2 text-[10px] font-medium transition-none",
               activeTab === "agent"
-                ? "border-primary/20 bg-primary/10 text-primary hover:bg-primary/10"
-                : "border-border bg-card text-muted-foreground hover:bg-muted"
+                ? "border-primary/20 bg-primary/10 text-primary"
+                : "border-border bg-card text-muted-foreground"
             )}
           >
             <Headphones className="w-2.5 h-2.5" />
@@ -454,10 +454,10 @@ const Conversations = () => {
             size="sm"
             onClick={() => { setActiveTab("ai"); setSelectedConversationId(null); }}
             className={cn(
-              "h-6 flex-1 shrink-0 gap-0.5 whitespace-nowrap rounded-full border px-2 text-[10px] font-medium",
+              "h-6 flex-1 shrink-0 gap-0.5 whitespace-nowrap rounded-full border px-2 text-[10px] font-medium transition-none",
               activeTab === "ai"
-                ? "border-primary/20 bg-primary/10 text-primary hover:bg-primary/10"
-                : "border-border bg-card text-muted-foreground hover:bg-muted"
+                ? "border-primary/20 bg-primary/10 text-primary"
+                : "border-border bg-card text-muted-foreground"
             )}
           >
             <Bot className="w-2.5 h-2.5" />
@@ -473,10 +473,10 @@ const Conversations = () => {
             size="sm"
             onClick={() => { setActiveTab("ura"); setSelectedConversationId(null); }}
             className={cn(
-              "h-6 flex-1 shrink-0 gap-0.5 whitespace-nowrap rounded-full border px-2 text-[10px] font-medium",
+              "h-6 flex-1 shrink-0 gap-0.5 whitespace-nowrap rounded-full border px-2 text-[10px] font-medium transition-none",
               activeTab === "ura"
-                ? "border-primary/20 bg-primary/10 text-primary hover:bg-primary/10"
-                : "border-border bg-card text-muted-foreground hover:bg-muted"
+                ? "border-primary/20 bg-primary/10 text-primary"
+                : "border-border bg-card text-muted-foreground"
             )}
           >
             <GitBranch className="w-2.5 h-2.5" />
@@ -492,10 +492,10 @@ const Conversations = () => {
             size="sm"
             onClick={() => { setActiveTab("queue"); setSelectedConversationId(null); }}
             className={cn(
-              "h-6 flex-1 shrink-0 gap-0.5 whitespace-nowrap rounded-full border px-2 text-[10px] font-medium",
+              "h-6 flex-1 shrink-0 gap-0.5 whitespace-nowrap rounded-full border px-2 text-[10px] font-medium transition-none",
               activeTab === "queue"
-                ? "border-primary/20 bg-primary/10 text-primary hover:bg-primary/10"
-                : "border-border bg-card text-muted-foreground hover:bg-muted"
+                ? "border-primary/20 bg-primary/10 text-primary"
+                : "border-border bg-card text-muted-foreground"
             )}
           >
             <Users className="w-2.5 h-2.5" />
@@ -508,6 +508,7 @@ const Conversations = () => {
           </Button>
 
         </div>
+
 
         {/* Filter: Meus / Todos (only on agent tab) */}
         {activeTab === "agent" && (
