@@ -494,7 +494,8 @@ export async function evolutionFindMessages(opts: {
   apiKey: string;
   instanceName: string;
   remoteJid: string;
-  limit?: number;
+  page?: number;
+  offset?: number;
   byAlt?: boolean;
 }) {
   const key = opts.byAlt ? { remoteJidAlt: opts.remoteJid } : { remoteJid: opts.remoteJid };
@@ -504,7 +505,11 @@ export async function evolutionFindMessages(opts: {
     opts.apiKey,
     {
       method: "POST",
-      body: JSON.stringify({ where: { key }, limit: opts.limit ?? 50 }),
+      body: JSON.stringify({
+        where: { key },
+        page: opts.page ?? 1,
+        offset: opts.offset ?? 100,
+      }),
     },
   );
 }

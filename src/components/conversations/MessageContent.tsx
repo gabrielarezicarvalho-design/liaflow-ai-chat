@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from "react";
-import { Download, FileText, Image as ImageIcon, Mic } from "lucide-react";
+import { Download, FileText, Image as ImageIcon, MapPin, Mic, UserRound } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 interface MessageContentProps {
   content?: string | null;
   type?: string | null;
+  mediaUrl?: string | null;
+  metadata?: Record<string, unknown> | null;
   isSent: boolean;
 }
 
@@ -15,7 +17,7 @@ interface MediaData {
   seconds?: number;
 }
 
-export const MessageContent = ({ content, type, isSent }: MessageContentProps) => {
+export const MessageContent = ({ content, type, mediaUrl, metadata, isSent }: MessageContentProps) => {
   const safeContent = typeof content === "string" ? content : "";
   const safeType = typeof type === "string" && type.trim().length > 0 ? type : "text";
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -68,7 +70,10 @@ export const MessageContent = ({ content, type, isSent }: MessageContentProps) =
     return null;
   };
 
-  const mediaData = parseMediaData();
+  const parsedMediaData = parseMediaData();
+  const mediaData = mediaUrl
+    ? { url: mediaUrl, type: safeType, caption: safeContent || undefined, seconds: Number(metadata?.seconds) || undefined }
+    : parsedMediaData;
 
   // Auto-transcribe audio when component mounts
   useEffect(() => {
@@ -241,6 +246,28 @@ export const MessageContent = ({ content, type, isSent }: MessageContentProps) =
     );
   }
 
+  if (renderType === 'location') {
+    const latitude = Number(metadata?.latitude);
+    const longitude = Number(metadata?.longitude);
+    const mapUrl = Number.isFinite(latitude) && Number.isFinite(longitude)
+      ? `https://www.google.com/maps?q=${latitude},${longitude}`
+      : null;
+    return mapUrl ? (
+      <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 underline underline-offset-2">
+        <MapPin className="h-4 w-4 shrink-0" />
+        <span>{safeContent || "Abrir localização"}</span>
+      </a>
+    ) : <p className="flex items-center gap-2"><MapPin className="h-4 w-4" />{safeContent || "Localização"}</p>;
+  }
+
+  if (renderType === 'contact') {
+    return <p className="flex items-center gap-2"><UserRound className="h-4 w-4 shrink-0" />{safeContent || "Contato"}</p>;
+  }
+
+  if ((renderType === 'audio' || renderType === 'image' || renderType === 'video' || renderType === 'document' || renderType === 'sticker') && !mediaData?.url) {
+    return <p className="text-sm">{safeContent || "Mídia não disponível"}</p>;
+  }
+
   // Default text rendering - but check if it looks like JSON we shouldn't display
   const looksLikeMediaJson = safeContent.startsWith('{"URL"') || safeContent.startsWith('{"url"');
   if (looksLikeMediaJson) {
@@ -257,7 +284,7 @@ export const MessageContent = ({ content, type, isSent }: MessageContentProps) =
 
   return (
     <p className={`text-sm whitespace-pre-wrap break-words leading-relaxed ${isSent ? "text-primary-foreground" : "text-foreground"}`}>
-      {safeContent}
+      {safeContent || "Mensagem não disponível"}
     </p>
   );
 };
