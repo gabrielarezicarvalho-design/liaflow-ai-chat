@@ -256,14 +256,18 @@ const Conversations = () => {
       }
 
       // Save message to DB
-      const { error } = await supabase.from("messages").insert({
-        conversation_id: selectedConversationId,
-        content: text,
-        sender_type: "agent",
-        sender_id: user.id,
-        message_type: "text",
-        status: "sent",
-      });
+      const { data: inserted, error } = await supabase
+        .from("messages")
+        .insert({
+          conversation_id: selectedConversationId,
+          content: text,
+          sender_type: "agent",
+          sender_id: user.id,
+          message_type: "text",
+          status: "sent",
+        })
+        .select("id")
+        .single();
 
       if (error) throw error;
 
@@ -290,8 +294,22 @@ const Conversations = () => {
         if (sendError || (sendData && sendData.success === false)) {
           console.error("Erro ao enviar via WhatsApp:", sendError || sendData);
           toast.warning("Mensagem salva, mas falha ao enviar via WhatsApp");
+        } else {
+          // Guarda o ID do WhatsApp para evitar mensagens duplicadas na sincronização
+          const waId =
+            sendData?.data?.key?.id ||
+            sendData?.data?.messageId ||
+            sendData?.data?.id ||
+            null;
+          if (waId && inserted?.id) {
+            await supabase
+              .from("messages")
+              .update({ external_id: String(waId) })
+              .eq("id", inserted.id);
+          }
         }
       }
+
     } catch (error: any) {
       toast.error("Erro ao enviar mensagem");
       setMessageText(text);

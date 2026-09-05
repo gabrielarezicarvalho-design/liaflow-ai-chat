@@ -145,14 +145,36 @@ export const useMessages = (conversationId?: string) => {
   };
 };
 
-// Global hook - initializes singleton once
+// Global hook - initializes singleton once (após a sessão existir)
 export const useGlobalMessages = () => {
   const queryClient = useQueryClient();
   const queryClientRef = useRef(queryClient);
   queryClientRef.current = queryClient;
 
   useEffect(() => {
-    initGlobalChannel(() => queryClientRef.current);
-    // No cleanup - channel persists for app lifetime
+    let cancelled = false;
+
+    const start = async () => {
+      const { data } = await supabase.auth.getSession();
+      if (cancelled || !data.session) return;
+      supabase.realtime.setAuth(data.session.access_token);
+      initGlobalChannel(() => queryClientRef.current);
+    };
+
+    start();
+
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session) return;
+      supabase.realtime.setAuth(session.access_token);
+      if (!globalChannelInstance) {
+        initGlobalChannel(() => queryClientRef.current);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+      sub.subscription.unsubscribe();
+    };
   }, []);
 };
+
