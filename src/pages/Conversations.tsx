@@ -370,18 +370,21 @@ const Conversations = () => {
   }
 
   return (
-    <div className="flex h-[calc(100vh-4rem)] overflow-hidden bg-background rounded-lg border border-border">
+    <div className="flex h-[calc(100vh-4rem)] overflow-hidden bg-card font-sans">
       {/* ==================== LEFT PANEL - Conversations List ==================== */}
       <div
         className={cn(
-          "w-full md:w-[380px] md:min-w-[320px] md:max-w-[420px] flex flex-col border-r border-border bg-card",
+          "w-full md:w-[350px] md:min-w-[320px] md:max-w-[390px] flex flex-col border-r border-border bg-card",
           selectedConversationId && "hidden md:flex"
         )}
       >
         {/* Header */}
-        <div className="px-4 py-3 flex items-center justify-between border-b border-border">
-          <h2 className="text-lg font-semibold text-foreground">Conversas</h2>
-          <div className="flex items-center gap-2">
+        <div className="flex h-16 items-center justify-between px-4">
+          <div>
+            <h2 className="text-xl font-semibold text-foreground">Mensagens</h2>
+            <p className="text-[11px] text-muted-foreground">Central de conversas Next Pro</p>
+          </div>
+          <div className="flex items-center gap-1">
             <NewConversationDialog
               onConversationOpened={async (id) => {
                 setActiveTab("agent");
@@ -395,39 +398,41 @@ const Conversations = () => {
               onClick={handleSyncChats}
               disabled={syncingChats}
               title="Sincronizar conversas do WhatsApp"
-              className="h-8 px-2 text-xs gap-1.5"
+              className="h-8 w-8 p-0 text-muted-foreground hover:bg-primary/10 hover:text-primary"
             >
-              <RefreshCw className={cn("w-3.5 h-3.5", syncingChats && "animate-spin")} />
-              <span className="hidden sm:inline">{syncingChats ? "Sincronizando..." : "Sincronizar"}</span>
+              <RefreshCw className={cn("h-4 w-4", syncingChats && "animate-spin")} />
+              <span className="sr-only">{syncingChats ? "Sincronizando..." : "Sincronizar"}</span>
             </Button>
-            <Badge variant="secondary" className="text-xs">
+            <Badge variant="secondary" className="h-6 min-w-6 justify-center rounded-full px-1.5 text-[10px]">
               {filteredConversations.length}
             </Badge>
           </div>
         </div>
 
         {/* Search */}
-        <div className="px-3 py-2">
+        <div className="px-3 pb-3">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
-              placeholder="Buscar conversas..."
+              placeholder="Pesquisar ou iniciar uma conversa"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-9 h-9 bg-muted/50 border-0 focus-visible:ring-1"
+              className="h-10 rounded-lg border-0 bg-muted/60 pl-9 text-sm shadow-none focus-visible:ring-1"
             />
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b border-border">
-          <button
+        <div className="flex gap-1 overflow-x-auto border-b border-border px-3 pb-3 scrollbar-hide">
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={() => { setActiveTab("agent"); setSelectedConversationId(null); }}
             className={cn(
-              "flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs font-medium transition-colors border-b-2",
+              "h-8 shrink-0 gap-1.5 rounded-full border px-3 text-xs font-medium",
               activeTab === "agent"
-                ? "border-primary text-primary"
-                : "border-transparent text-muted-foreground hover:text-foreground"
+                ? "border-primary/20 bg-primary/10 text-primary hover:bg-primary/10"
+                : "border-border bg-card text-muted-foreground hover:bg-muted"
             )}
           >
             <Headphones className="w-3.5 h-3.5" />
@@ -437,14 +442,16 @@ const Conversations = () => {
                 {getTabCount("agent")}
               </Badge>
             )}
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={() => { setActiveTab("ai"); setSelectedConversationId(null); }}
             className={cn(
-              "flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs font-medium transition-colors border-b-2",
+              "h-8 shrink-0 gap-1.5 rounded-full border px-3 text-xs font-medium",
               activeTab === "ai"
-                ? "border-primary text-primary"
-                : "border-transparent text-muted-foreground hover:text-foreground"
+                ? "border-primary/20 bg-primary/10 text-primary hover:bg-primary/10"
+                : "border-border bg-card text-muted-foreground hover:bg-muted"
             )}
           >
             <Bot className="w-3.5 h-3.5" />
@@ -454,14 +461,16 @@ const Conversations = () => {
                 {getTabCount("ai")}
               </Badge>
             )}
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={() => { setActiveTab("ura"); setSelectedConversationId(null); }}
             className={cn(
-              "flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs font-medium transition-colors border-b-2",
+              "h-8 shrink-0 gap-1.5 rounded-full border px-3 text-xs font-medium",
               activeTab === "ura"
-                ? "border-primary text-primary"
-                : "border-transparent text-muted-foreground hover:text-foreground"
+                ? "border-primary/20 bg-primary/10 text-primary hover:bg-primary/10"
+                : "border-border bg-card text-muted-foreground hover:bg-muted"
             )}
           >
             <GitBranch className="w-3.5 h-3.5" />
@@ -471,14 +480,16 @@ const Conversations = () => {
                 {getTabCount("ura")}
               </Badge>
             )}
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={() => { setActiveTab("queue"); setSelectedConversationId(null); }}
             className={cn(
-              "flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs font-medium transition-colors border-b-2",
+              "h-8 shrink-0 gap-1.5 rounded-full border px-3 text-xs font-medium",
               activeTab === "queue"
-                ? "border-primary text-primary"
-                : "border-transparent text-muted-foreground hover:text-foreground"
+                ? "border-primary/20 bg-primary/10 text-primary hover:bg-primary/10"
+                : "border-border bg-card text-muted-foreground hover:bg-muted"
             )}
           >
             <Users className="w-3.5 h-3.5" />
@@ -488,17 +499,17 @@ const Conversations = () => {
                 {getTabCount("queue")}
               </Badge>
             )}
-          </button>
+          </Button>
 
         </div>
 
         {/* Filter: Meus / Todos (only on agent tab) */}
         {activeTab === "agent" && (
-          <div className="flex items-center gap-1 px-3 py-2 border-b border-border">
+          <div className="flex items-center gap-1 border-b border-border px-3 py-2">
             <Button
               variant={showOnlyMine ? "default" : "ghost"}
               size="sm"
-              className="h-7 text-xs px-3"
+              className="h-7 rounded-full px-3 text-xs"
               onClick={() => setShowOnlyMine(true)}
             >
               Meus
@@ -506,7 +517,7 @@ const Conversations = () => {
             <Button
               variant={!showOnlyMine ? "default" : "ghost"}
               size="sm"
-              className="h-7 text-xs px-3"
+              className="h-7 rounded-full px-3 text-xs"
               onClick={() => setShowOnlyMine(false)}
             >
               Todos
@@ -531,17 +542,17 @@ const Conversations = () => {
               </p>
             </div>
           ) : (
-            <div>
+            <div className="px-2 py-1">
               {filteredConversations.map((conv) => (
                 <div
                   key={conv.id}
                   onClick={() => setSelectedConversationId(conv.id)}
                   className={cn(
-                    "flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors hover:bg-muted/50",
-                    selectedConversationId === conv.id && "bg-muted"
+                    "my-1 flex cursor-pointer items-center gap-3 rounded-lg border border-transparent px-3 py-3 transition-colors hover:bg-muted/60",
+                    selectedConversationId === conv.id && "border-primary/10 bg-primary/10 hover:bg-primary/10"
                   )}
                 >
-                  <Avatar className="h-11 w-11 shrink-0">
+                  <Avatar className="h-12 w-12 shrink-0">
                     {conv.contact_avatar && (
                       <AvatarImage src={conv.contact_avatar} alt={conv.contact_name || "Contato"} />
                     )}
@@ -552,7 +563,7 @@ const Conversations = () => {
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-2">
-                      <span className="font-medium text-sm text-foreground truncate">
+                        <span className="truncate text-sm font-semibold text-foreground">
                         {conv.contact_name || conv.contact_phone || "Desconhecido"}
                       </span>
                       <span className="text-[11px] text-muted-foreground shrink-0">
@@ -561,12 +572,12 @@ const Conversations = () => {
                     </div>
                     <div className="flex items-center justify-between gap-2 mt-0.5">
                       <div className="flex items-center gap-1 min-w-0">
-                        <p className="text-xs text-muted-foreground truncate">
+                        <p className="truncate text-xs text-muted-foreground">
                           {conv.last_message || "Nenhuma mensagem"}
                         </p>
                       </div>
                       {conv.unread_count && conv.unread_count > 0 ? (
-                        <Badge className="rounded-full h-5 min-w-5 px-1.5 text-[10px] bg-emerald-500 hover:bg-emerald-500 text-white shrink-0">
+                        <Badge className="h-5 min-w-5 shrink-0 rounded-full bg-primary px-1.5 text-[10px] text-primary-foreground hover:bg-primary">
                           {conv.unread_count}
                         </Badge>
                       ) : null}
@@ -597,7 +608,7 @@ const Conversations = () => {
         {selectedConversation ? (
           <>
             {/* Chat header */}
-            <div className="px-4 py-3 flex items-center gap-3 border-b border-border bg-card">
+            <div className="flex h-16 items-center gap-3 border-b border-border bg-card/95 px-4 backdrop-blur-sm">
               <Button
                 variant="ghost"
                 size="icon"
@@ -621,11 +632,11 @@ const Conversations = () => {
                 onClick={() => setEditContactDialogOpen(true)}
                 title="Clique para editar dados do contato"
               >
-                <h3 className="font-semibold text-sm text-foreground truncate">
+                <h3 className="truncate text-sm font-semibold text-foreground">
                   {selectedConversation.contact_name || selectedConversation.contact_phone}
                 </h3>
                 <div className="flex items-center gap-2">
-                  <p className="text-xs text-muted-foreground">
+                    <p className="text-xs text-muted-foreground">
                     {selectedConversation.contact_phone}
                   </p>
                   {selectedConversation.assigned_to && profilesMap?.[selectedConversation.assigned_to] && (
@@ -638,25 +649,23 @@ const Conversations = () => {
               </div>
 
               <div className="flex items-center gap-1">
-                <Badge
-                  variant={selectedConversation.status === "open" ? "default" : "secondary"}
-                  className="text-[10px] h-5"
-                >
-                  {selectedConversation.status === "open" ? "Aberto" : "Fechado"}
+                <Badge variant="secondary" className="hidden h-6 rounded-full px-2 text-[10px] sm:flex">
+                  <span className={cn("mr-1.5 h-1.5 w-1.5 rounded-full", selectedConversation.status === "open" ? "bg-success" : "bg-muted-foreground")} />
+                  {selectedConversation.status === "open" ? "Atendimento aberto" : "Encerrado"}
                 </Badge>
                 {selectedConversation.status === "open" && (
                   <>
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="h-8 px-2 text-primary hover:text-primary hover:bg-primary/10"
+                       className="h-8 px-2 text-primary hover:bg-primary/10 hover:text-primary"
                       onClick={() => setHeaderTransferDialogOpen(true)}
                       title="Transferir conversa"
                     >
                       <ArrowRightLeft className="w-4 h-4 mr-1" />
                       <span className="text-xs hidden sm:inline">Transferir</span>
                     </Button>
-                    <Button
+                     <Button
                       variant="ghost"
                       size="sm"
                       className="h-8 px-2 text-destructive hover:text-destructive hover:bg-destructive/10"
@@ -666,14 +675,17 @@ const Conversations = () => {
                       <XCircle className="w-4 h-4 mr-1" />
                       <span className="text-xs hidden sm:inline">Encerrar</span>
                     </Button>
+                    <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground" title="Mais opções">
+                      <MoreVertical className="h-4 w-4" />
+                    </Button>
                   </>
                 )}
               </div>
             </div>
 
             {/* Messages area */}
-            <ScrollArea className="flex-1 px-4 py-3" data-conversation-viewport>
-              <div className="max-w-3xl mx-auto space-y-1">
+            <ScrollArea className="conversation-canvas flex-1 px-4 py-5" data-conversation-viewport>
+              <div className="mx-auto max-w-3xl space-y-2">
                 {messagesLoading ? (
                   <div className="flex items-center justify-center py-16">
                     <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
@@ -696,7 +708,7 @@ const Conversations = () => {
                     if (isSystem) {
                       return (
                         <div key={msg.id} className="flex justify-center mb-2">
-                          <div className="max-w-[85%] px-4 py-2 rounded-lg text-xs bg-muted/60 border border-border/50 text-muted-foreground">
+                           <div className="max-w-[85%] rounded-lg border border-border/60 bg-card/90 px-4 py-2 text-xs text-muted-foreground shadow-sm backdrop-blur-sm">
                             <div className="flex items-center gap-1.5 mb-1">
                               <Bot className="w-3 h-3 text-primary/70" />
                               <span className="font-medium text-primary/80">Sistema</span>
@@ -722,10 +734,10 @@ const Conversations = () => {
                       >
                         <div
                           className={cn(
-                            "max-w-[75%] px-3 py-2 rounded-lg text-sm relative",
+                            "relative max-w-[75%] rounded-2xl px-3 py-2 text-sm shadow-sm",
                             isAgent
-                              ? "bg-emerald-600 text-white rounded-br-sm"
-                              : "bg-card border border-border text-foreground rounded-bl-sm"
+                              ? "rounded-tr-sm bg-primary text-primary-foreground"
+                              : "rounded-tl-sm border border-border bg-card text-foreground"
                           )}
                         >
                           <MessageContent 
@@ -739,7 +751,7 @@ const Conversations = () => {
                             <span
                               className={cn(
                                 "text-[10px]",
-                                isAgent ? "text-white/60" : "text-muted-foreground/60"
+                                 isAgent ? "text-primary-foreground/70" : "text-muted-foreground/60"
                               )}
                             >
                               {formatMessageTime(msg.created_at)}
@@ -756,7 +768,7 @@ const Conversations = () => {
             </ScrollArea>
 
             {/* Message input */}
-            <div className="px-4 py-3 border-t border-border bg-card">
+            <div className="border-t border-border bg-card px-4 py-3">
               {isURA ? (
                 <div className="flex items-center justify-between gap-3 max-w-3xl mx-auto bg-muted/50 rounded-lg px-4 py-3">
                   <div className="flex items-center gap-2 text-muted-foreground">
@@ -774,11 +786,11 @@ const Conversations = () => {
                   </Button>
                 </div>
               ) : (
-                <div className="flex items-center gap-2 max-w-3xl mx-auto">
-                  <Button variant="ghost" size="icon" className="shrink-0 h-9 w-9 text-muted-foreground">
+                <div className="mx-auto flex max-w-3xl items-center gap-2 rounded-2xl border border-border bg-muted/50 px-2 py-1.5 transition-shadow focus-within:ring-2 focus-within:ring-primary/20">
+                  <Button variant="ghost" size="icon" className="h-9 w-9 shrink-0 text-muted-foreground hover:text-primary">
                     <Smile className="w-5 h-5" />
                   </Button>
-                  <Button variant="ghost" size="icon" className="shrink-0 h-9 w-9 text-muted-foreground">
+                  <Button variant="ghost" size="icon" className="h-9 w-9 shrink-0 text-muted-foreground hover:text-primary">
                     <Paperclip className="w-5 h-5" />
                   </Button>
                   <Input
@@ -787,12 +799,12 @@ const Conversations = () => {
                     value={messageText}
                     onChange={(e) => setMessageText(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    className="flex-1 h-10 bg-muted/50 border-0 focus-visible:ring-1"
+                    className="h-10 flex-1 border-0 bg-transparent shadow-none focus-visible:ring-0"
                     disabled={sending}
                   />
                   <Button
                     size="icon"
-                    className="shrink-0 h-9 w-9 rounded-full"
+                    className="h-9 w-9 shrink-0 rounded-xl shadow-sm"
                     onClick={handleSendMessage}
                     disabled={!messageText.trim() || sending}
                   >
@@ -804,11 +816,11 @@ const Conversations = () => {
           </>
         ) : (
           /* Empty state - no conversation selected */
-          <div className="flex-1 flex flex-col items-center justify-center text-center p-8">
-            <div className="w-20 h-20 rounded-full bg-muted/50 flex items-center justify-center mb-6">
-              <MessageSquare className="w-10 h-10 text-muted-foreground/40" />
+          <div className="conversation-canvas flex flex-1 flex-col items-center justify-center p-8 text-center">
+            <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">
+              <MessageSquare className="h-8 w-8" />
             </div>
-            <h3 className="text-xl font-semibold text-foreground mb-2 font-['Space_Grotesk'] tracking-tight">
+            <h3 className="mb-2 text-xl font-semibold text-foreground">
               NEXT PRO&nbsp;Chat
             </h3>
             <p className="text-sm text-muted-foreground max-w-sm">
@@ -824,7 +836,9 @@ const Conversations = () => {
         conversationId={selectedConversationId || ""}
         protocolNumber={selectedConversation?.protocol || undefined}
         onClose={() => {
-          updateConversation.mutate({ id: selectedConversationId!, updates: { status: 'closed' } });
+          if (selectedConversationId) {
+            updateConversation.mutate({ id: selectedConversationId, updates: { status: 'closed' } });
+          }
           setSelectedConversationId(null);
           setCloseDialogOpen(false);
         }}
