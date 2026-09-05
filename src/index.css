@@ -166,11 +166,6 @@ All colors MUST be HSL.
     display: none;
   }
 
-  .conversation-canvas {
-    background-color: hsl(var(--background));
-    background-image: radial-gradient(hsl(var(--border) / 0.8) 0.75px, transparent 0.75px);
-    background-size: 20px 20px;
-  }
 
   /* Pulinho alternado dos ícones de integração */
   @keyframes icon-hop {
