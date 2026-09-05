@@ -143,7 +143,7 @@ serve(async (req) => {
       if (batch.length < PAGE_SIZE) break;
     }
 
-    const max = Number(limit) > 0 ? Number(limit) : 500;
+    const max = Number(limit) > 0 ? Number(limit) : 4000;
 
     // Dedupe by phone, keep most recent
     const byPhone = new Map<string, { phone: string; name: string; avatar: string | null; last: string | null; at: string | null }>();
