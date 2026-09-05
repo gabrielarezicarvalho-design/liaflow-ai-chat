@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Paperclip, Image, FileText, Loader2, X, Video } from "lucide-react";
+import { Paperclip, Image, FileText, Loader2, X, Video, Mic, Square, Music } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { uploadToCloud } from "@/lib/cloud-storage";
@@ -29,6 +29,42 @@ export const MediaSendPopover = ({
   const [caption, setCaption] = useState("");
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [recording, setRecording] = useState(false);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
+
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mimeType = MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
+        ? "audio/webm;codecs=opus"
+        : "audio/webm";
+      const recorder = new MediaRecorder(stream, { mimeType });
+      audioChunksRef.current = [];
+      recorder.ondataavailable = (e) => {
+        if (e.data.size > 0) audioChunksRef.current.push(e.data);
+      };
+      recorder.onstop = () => {
+        stream.getTracks().forEach((t) => t.stop());
+        const blob = new Blob(audioChunksRef.current, { type: "audio/webm" });
+        if (blob.size === 0) return;
+        const file = new File([blob], `audio-${Date.now()}.webm`, { type: "audio/webm" });
+        setSelectedFile(file);
+        setPreviewUrl(URL.createObjectURL(blob));
+      };
+      recorder.start();
+      mediaRecorderRef.current = recorder;
+      setRecording(true);
+    } catch {
+      toast.error("Permita o acesso ao microfone para gravar áudio");
+    }
+  };
+
+  const stopRecording = () => {
+    mediaRecorderRef.current?.stop();
+    mediaRecorderRef.current = null;
+    setRecording(false);
+  };
 
   // Sanitize filename to remove special characters
   const sanitizeFileName = (name: string): string => {
@@ -163,7 +199,7 @@ export const MediaSendPopover = ({
                 onChange={handleFileSelect}
               />
               
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-4 gap-2">
                 <Button
                   variant="outline"
                   className="h-20 flex-col gap-2 transition-none"
@@ -206,8 +242,39 @@ export const MediaSendPopover = ({
                   <span className="text-xs">Documento</span>
                 </Button>
 
+                <Button
+                  variant="outline"
+                  className="h-20 flex-col gap-2 transition-none"
+                  onClick={() => {
+                    if (fileInputRef.current) {
+                      fileInputRef.current.accept = "audio/*";
+                      fileInputRef.current.click();
+                    }
+                  }}
+                >
+                  <Music className="w-6 h-6 text-orange-500" />
+                  <span className="text-xs">Áudio</span>
+                </Button>
               </div>
-              
+
+              <Button
+                variant={recording ? "destructive" : "secondary"}
+                className="w-full transition-none"
+                onClick={recording ? stopRecording : startRecording}
+              >
+                {recording ? (
+                  <>
+                    <Square className="w-4 h-4 mr-2" />
+                    Parar gravação
+                  </>
+                ) : (
+                  <>
+                    <Mic className="w-4 h-4 mr-2" />
+                    Gravar áudio
+                  </>
+                )}
+              </Button>
+
               <p className="text-xs text-muted-foreground text-center">
                 Imagens 16MB, vídeos 1GB, docs 100MB
               </p>
@@ -234,7 +301,17 @@ export const MediaSendPopover = ({
                   />
                 </div>
               )}
-              
+
+              {previewUrl && selectedFile?.type.startsWith('audio/') && (
+                <div className="p-3 bg-muted rounded-lg space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Mic className="w-4 h-4 text-orange-500" />
+                    <p className="text-xs font-medium truncate">{selectedFile.name}</p>
+                  </div>
+                  <audio src={previewUrl} controls className="w-full h-8" />
+                </div>
+              )}
+
               {!previewUrl && (
                 <div className="flex items-center gap-3 p-3 bg-muted rounded-lg">
                   <FileText className="w-8 h-8 text-muted-foreground" />
