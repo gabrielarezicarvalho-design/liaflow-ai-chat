@@ -366,11 +366,12 @@ const Conversations = () => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      <div className="flex items-center justify-center h-[calc(100vh-4rem)] text-sm text-muted-foreground">
+        Carregando conversas…
       </div>
     );
   }
+
 
   return (
     <div className="flex h-[calc(100vh-4rem)] overflow-hidden bg-card font-sans">
@@ -401,11 +402,12 @@ const Conversations = () => {
               onClick={handleSyncChats}
               disabled={syncingChats}
               title="Sincronizar conversas do WhatsApp"
-              className="h-8 w-8 p-0 text-muted-foreground hover:bg-primary/10 hover:text-primary"
+              className="h-8 w-8 p-0 text-muted-foreground transition-none"
             >
-              <RefreshCw className={cn("h-4 w-4", syncingChats && "animate-spin")} />
+              <RefreshCw className="h-4 w-4" />
               <span className="sr-only">{syncingChats ? "Sincronizando..." : "Sincronizar"}</span>
             </Button>
+
             <Badge variant="secondary" className="h-6 min-w-6 justify-center rounded-full px-1.5 text-[10px]">
               {filteredConversations.length}
             </Badge>
@@ -420,10 +422,11 @@ const Conversations = () => {
               placeholder="Pesquisar ou iniciar uma conversa"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="h-10 rounded-lg border-0 bg-muted/60 pl-9 text-sm shadow-none focus-visible:ring-1"
+              className="h-10 rounded-lg border-0 bg-muted/60 pl-9 text-sm shadow-none focus-visible:ring-0 transition-none"
             />
           </div>
         </div>
+
 
         {/* Tabs */}
         <div className="flex justify-between gap-1 overflow-x-auto border-b border-border px-3 pb-3 scrollbar-hide">
