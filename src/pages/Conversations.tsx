@@ -43,6 +43,9 @@ import { TransferDialog } from "@/components/conversations/TransferDialog";
 import { MessageContent } from "@/components/conversations/MessageContent";
 import { EditContactDialog } from "@/components/conversations/EditContactDialog";
 import { NewConversationDialog } from "@/components/conversations/NewConversationDialog";
+import { MediaSendPopover } from "@/components/conversations/MediaSendPopover";
+import { EmojiPickerPopover } from "@/components/conversations/EmojiPickerPopover";
+
 
 const Conversations = () => {
   const { conversations, isLoading, deleteConversation, updateConversation, refetch } = useConversations();
@@ -787,12 +790,30 @@ const Conversations = () => {
                 </div>
               ) : (
                 <div className="mx-auto flex max-w-3xl items-center gap-2 rounded-2xl border border-border bg-muted/50 px-2 py-1.5 transition-shadow focus-within:ring-2 focus-within:ring-primary/20">
-                  <Button variant="ghost" size="icon" className="h-9 w-9 shrink-0 text-muted-foreground hover:text-primary">
-                    <Smile className="w-5 h-5" />
-                  </Button>
-                  <Button variant="ghost" size="icon" className="h-9 w-9 shrink-0 text-muted-foreground hover:text-primary">
-                    <Paperclip className="w-5 h-5" />
-                  </Button>
+                  <EmojiPickerPopover
+                    disabled={sending}
+                    onSelect={(emoji) => {
+                      setMessageText((prev) => prev + emoji);
+                      inputRef.current?.focus();
+                    }}
+                  />
+                  {(selectedConversation as any)?.connection_id && selectedConversation?.contact_phone ? (
+                    <MediaSendPopover
+                      connectionId={(selectedConversation as any).connection_id}
+                      phone={selectedConversation.contact_phone}
+                      conversationId={selectedConversationId!}
+                      disabled={sending}
+                      onSent={() => {
+                        queryClient.invalidateQueries({ queryKey: ["messages", selectedConversationId] });
+                        queryClient.invalidateQueries({ queryKey: ["conversations"] });
+                      }}
+                    />
+                  ) : (
+                    <Button variant="ghost" size="icon" disabled className="h-9 w-9 shrink-0 text-muted-foreground">
+                      <Paperclip className="w-5 h-5" />
+                    </Button>
+                  )}
+
                   <Input
                     ref={inputRef}
                     placeholder="Digite uma mensagem..."
