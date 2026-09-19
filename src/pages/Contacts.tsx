@@ -34,6 +34,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
+import { GroupImportDialog } from "@/components/contacts/GroupImportDialog";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -339,6 +340,7 @@ const Contacts = () => {
               {syncing ? 'Sincronizando...' : 'Sincronizar WhatsApp'}
             </Button>
           )}
+          <GroupImportDialog connectionId={activeConnection?.id} />
           <Button variant="outline" className="gap-2">
             <Download className="w-4 h-4" />
             Exportar
