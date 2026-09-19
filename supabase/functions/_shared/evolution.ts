@@ -551,3 +551,38 @@ export async function evolutionSendStatus(opts: {
     { method: "POST", body: JSON.stringify(body) },
   );
 }
+
+// ---------- Groups ----------
+
+// Lista todos os grupos em que a instância participa.
+// Docs: GET /group/fetchAllGroups/{instance}?getParticipants=true|false
+export async function evolutionFetchAllGroups(opts: {
+  baseUrl: string;
+  apiKey: string;
+  instanceName: string;
+  getParticipants?: boolean;
+}) {
+  const qs = `?getParticipants=${opts.getParticipants ? "true" : "false"}`;
+  return evoFetch(
+    opts.baseUrl,
+    `/group/fetchAllGroups/${encodeURIComponent(opts.instanceName)}${qs}`,
+    opts.apiKey,
+    { method: "GET" },
+  );
+}
+
+// Participantes de um grupo específico.
+// Docs: GET /group/participants/{instance}?groupJid=...
+export async function evolutionFindGroupParticipants(opts: {
+  baseUrl: string;
+  apiKey: string;
+  instanceName: string;
+  groupJid: string;
+}) {
+  return evoFetch(
+    opts.baseUrl,
+    `/group/participants/${encodeURIComponent(opts.instanceName)}?groupJid=${encodeURIComponent(opts.groupJid)}`,
+    opts.apiKey,
+    { method: "GET" },
+  );
+}
