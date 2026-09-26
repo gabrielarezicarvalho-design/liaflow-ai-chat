@@ -85,7 +85,7 @@ interface NavItem {
 
 // Admin-only navigation items - focused on Mass Sending and Marketing
 const adminNavItems: NavItem[] = [
-  { to: "/", icon: LayoutDashboard, label: "Dashboard" },
+  { to: "/home", icon: LayoutDashboard, label: "Dashboard" },
   { to: "/conversations", icon: MessageSquare, label: "Conversas", feature: "chat" },
   { to: "/chat-history", icon: History, label: "Histórico", feature: "chat" },
   { to: "/mass-sending", icon: Megaphone, label: "Disparos em Massa", feature: "mass_sending" },
@@ -113,7 +113,7 @@ const adminNavItems: NavItem[] = [
 
 // Agent-only navigation items
 const agentNavItems: NavItem[] = [
-  { to: "/", icon: LayoutDashboard, label: "Painel" },
+  { to: "/home", icon: LayoutDashboard, label: "Painel" },
   { to: "/conversations", icon: MessageSquare, label: "Conversas", feature: "chat" },
   { to: "/chat-history", icon: History, label: "Histórico", feature: "chat" },
   { to: "/mass-sending", icon: Megaphone, label: "Disparos em Massa", feature: "mass_sending" },
