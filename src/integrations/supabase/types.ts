@@ -10,7 +10,7 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.5"
+    PostgrestVersion: "14.17"
   }
   public: {
     Tables: {
@@ -1163,6 +1163,472 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      esc_change_requests: {
+        Row: {
+          agente: string
+          created_at: string
+          decidido_em: string | null
+          descricao: string | null
+          id: string
+          projeto: string | null
+          status: string
+          tipo: string
+          titulo: string
+        }
+        Insert: {
+          agente: string
+          created_at?: string
+          decidido_em?: string | null
+          descricao?: string | null
+          id?: string
+          projeto?: string | null
+          status?: string
+          tipo: string
+          titulo: string
+        }
+        Update: {
+          agente?: string
+          created_at?: string
+          decidido_em?: string | null
+          descricao?: string | null
+          id?: string
+          projeto?: string | null
+          status?: string
+          tipo?: string
+          titulo?: string
+        }
+        Relationships: []
+      }
+      esc_ig_comments: {
+        Row: {
+          id: string
+          likes: number | null
+          media_id: string | null
+          media_permalink: string | null
+          minha: boolean
+          parent_id: string | null
+          publicado_em: string | null
+          status: string
+          texto: string
+          updated_at: string
+          username: string | null
+        }
+        Insert: {
+          id: string
+          likes?: number | null
+          media_id?: string | null
+          media_permalink?: string | null
+          minha?: boolean
+          parent_id?: string | null
+          publicado_em?: string | null
+          status?: string
+          texto?: string
+          updated_at?: string
+          username?: string | null
+        }
+        Update: {
+          id?: string
+          likes?: number | null
+          media_id?: string | null
+          media_permalink?: string | null
+          minha?: boolean
+          parent_id?: string | null
+          publicado_em?: string | null
+          status?: string
+          texto?: string
+          updated_at?: string
+          username?: string | null
+        }
+        Relationships: []
+      }
+      esc_ig_daily_metrics: {
+        Row: {
+          day: string
+          fetched_at: string
+          ig_user_id: string
+          metric: string
+          value: number | null
+        }
+        Insert: {
+          day: string
+          fetched_at?: string
+          ig_user_id: string
+          metric: string
+          value?: number | null
+        }
+        Update: {
+          day?: string
+          fetched_at?: string
+          ig_user_id?: string
+          metric?: string
+          value?: number | null
+        }
+        Relationships: []
+      }
+      esc_ig_dms: {
+        Row: {
+          conversa_id: string
+          de_id: string | null
+          de_username: string | null
+          enviado_em: string | null
+          id: string
+          minha: boolean
+          para_id: string | null
+          texto: string
+          updated_at: string
+        }
+        Insert: {
+          conversa_id: string
+          de_id?: string | null
+          de_username?: string | null
+          enviado_em?: string | null
+          id: string
+          minha?: boolean
+          para_id?: string | null
+          texto?: string
+          updated_at?: string
+        }
+        Update: {
+          conversa_id?: string
+          de_id?: string | null
+          de_username?: string | null
+          enviado_em?: string | null
+          id?: string
+          minha?: boolean
+          para_id?: string | null
+          texto?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      esc_ig_drafts: {
+        Row: {
+          aprovado_em: string | null
+          aviso: string | null
+          container_id: string | null
+          created_at: string
+          criado_por: string
+          erro: string | null
+          id: string
+          ig_media_id: string | null
+          legenda: string
+          midia_url: string
+          permalink: string | null
+          publicado_em: string | null
+          publicar_em: string | null
+          status: string
+          tipo: string
+          updated_at: string
+        }
+        Insert: {
+          aprovado_em?: string | null
+          aviso?: string | null
+          container_id?: string | null
+          created_at?: string
+          criado_por?: string
+          erro?: string | null
+          id?: string
+          ig_media_id?: string | null
+          legenda?: string
+          midia_url: string
+          permalink?: string | null
+          publicado_em?: string | null
+          publicar_em?: string | null
+          status?: string
+          tipo?: string
+          updated_at?: string
+        }
+        Update: {
+          aprovado_em?: string | null
+          aviso?: string | null
+          container_id?: string | null
+          created_at?: string
+          criado_por?: string
+          erro?: string | null
+          id?: string
+          ig_media_id?: string | null
+          legenda?: string
+          midia_url?: string
+          permalink?: string | null
+          publicado_em?: string | null
+          publicar_em?: string | null
+          status?: string
+          tipo?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      esc_ig_media: {
+        Row: {
+          caption: string | null
+          comments_count: number | null
+          fetched_at: string
+          id: string
+          ig_user_id: string
+          like_count: number | null
+          media_type: string | null
+          permalink: string | null
+          posted_at: string | null
+        }
+        Insert: {
+          caption?: string | null
+          comments_count?: number | null
+          fetched_at?: string
+          id: string
+          ig_user_id: string
+          like_count?: number | null
+          media_type?: string | null
+          permalink?: string | null
+          posted_at?: string | null
+        }
+        Update: {
+          caption?: string | null
+          comments_count?: number | null
+          fetched_at?: string
+          id?: string
+          ig_user_id?: string
+          like_count?: number | null
+          media_type?: string | null
+          permalink?: string | null
+          posted_at?: string | null
+        }
+        Relationships: []
+      }
+      esc_ig_profile: {
+        Row: {
+          account_type: string | null
+          fetched_at: string
+          followers_count: number | null
+          follows_count: number | null
+          ig_user_id: string
+          media_count: number | null
+          name: string | null
+          profile_picture_url: string | null
+          username: string | null
+        }
+        Insert: {
+          account_type?: string | null
+          fetched_at?: string
+          followers_count?: number | null
+          follows_count?: number | null
+          ig_user_id: string
+          media_count?: number | null
+          name?: string | null
+          profile_picture_url?: string | null
+          username?: string | null
+        }
+        Update: {
+          account_type?: string | null
+          fetched_at?: string
+          followers_count?: number | null
+          follows_count?: number | null
+          ig_user_id?: string
+          media_count?: number | null
+          name?: string | null
+          profile_picture_url?: string | null
+          username?: string | null
+        }
+        Relationships: []
+      }
+      esc_ig_replies: {
+        Row: {
+          alvo_id: string
+          aprovado_em: string | null
+          aviso: string | null
+          contexto: string | null
+          created_at: string
+          criado_por: string | null
+          enviado_em: string | null
+          erro: string | null
+          id: string
+          status: string
+          texto: string
+          tipo: string
+          updated_at: string
+        }
+        Insert: {
+          alvo_id: string
+          aprovado_em?: string | null
+          aviso?: string | null
+          contexto?: string | null
+          created_at?: string
+          criado_por?: string | null
+          enviado_em?: string | null
+          erro?: string | null
+          id?: string
+          status?: string
+          texto: string
+          tipo: string
+          updated_at?: string
+        }
+        Update: {
+          alvo_id?: string
+          aprovado_em?: string | null
+          aviso?: string | null
+          contexto?: string | null
+          created_at?: string
+          criado_por?: string | null
+          enviado_em?: string | null
+          erro?: string | null
+          id?: string
+          status?: string
+          texto?: string
+          tipo?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      esc_monitor_checks: {
+        Row: {
+          checado_em: string
+          erro: string | null
+          http_status: number | null
+          id: number
+          ms: number | null
+          ok: boolean
+          target_id: string
+        }
+        Insert: {
+          checado_em?: string
+          erro?: string | null
+          http_status?: number | null
+          id?: number
+          ms?: number | null
+          ok: boolean
+          target_id: string
+        }
+        Update: {
+          checado_em?: string
+          erro?: string | null
+          http_status?: number | null
+          id?: number
+          ms?: number | null
+          ok?: boolean
+          target_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "esc_monitor_checks_target_id_fkey"
+            columns: ["target_id"]
+            isOneToOne: false
+            referencedRelation: "esc_monitor_targets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      esc_monitor_events: {
+        Row: {
+          criado_em: string
+          de_ok: boolean | null
+          detalhe: string | null
+          id: number
+          para_ok: boolean
+          target_id: string
+        }
+        Insert: {
+          criado_em?: string
+          de_ok?: boolean | null
+          detalhe?: string | null
+          id?: number
+          para_ok: boolean
+          target_id: string
+        }
+        Update: {
+          criado_em?: string
+          de_ok?: boolean | null
+          detalhe?: string | null
+          id?: number
+          para_ok?: boolean
+          target_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "esc_monitor_events_target_id_fkey"
+            columns: ["target_id"]
+            isOneToOne: false
+            referencedRelation: "esc_monitor_targets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      esc_monitor_targets: {
+        Row: {
+          agente: string
+          ativo: boolean
+          created_at: string
+          id: string
+          nome: string
+          projeto: string | null
+          tipo: string
+          url: string
+        }
+        Insert: {
+          agente?: string
+          ativo?: boolean
+          created_at?: string
+          id: string
+          nome: string
+          projeto?: string | null
+          tipo: string
+          url: string
+        }
+        Update: {
+          agente?: string
+          ativo?: boolean
+          created_at?: string
+          id?: string
+          nome?: string
+          projeto?: string | null
+          tipo?: string
+          url?: string
+        }
+        Relationships: []
+      }
+      esc_wa_knowledge: {
+        Row: {
+          confirmado: boolean
+          conteudo: string
+          empresa: string
+          id: number
+          tema: string
+          updated_at: string
+        }
+        Insert: {
+          confirmado?: boolean
+          conteudo: string
+          empresa: string
+          id?: number
+          tema: string
+          updated_at?: string
+        }
+        Update: {
+          confirmado?: boolean
+          conteudo?: string
+          empresa?: string
+          id?: number
+          tema?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      esc_wa_persona: {
+        Row: {
+          id: string
+          prompt: string
+          updated_at: string
+        }
+        Insert: {
+          id: string
+          prompt: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          prompt?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       external_api_keys: {
         Row: {
@@ -2735,6 +3201,8 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      esc_ig_coletar_agora: { Args: never; Returns: string }
+      esc_ig_marcar_respondidos: { Args: never; Returns: undefined }
       get_company_cycle_start: {
         Args: { _company_id: string }
         Returns: string
